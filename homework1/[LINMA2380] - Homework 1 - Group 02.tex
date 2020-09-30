@@ -1,0 +1,271 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,left=1.5cm,right=1.5cm,top=1.5cm,bottom=1.5cm]{geometry}
+\usepackage{fancyhdr}
+\renewcommand{\headrulewidth}{1pt}
+\fancyhead[C]{\textsc{[LINMA2380] --- Homework 1}}
+\fancyhead[L]{12 October 2020}
+\fancyhead[R]{Group 02}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{csquotes}
+\usepackage{mathtools,amssymb,amsthm}
+\usepackage[binary-units=true,separate-uncertainty = true,multi-part-units=single]{siunitx}
+\usepackage{float}
+\usepackage[linktoc=all]{hyperref}
+\hypersetup{breaklinks=true}
+\graphicspath{{img/}}
+\usepackage{caption}
+\usepackage{textcomp}
+\usepackage{array}
+\usepackage{color}
+\usepackage{tabularx,booktabs}
+\usepackage{titlesec}
+\usepackage{wrapfig}
+\pagestyle{fancy}
+\usepackage{mathrsfs}
+\usepackage{bm}
+\DeclarePairedDelimiterX{\norm}[1]{\lVert}{\rVert}{#1}
+
+\newcommand{\imag}{\mathrm{i}\mkern1mu} % Imaginary unit
+\newcommand{\abs}[1]{\left\lvert#1\right\lvert}
+\usepackage{listings}
+\lstset{
+	language=Python,
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	basicstyle=\rm\small\ttfamily,
+	keywordstyle=\bfseries\color{dkred},
+	frame=single,
+	commentstyle=\color{gray}=small,
+	stringstyle=\color{dkgreen},
+	%backgroundcolor=\color{gray!10},
+	%tabsize=8, % Thank you Papa Torvalds
+	%rulecolor=\color{black!30},
+	%title=\lstname,
+	breaklines=true,
+	framextopmargin=2pt,
+	framexbottommargin=2pt,
+	extendedchars=true,
+	inputencoding=utf8,
+}
+
+\DeclareMathOperator{\newdiff}{d} % use \dif instead
+\newcommand{\dif}{\newdiff\!}
+\newcommand{\e}{\mathrm{e}}
+
+\newcommand{\field}{\mathbb{F}} % field
+\newcommand{\kp}{\otimes} % kronecker product
+
+% TODO
+% - copy the statements (?)
+
+\begin{document}
+\section*{Exercise A: The Kronecker product}
+\subsection*{A1}
+The Kronecker product of two matrices \(A \in \field^{m \times n}\) and \(B \in \field^{p \times q}\) is the matrix of size \(mp \times nq\) whose elements are all possible products between the elements of \(A\) and \(B\) arranged in the following way:
+\[
+A \kp B \coloneqq \begin{bmatrix}
+a_{11} B & \cdots & a_{1n}B \\
+\vdots & \ddots & \vdots \\
+a_{m1} B & \cdots & a_{mn} B
+\end{bmatrix}.
+\]
+
+\subsection*{A2}
+The Kronecker product is associative.
+Let \(C \in \field^{s \times t}\) be a third matrix.
+We show that \((A \kp B) \kp C = A \kp (B \kp C)\).
+\begin{proof}
+\begin{align*}
+(A \kp B) \kp C &= \begin{bmatrix}
+a_{11} B & \cdots & a_{1n}B \\
+\vdots & \ddots & \vdots \\
+a_{m1} B & \cdots & a_{mn} B
+\end{bmatrix} \kp C \\
+&= \begin{bmatrix}
+a_{11} b_{11} C & \cdots & a_{11} b_{1q} C & \cdots & a_{1n} b_{11} C & \cdots & a_{1n} b_{1q} C \\
+\vdots & \ddots & \vdots & \ddots & \vdots & \ddots & \vdots \\
+a_{11} b_{p1} C & \cdots & a_{11} b_{pq} C & \cdots & a_{1n} b_{p1} C & \cdots & a_{1n} b_{pq} C \\
+\vdots & \ddots & \vdots & \ddots & \vdots & \ddots & \vdots \\
+a_{m1} b_{11} C & \cdots & a_{m1} b_{1q} C & \cdots & a_{mn} b_{11} C & \cdots & a_{mn} b_{1q} C \\
+\vdots & \ddots & \vdots & \ddots & \vdots & \ddots & \vdots \\
+a_{m1} b_{p1} C & \cdots & a_{m1} b_{pq} C & \cdots & a_{mn} b_{p1} C & \cdots & a_{mn} b_{pq} C
+\end{bmatrix}\\
+&= A \kp (B \kp C).\qedhere
+\end{align*}
+\end{proof}
+
+The Kronecker is non-commutative; we show that \(A \kp B \neq B \kp A\)
+
+\begin{proof}
+We show a counterexample to the claim of commutativity.
+Let
+\[
+A = \begin{bmatrix}
+2 & 3 \\ 0 & 1
+\end{bmatrix}, \quad, B = \begin{bmatrix}
+0 & -1 \\ -1 & 1
+\end{bmatrix}.
+\]
+In that case, we have
+\[
+A \kp B = \begin{bmatrix}
+0 & -2 & 0 & -3 \\
+-2 & 2 & -3 & 3 \\
+0 & 0 & 0 & -1 \\
+0 & 0 & -1 & 1
+\end{bmatrix}, \quad B \kp A = \begin{bmatrix}
+0 & 0 & -2 & -3 \\
+0 & 0 & 0 & -1 \\
+-2 & -3 & 2 & 3 \\
+0 & -1 & 0 & 1
+\end{bmatrix}.
+\]
+We see that \(A \kp B \neq B \kp A\).
+\end{proof}
+
+Finally, the set \(\field^{n \times n}\) equipped with the Kronecker product is a group by virtue of it being a field. % TODO check this
+
+\subsection*{A3}
+Let \(A \in \field^{m \times n}\), \(B \in \field^{p \times q}\), \(C \in \field^{n \times r}\), and \(D \in \field^{q \times s}\)
+\begin{proof}
+We simply verify that
+\begin{align*}
+(A \kp B) (C \kp D) &= \begin{bmatrix}
+a_{11} B & \cdots & a_{1n}B \\
+\vdots & \ddots & \vdots \\
+a_{m1} B & \cdots & a_{mn} B
+\end{bmatrix} \begin{bmatrix}
+c_{11} D & \cdots & c_{1r} D \\
+\vdots & \ddots & \vdots \\
+c_{n1} D & \cdots & c_{nr} D
+\end{bmatrix}\\
+&= \begin{bmatrix}
+\sum_{k=1}^n a_{1k} c_{k1} BD & \cdots & \sum_{k=1}^n a_{1k} c_{kr} BD \\
+\vdots & \ddots & \vdots \\
+\sum_{k=1}^n a_{mk} c_{k1} BD & \cdots & \sum_{k=1}^n a_{mk} c_{kr} BD
+\end{bmatrix}\\
+&= AC \kp BD.
+\end{align*}
+\end{proof}
+
+This allows us to say that (if \(A \in \field^{n \times n}\) and \(B \in \field^{m \times m}\) are nonsingular)
+\[
+(A \kp B)(A^{-1} \kp B^{-1}) = AA^{-1} \kp BB^{-1} = I_n \kp I_m = I_{nm},
+\]
+and hence that
+\[
+(A \kp B)^{-1} = A^{-1} \kp B^{-1}.\qedhere
+\]
+
+\subsection*{A4}
+We first show the first property, P1.
+\begin{proof}
+By induction.
+The base case is trivial:
+\[
+A^{\kp 1} B^{\kp 1} = AB = (AB)^{\kp 1}.
+\]
+Next, we assume the property holds for \(k = n\), and we prove it for \(k = n+1\):
+\begin{align*}
+A^{\kp k+1} B^{\kp k+1} &= (A^{\kp k} \kp A) (B^{\kp k} \kp B)\\
+&\overset{\textnormal{A3}}{=}(A^{\kp k} B^{\kp k}) \kp AB\\
+&= (AB)^{\kp k} \kp AB\\
+&= (AB)^{\kp k+1}.\qedhere
+\end{align*}
+\end{proof}
+
+Next, we show the second property, P2.
+\begin{proof}
+We start by proving an auxiliary lemma, L1.
+\[
+(A \kp B)^\top = \begin{bmatrix}
+a_{11} B & \cdots & a_{1n}B \\
+\vdots & \ddots & \vdots \\
+a_{m1} B & \cdots & a_{mn} B
+\end{bmatrix}^\top = \begin{bmatrix}
+a_{11} B^\top & \cdots & a_{m1}B^\top \\
+\vdots & \ddots & \vdots \\
+a_{1n} B^\top & \cdots & a_{mn} B^\top
+\end{bmatrix} = A^\top \kp B^\top.
+\]
+
+We then proceed by induction.
+The base case is trivial as before:
+\[
+(A^{\kp 1})^\top = A^\top = (A^\top)^{\kp 1}.
+\]
+Next, we assume the property holds for \(k = n\), and we prove it for \(k = n+1\):
+\begin{align*}
+(A^{\kp k+1})^\top &= (A^{\kp k} \kp A)^\top\\
+&\overset{\textnormal{L1}}{=} (A^{\kp k})^\top \kp A^\top\\
+&= (A^\top)^{\kp k} \kp A^\top\\
+&= (A^\top)^{\kp k+1}.\qedhere
+\end{align*}
+\end{proof}
+
+Finally, we show the following:
+\[
+\norm{v^{\kp k}} = \norm{v}^k.
+\]
+\begin{proof}
+\begin{align*}
+\norm{v^{\kp k}} &= \sqrt{(v^{\kp k})^\top v^{\kp k}}\\
+&\overset{\textnormal{P2}}{=} \sqrt{(v^\top)^{\kp k} v^{\kp k}}\\
+&\overset{\textnormal{P1}}{=} \sqrt{(v^\top v)^{\kp k}}\\
+&= \sqrt{(v^\top v)^k}\\
+&= \Big(\sqrt{v^\top v}\,\Big)^k\\
+&= \norm{v}^k,
+\end{align*}
+where the fourth equality follows from a simplification of the Kronecker product for scalars, and the fifth equality is a property of the square root.
+\end{proof}
+
+\subsection*{A5}
+The determinant of a square matrix \(A \in \field^{n \times n}\) as
+\[
+\det(A) = \sum_{\bm{j}}(-1)^{t(\bm{j})} a_{1 j_1} \cdot a_{2 j_2} \dots a_{n j_n},
+\]
+where the index vector \(\bm{j}\) constitutes a permutation of \(\{1, 2, \dots, n\}\), and \(t(\bm{j})\) denotes the parity of each quasi-diagonal.
+
+Next, we show that \(\det(A \kp I_m) = \det(A)^m\).
+\begin{proof}
+\begin{align*}
+\det(A \kp I_m) &= \det \left(\begin{bmatrix}
+a_{11} I_m & \cdots & a_{1n} I_m \\
+\vdots & \ddots & \vdots \\
+a_{n1} I_m & \cdots & a_{nn} I_m
+\end{bmatrix}\right).
+\end{align*}
+% TODO finish this (using laplace?)
+\end{proof}
+
+From this, we can deduce that for \(A \in \field^{n \times n}\) and \(B \in \field^{m \times m}\), \(\det(A \kp B) = \det(A)^m \det(B)^n\).
+\begin{proof}
+We can write
+\begin{align*}
+A \kp B &= (A I_n) \kp (I_m B)\\
+&\overset{A3}{=} (A \kp I_m) (I_n \kp B).\\
+\intertext{Taking the determinant on both sides, and using the fact that 
+\(\det(AB) = \det(A)\det(B)\) (exercise 1.18 in the lecture notes), we then get}
+\det(A \kp B) &= \det(A \kp I_m) \det(B \kp I_n)\\
+&= \det(A)^m \det(B)^n.\qedhere
+\end{align*}
+% TODO perhaps prove det(AB) = det(A) det(B)
+\end{proof}
+
+\subsection*{A6}
+The rank of a matrix \(A \in \field^{m \times n}\) is equal to the largest size of its nonzero minors.
+
+Next, we prove the property on the rank.
+\begin{proof}
+% TODO prove it
+\end{proof}
+
+% TODO other questions
+\end{document}
