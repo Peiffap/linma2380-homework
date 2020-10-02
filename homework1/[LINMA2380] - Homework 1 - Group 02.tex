@@ -240,9 +240,27 @@ Next, we show that \(\det(A \kp I_m) = \det(A)^m\).
 a_{11} I_m & \cdots & a_{1n} I_m \\
 \vdots & \ddots & \vdots \\
 a_{n1} I_m & \cdots & a_{nn} I_m
-\end{bmatrix}\right).
+\end{bmatrix}\right)\\
+&=\det \left(\begin{bmatrix}
+a_{11} & \cdots & 0 & \cdots & a_{1n} & \cdots & 0\\
+\vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\
+0 & \cdots & a_{11} & \cdots & 0 & \cdots & a_{1n}\\
+\vdots &  & \vdots &  & \vdots & \vdots \\
+a_{n1} & \cdots & 0 & \cdots & a_{nn} & \cdots & 0\\
+\vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\
+0 & \cdots & a_{n1} & \cdots & 0 & \cdots & a_{nn}\\
+\end{bmatrix}\right)
 \end{align*}
-% TODO finish this (using laplace?)
+The Laplace theorem states that for a matrix B of dimensions \(n\times n\) and a p-tuple of rows $\bm{i}_p$, we have :
+\begin{align*}
+\det(B) &= \sum_{\bm{j}_p} B {\bm{i}_p\choose \bm{j}_p} B^c {\bm{i}_p\choose \bm{j}_p}
+\end{align*}
+We apply this theorem to $B=A \kp I_m$ with the p-tuple $\bm{i}_p$ : $(1,m+1,2m+1,...,(n-1)m+1)$. For every p-tuple $\bm{j}_p$ that contains another index than these present in $\bm{i}_p$, the minor $B {\bm{i}_p\choose \bm{j}_p}$ is zero. Indeed, $[b_{i_k,j_l}]_{k,l=1}^{p}$ contains at least one column full of zeros. Thus we are left with :
+\begin{align*}
+\det(A \kp I_m) &= B {\bm{i}_p\choose \bm{i}_p} B^c {\bm{i}_p\choose \bm{i}_p}\\
+&= \det(A) \det(A \kp I_{m-1})
+\end{align*}
+From this, we conclude that \(\det(A \kp I_m) = \det(A)^m\).
 \end{proof}
 
 From this, we can deduce that for \(A \in \field^{n \times n}\) and \(B \in \field^{m \times m}\), \(\det(A \kp B) = \det(A)^m \det(B)^n\).
