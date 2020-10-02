@@ -251,30 +251,27 @@ a_{n1} & \cdots & 0 & \cdots & a_{nn} & \cdots & 0\\
 0 & \cdots & a_{n1} & \cdots & 0 & \cdots & a_{nn}\\
 \end{bmatrix}\right)
 \end{align*}
-The Laplace theorem states that for a matrix B of dimensions \(n\times n\) and a p-tuple of rows $\bm{i}_p$, we have :
+TThe Laplace theorem states that for a matrix B of dimensions \(n\times n\) and a p-tuple of rows $\bm{i}_p$, we have :
 \begin{align*}
 \det(B) &= \sum_{\bm{j}_p} B {\bm{i}_p\choose \bm{j}_p} B^c {\bm{i}_p\choose \bm{j}_p}
 \end{align*}
-We apply this theorem to $B=A \kp I_m$ with the p-tuple $\bm{i}_p$ : $(1,m+1,2m+1,...,(n-1)m+1)$. For every p-tuple $\bm{j}_p$ that contains another index than these present in $\bm{i}_p$, the minor $B {\bm{i}_p\choose \bm{j}_p}$ is zero. Indeed, $[b_{i_k,j_l}]_{k,l=1}^{p}$ contains at least one column full of zeros. Thus we are left with :
+We apply this theorem to $B=A \kp I_m$ with the n-tuple $\bm{i}_n$ : $(1,m+1,2m+1,...,(n-1)m+1)$. For every n-tuple $\bm{j}_n$ that contains another index than these present in $\bm{i}_n$, the minor $B {\bm{i}_n\choose \bm{j}_n}$ is zero. Indeed, if we consider only the rows whose indices are in $\bm{i}_n$, we have :
 \begin{align*}
-\det(A \kp I_m) &= B {\bm{i}_p\choose \bm{i}_p} B^c {\bm{i}_p\choose \bm{i}_p}\\
+B'&=\left(\begin{bmatrix}
+a_{11} & \cdots & 0 & \cdots & a_{1n} & \cdots & 0\\
+a_{21} & \cdots & 0 & \cdots & a_{2n} & \cdots & 0\\
+\vdots & & \vdots & \vdots & & \vdots \\
+a_{n1} & \cdots & 0 & \cdots & a_{nn} & \cdots & 0\\
+\end{bmatrix}\right)
+\end{align*}
+Thus if $\bm{j}_n$ contains any index not present in $\bm{i}_n$, a column full of zero is included leading to a null determinant. We are left with :
+\begin{align}
+\det(A \kp I_m) &= B {\bm{i}_n\choose \bm{i}_n} B^c {\bm{i}_n\choose \bm{i}_n}\\ \label{recc}
 &= \det(A) \det(A \kp I_{m-1})
-\end{align*}
-From this, we conclude that \(\det(A \kp I_m) = \det(A)^m\).
-\end{proof}
-
-From this, we can deduce that for \(A \in \field^{n \times n}\) and \(B \in \field^{m \times m}\), \(\det(A \kp B) = \det(A)^m \det(B)^n\).
-\begin{proof}
-We can write
-\begin{align*}
-A \kp B &= (A I_n) \kp (I_m B)\\
-&\overset{A3}{=} (A \kp I_m) (I_n \kp B).\\
-\intertext{Taking the determinant on both sides, and using the fact that 
-\(\det(AB) = \det(A)\det(B)\) (exercise 1.18 in the lecture notes), we then get}
-\det(A \kp B) &= \det(A \kp I_m) \det(B \kp I_n)\\
-&= \det(A)^m \det(B)^n.\qedhere
-\end{align*}
-% TODO perhaps prove det(AB) = det(A) det(B)
+\end{align}
+The first term of the second line can be easily found by inspecting B'.
+%% add details
+From \ref{recc}, we conclude that \(\det(A \kp I_m) = \det(A)^m\).
 \end{proof}
 
 \subsection*{A6}
