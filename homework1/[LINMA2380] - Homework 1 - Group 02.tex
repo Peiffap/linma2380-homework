@@ -235,43 +235,34 @@ where the index vector \(\bm{j}\) constitutes a permutation of \(\{1, 2, \dots, 
 
 Next, we show that \(\det(A \kp I_m) = \det(A)^m\).
 \begin{proof}
-\begin{align*}
-\det(A \kp I_m) &= \det \left(\begin{bmatrix}
-a_{11} I_m & \cdots & a_{1n} I_m \\
-\vdots & \ddots & \vdots \\
-a_{n1} I_m & \cdots & a_{nn} I_m
-\end{bmatrix}\right)\\
-&=\det \left(\begin{bmatrix}
-a_{11} & \cdots & 0 & \cdots & a_{1n} & \cdots & 0\\
-\vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\
-0 & \cdots & a_{11} & \cdots & 0 & \cdots & a_{1n}\\
-\vdots &  & \vdots &  & \vdots & \vdots \\
-a_{n1} & \cdots & 0 & \cdots & a_{nn} & \cdots & 0\\
-\vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\
-0 & \cdots & a_{n1} & \cdots & 0 & \cdots & a_{nn}\\
-\end{bmatrix}\right)
-\end{align*}
 The Laplace theorem states that for a matrix B of dimensions \(n\times n\) and a p-tuple of rows $\bm{i}_p$, we have :
 \begin{align*}
 \det(B) &= \sum_{\bm{j}_p} B {\bm{i}_p\choose \bm{j}_p} B^c {\bm{i}_p\choose \bm{j}_p}
 \end{align*}
-We apply this theorem with $B=A \kp I_m$ with the n-tuple $\bm{i}_n$ : $(1,m+1,2m+1,...,(n-1)m+1)$. For every n-tuple $\bm{j}_n$ that contains another index than these present in $\bm{i}_n$, the minor $B {\bm{i}_n\choose \bm{j}_n}$ is zero. Indeed, if we consider only the rows whose indices are in $\bm{i}_n$, we have :
+We apply this theorem to the matrix $B=A \kp I_m$ with the n-tuple $\bm{i}_n$ : $(1,m+1,2m+1,...,(n-1)m+1)$ (if n=1 then the tuple is just (1)). For every n-tuple $\bm{j}_n$ that contains another index than these present in $\bm{i}_n$, the minor $B {\bm{i}_n\choose \bm{j}_n}$ is zero. Indeed, if we consider only the rows whose indices are in $\bm{i}_n$, we have :
 \begin{align*}
 B'&=\begin{pmatrix}
-a_{11} & 0 & \cdots & 0 & a_{12} & 0 & \cdots & 0 & a_{1n} & 0 & \cdots & 0\\
-a_{21} & 0 & \cdots & 0 & a_{22} & 0 & \cdots & 0 & a_{2n} & 0 & \cdots & 0\\
-\vdots & \vdots & & \vdots & \vdots & \vdots & & \vdots & \vdots & \vdots & & \vdots \\
-a_{n1} & 0 & \cdots & 0 & a_{n2} & 0 & \cdots & 0 & a_{nn} & 0 & \cdots & 0 \\
+a_{11} & 0 & \cdots & 0 & a_{12} & 0 & \cdots & 0 & \cdots & a_{1n} & 0 & \cdots & 0\\
+a_{21} & 0 & \cdots & 0 & a_{22} & 0 & \cdots & 0 & \cdots & a_{2n} & 0 & \cdots & 0\\
+\vdots & \vdots & & \vdots & \vdots & \vdots & & \vdots & & \vdots & \vdots & & \vdots \\
+\undermat{\text{m columns}} {a_{n1} & 0 & \cdots & 0} & a_{n2} & 0 & \cdots & 0 & \cdots & a_{nn} & 0 & \cdots & 0 \\
 \end{pmatrix}
-\end{align*}
+\end{align*}\\
 
-Thus if $\bm{j}_n$ contains any index not present in $\bm{i}_n$, a column full of zero is included leading to a null determinant. We are left with :
+Thus if $\bm{j}_n$ contains any index not present in $\bm{i}_n$, a column full of zeros is included leading to a null minor. We are left with :
 \begin{align}
 \det(A \kp I_m) &= B {\bm{i}_n\choose \bm{i}_n} B^c {\bm{i}_n\choose \bm{i}_n}\\ \label{recc}
 &= \det(A) \det(A \kp I_{m-1})
 \end{align}
-The first term of the second line can be easily found by inspecting B'.
-%% add details
+The first term of the second line can be easily found by inspecting B' and taking only columns whose indices are in $\bm{i}_n$. The second term is derived by removing the rows and columns of $A\kp I_m$ whose indices are in $\bm{i}_n$. This leads to :
+\begin{equation*}
+\begin{pmatrix}
+a_{11} I_{m-1} & \cdots & a_{1n} I_{m-1} \\
+\vdots & \ddots & \vdots \\
+a_{n1} I_{m-1} & \cdots & a_{nn} I_{m-1}
+\end{pmatrix}  
+\end{equation*}
+
 From \ref{recc}, we conclude that \(\det(A \kp I_m) = \det(A)^m\).
 \end{proof}
 
@@ -281,7 +272,8 @@ The rank of a matrix \(A \in \field^{m \times n}\) is equal to the largest size 
 Next, we prove the property : $\rank(A\kp B)=\rank(A)\rank(B)=\rank(B\kp A)$.
 
 \begin{proof}
-First, we note that $B\kp A$ can be obtained by inverting rows and columns of $A\kp B$. As elementary operations do not affect the rank of a matrix, we deduce that $\rank(A\kp B)$ is equal to $\rank(B\kp A)$.
+Let A be a matrix of dimension $n\times m$ and B a matrix of dimension $p\times q$.\\
+First, we note that $B\kp A$ can be obtained by permuting rows and columns of $A\kp B$. As elementary operations do not affect the rank of a matrix, we deduce that $\rank(A\kp B)$ is equal to $\rank(B\kp A)$.\\
 Let $R_1$ and $Q_1$ be products of elementary transformations such that :
 \begin{align*}
     R_1BQ_1 &=\begin{bmatrix}
@@ -289,6 +281,8 @@ Let $R_1$ and $Q_1$ be products of elementary transformations such that :
     0_{(p-r)\times r} & 0_{(p-r)\times (q-r)}
     \end{bmatrix}
 \end{align*}
+By theorem 1.8 of the course, we know such matrices exist. The scalar $r$ is the rank of B.\\
+Second, we multiply on both sides the matrix $A\kp B$ by matrices with $R_1$ and $Q_1$ on the diagonal :
 \begin{align*}
     \begin{pmatrix}
     R_1 & &\\
@@ -310,64 +304,178 @@ Let $R_1$ and $Q_1$ be products of elementary transformations such that :
     \vdots & & \vdots\\
     a_{m1}R_1BQ_1 & \cdots & a_{mn}R_1BQ_1
     \end{pmatrix}\\
-%    &= \begin{pmatrix}
-%    a_{11}I_r & 0_{r\times(q-r)} & \cdots & a_{1n}I_r & 0_{r\times(q-r)}\\
-%    0_{(p-r)\times r} & 0_{(p-r)\times (q-r)} & \cdots & 0_{(p-r)\times r} & 0_{(p-r)\times (q-r)}\\
-%    \vdots & & \vdots\\
-%    a_{m1}I_r & 0_{r\times(q-r)} & \cdots & a_{mn}I_r & 0_{r\times(q-r)}\\
-%    0_{(p-r)\times r} & 0_{(p-r)\times (q-r)} & \cdots & 0_{(p-r)\times r} & 0_{(p-r)\times (q-r)}\\
-%    \end{pmatrix}
     &= \begin{pmatrix}
     a_{11}I_r & \bm{0} & \cdots & a_{1n}I_r & \bm{0}\\
     \bm{0} & \bm{0} & \cdots & \bm{0} & \bm{0}\\
     \vdots & \vdots & & \vdots & \vdots\\
     a_{m1}I_r & \bm{0} & \cdots & a_{mn}I_r & \bm{0}\\
     \bm{0} & \bm{0} & \cdots & \bm{0} & \bm{0}\\
-    \end{pmatrix}\\
-    &= \begin{pmatrix}
-    A & & & & & &\\
-    & A & & & & &\\
-    & & \ddots & & & &\\
-    & & & A & & & &\\
-    & & & & 0 & & \\
-    & & & & & \ddots &\\
-    & & & & & & 0\\
     \end{pmatrix}
 \end{align*}
+By manipulating the last matrix with permutation matrices, the following matrix is obtained :
+\begin{equation*}
+    \begin{psmallmatrix}
+    A & & & & &\\
+    & \ddots & & & &\\
+    & & A & & & \\
+    & & & 0 & &\\
+    & & & & \ddots &\\
+    & & & & & 0
+    \end{psmallmatrix}
+\end{equation*}\\
+where the matrix A appears r times on the diagonal and the rest of the matrix is only zeros. Its rank is still equal to the rank of $A\kp B$ as only elementary operations have been applied.\\
 Let $R_2$ and $Q_2$ be products of elementary transformations such that :
 \begin{align*}
     R_2AQ_2 &=\begin{bmatrix}
-    I_r & 0_{r\times(n-r)}\\
-    0_{(m-r)\times r} & 0_{(m-r)\times (n-r)}
+    I_s & 0_{s\times(n-s)}\\
+    0_{(m-s)\times s} & 0_{(m-s)\times (n-s)}
     \end{bmatrix}
 \end{align*}
+We multiply on both sides the matrix obtained previously by matrices with $R_2$ and $Q_2$ on the diagonal :
 \begin{align*}
-    \begin{pmatrix}
+    \begin{psmallmatrix}
     R_2 & & & & & \\
     & \ddots & & & & \\
     & & R_2 & & &\\
     & & & 0 & &\\
     & & & & \ddots &\\
     & & & & & 0
-    \end{pmatrix}
-    \begin{pmatrix}
+    \end{psmallmatrix}
+    \begin{psmallmatrix}
     A & & & & & &\\
     & \ddots & & & &\\
     & & A & & & &\\
     & & & 0 & & \\
     & & & & \ddots &\\
     & & & & & 0\\
-    \end{pmatrix}
-    \begin{pmatrix}
+    \end{psmallmatrix}
+    \begin{psmallmatrix}
     Q_2 & & & & & \\
     & \ddots & & & & \\
     & & Q_2 & & &\\
     & & & 0 & &\\
     & & & & \ddots &\\
     & & & & & 0
-    \end{pmatrix}
+    \end{psmallmatrix}
+    &= \begin{psmallmatrix}
+    R_2AQ_2 & & & & & \\
+    & \ddots & & & & \\
+    & & R_2AQ_2 & & &\\
+    & & & 0 & &\\
+    & & & & \ddots &\\
+    & & & & & 0    
+    \end{psmallmatrix}\\
+    &= \begin{psmallmatrix}
+    I_s & \bm{0} & & & & & \\
+    \bm{0} & \bm{0} & & & & &\\
+    & & \ddots & & & &\\
+    & & & I_s & \bm{0} & & &\\
+    & & & \bm{0} & \bm{0} & & &\\
+    & & & & & 0 & &\\
+    & & & & & & \ddots &\\
+    & & & & & & & 0 
+    \end{psmallmatrix}
 \end{align*}
+As the identity matrix $I_s$ appears r times on the diagonal, we deduce :
+\begin{equation*}
+    \rank(A\kp B)=sr=\rank(A)\rank(B)
+\end{equation*}
 \end{proof}
 
-% TODO other questions
+\subsection*{A7}
+We show that : $\vect(AXB)=(B^{T}\kp A)\vect(X)$
+\begin{proof}
+Let A be a matrix of dimension $m\times n$, B a matrix of dimension $p\times q$ and X a matrix of dimension $n\times p$.\\
+We develop the left term of the equality we want to prove :
+\begin{align*}
+    (B^{T}\kp A)\vect(X) &=
+    \begin{pmatrix}
+    b_{11}A & b_{21}A & \cdots & b_{p1}A\\
+    b_{12}A & b_{22}A & & \\
+    \vdots & & \ddots & \\
+    b_{1q}A & & & b_{pq}A
+    \end{pmatrix}
+    \begin{pmatrix}
+    X_{:,1}\\
+    X_{:,2}\\
+    \vdots\\
+    X_{:,p}
+    \end{pmatrix}\\
+    &=
+    \begin{pmatrix}
+    b_{11}AX_{:,1} + b_{21}AX_{:,2} + \cdots + b_{p1}AX_{:,p}\\
+    b_{12}AX_{:,1} + \cdots + b_{p2}AX_{:,p}\\
+    \vdots \\
+    b_{1q}AX_{:,1} + \cdots + b_{pq}AX_{:,p}
+    \end{pmatrix}   
+\end{align*}
+We recognize the elements of a three matrices product :
+\begin{equation*}
+    d_{ij}=\sum^{p}_{r=1}b_{ij}\sum^{n}_{k=1}a_{rk}x_{kj}
+\end{equation*}
+\end{proof}
+The proven equality can be used to solve the Sylvester equation : $AX+XA^{T}=B$ where $X$ is the unknown. Indeed, we can vectorize both sides of the equation :
+\begin{equation*}
+    \vect(AX) + \vect(XA^{T})=\vect(B)
+\end{equation*}
+Then we use some identity matrices to be able to apply the proven relation :
+\begin{align*}
+    \vect(AXI) + \vect(IXA^{T})&=\vect(B)\\
+    (I\kp A)\vect(X) + (A\kp I) \vect(X)&=\vect(B)\\
+    (I\kp A + A\kp I) \vect(X)&=\vect(B)
+\end{align*}
+The term $\vect(X)$ can be isolated :
+\begin{equation*}
+    \vect(X)=(I\kp A + A\kp I)^{-1}\vect(B)
+\end{equation*}
+Finally, the matrix X can be simply deduced from $\vect(X)$.
+
+\section{Exercise B: The matrix exponential}
+\subsection*{B1}
+If $\lambda\in \complex$ is an eigenvalue of A then $e^\lamda$ is an eigenvalue of $e^A$.
+\begin{proof}
+We know $\lambda$ is an eigenvalue of A. Hence $Av=\lambda v$ for some eigenvector $v$.
+\begin{align*}
+    e^Av&=\Bigg(I+\sum^{\infty}_{k=1}\frac{1}{k!}A^k\Bigg)v\\
+    &=v+\sum^{\infty}_{k=1}\frac{1}{k!}A^kv\\
+    &=v+\sum^{\infty}_{k=1}\frac{1}{k!}\lambda^kv\\
+    &=\Bigg(\sum^{\infty}_{k=0}\frac{1}{k!}\lambda^k\Bigg)v\\
+    &=e^\lambda v
+\end{align*}
+The third line is derived using the equality $A^kv=\lambda^kv$ and the last line using the Taylor series of the exponential function.\\
+This proves that $e^\lambda$ is an eigenvalue of $e^A$ with the eigenvector v.
+\end{proof}
+
+\subsection*{B2}
+% TODO
+\subsection*{B3}
+If A is skew-Hermitian, i.e. $A=-A^{*}$, then $e^A$ is unitary, i.e. $e^A(e^A)^{*}=I)$.
+\begin{proof}
+We have :
+\begin{align*}
+    (e^A)^{*}&=\Bigg(I+\sum^{\infty}_{k=1}\frac{1}{k!}A^k\Bigg)^{*}\\
+    &=\Bigg(I^{*}+\sum^{\infty}_{k=1}\frac{1}{k!}(A^k)^{*}\Bigg)\\
+    &=\Bigg(I+\sum^{\infty}_{k=1}\frac{1}{k!}(A^{*})^k\Bigg)\\
+    &=e^{A^{*}}\\
+    &=e^{-A}
+\end{align*}
+The second and third lines are derived using the following properties :
+\begin{itemize}
+    \item $(A+B)^{*}=A^{*}+B^{*}$
+    \item $(A^k)^*=(A^*)^k$
+\end{itemize}
+The fourth line comes from the definition of the exponential matrix and the last line from the fact that A is skew-Hermitian.\\
+Finally can write :
+\begin{align*}
+    e^A(e^A)^{*}&=e^A(e^{-A})\\
+    &=e^{A-A}\\
+    &=I
+\end{align*}
+The second line is valid since A and -A commute.
+\end{proof}
+
+\subsection*{B4}
+% TODO
+\subsection*{B5}
+% TODO
 \end{document}
