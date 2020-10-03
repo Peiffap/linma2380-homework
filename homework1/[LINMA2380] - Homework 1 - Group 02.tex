@@ -251,19 +251,20 @@ a_{n1} & \cdots & 0 & \cdots & a_{nn} & \cdots & 0\\
 0 & \cdots & a_{n1} & \cdots & 0 & \cdots & a_{nn}\\
 \end{bmatrix}\right)
 \end{align*}
-TThe Laplace theorem states that for a matrix B of dimensions \(n\times n\) and a p-tuple of rows $\bm{i}_p$, we have :
+The Laplace theorem states that for a matrix B of dimensions \(n\times n\) and a p-tuple of rows $\bm{i}_p$, we have :
 \begin{align*}
 \det(B) &= \sum_{\bm{j}_p} B {\bm{i}_p\choose \bm{j}_p} B^c {\bm{i}_p\choose \bm{j}_p}
 \end{align*}
-We apply this theorem to $B=A \kp I_m$ with the n-tuple $\bm{i}_n$ : $(1,m+1,2m+1,...,(n-1)m+1)$. For every n-tuple $\bm{j}_n$ that contains another index than these present in $\bm{i}_n$, the minor $B {\bm{i}_n\choose \bm{j}_n}$ is zero. Indeed, if we consider only the rows whose indices are in $\bm{i}_n$, we have :
+We apply this theorem with $B=A \kp I_m$ with the n-tuple $\bm{i}_n$ : $(1,m+1,2m+1,...,(n-1)m+1)$. For every n-tuple $\bm{j}_n$ that contains another index than these present in $\bm{i}_n$, the minor $B {\bm{i}_n\choose \bm{j}_n}$ is zero. Indeed, if we consider only the rows whose indices are in $\bm{i}_n$, we have :
 \begin{align*}
-B'&=\left(\begin{bmatrix}
-a_{11} & \cdots & 0 & \cdots & a_{1n} & \cdots & 0\\
-a_{21} & \cdots & 0 & \cdots & a_{2n} & \cdots & 0\\
-\vdots & & \vdots & \vdots & & \vdots \\
-a_{n1} & \cdots & 0 & \cdots & a_{nn} & \cdots & 0\\
-\end{bmatrix}\right)
+B'&=\begin{pmatrix}
+a_{11} & 0 & \cdots & 0 & a_{12} & 0 & \cdots & 0 & a_{1n} & 0 & \cdots & 0\\
+a_{21} & 0 & \cdots & 0 & a_{22} & 0 & \cdots & 0 & a_{2n} & 0 & \cdots & 0\\
+\vdots & \vdots & & \vdots & \vdots & \vdots & & \vdots & \vdots & \vdots & & \vdots \\
+a_{n1} & 0 & \cdots & 0 & a_{n2} & 0 & \cdots & 0 & a_{nn} & 0 & \cdots & 0 \\
+\end{pmatrix}
 \end{align*}
+
 Thus if $\bm{j}_n$ contains any index not present in $\bm{i}_n$, a column full of zero is included leading to a null determinant. We are left with :
 \begin{align}
 \det(A \kp I_m) &= B {\bm{i}_n\choose \bm{i}_n} B^c {\bm{i}_n\choose \bm{i}_n}\\ \label{recc}
@@ -277,9 +278,95 @@ From \ref{recc}, we conclude that \(\det(A \kp I_m) = \det(A)^m\).
 \subsection*{A6}
 The rank of a matrix \(A \in \field^{m \times n}\) is equal to the largest size of its nonzero minors.
 
-Next, we prove the property on the rank.
+Next, we prove the property : $\rank(A\kp B)=\rank(A)\rank(B)=\rank(B\kp A)$.
+
 \begin{proof}
-% TODO prove it
+First, we note that $B\kp A$ can be obtained by inverting rows and columns of $A\kp B$. As elementary operations do not affect the rank of a matrix, we deduce that $\rank(A\kp B)$ is equal to $\rank(B\kp A)$.
+Let $R_1$ and $Q_1$ be products of elementary transformations such that :
+\begin{align*}
+    R_1BQ_1 &=\begin{bmatrix}
+    I_r & 0_{r\times(q-r)}\\
+    0_{(p-r)\times r} & 0_{(p-r)\times (q-r)}
+    \end{bmatrix}
+\end{align*}
+\begin{align*}
+    \begin{pmatrix}
+    R_1 & &\\
+    & \ddots & \\
+    & & R_1
+    \end{pmatrix}
+    \begin{pmatrix}
+    a_{11}B & \cdots & a_{1n}B\\
+    \vdots & & \vdots\\
+    a_{m1}B & \cdots & a_{mn}B
+    \end{pmatrix}
+    \begin{pmatrix}
+    Q_1 & &\\
+    & \ddots & \\
+    & & Q_1
+    \end{pmatrix}
+    &= \begin{pmatrix}
+    a_{11}R_1BQ_1 & \cdots & a_{1n}R_1BQ_1\\
+    \vdots & & \vdots\\
+    a_{m1}R_1BQ_1 & \cdots & a_{mn}R_1BQ_1
+    \end{pmatrix}\\
+%    &= \begin{pmatrix}
+%    a_{11}I_r & 0_{r\times(q-r)} & \cdots & a_{1n}I_r & 0_{r\times(q-r)}\\
+%    0_{(p-r)\times r} & 0_{(p-r)\times (q-r)} & \cdots & 0_{(p-r)\times r} & 0_{(p-r)\times (q-r)}\\
+%    \vdots & & \vdots\\
+%    a_{m1}I_r & 0_{r\times(q-r)} & \cdots & a_{mn}I_r & 0_{r\times(q-r)}\\
+%    0_{(p-r)\times r} & 0_{(p-r)\times (q-r)} & \cdots & 0_{(p-r)\times r} & 0_{(p-r)\times (q-r)}\\
+%    \end{pmatrix}
+    &= \begin{pmatrix}
+    a_{11}I_r & \bm{0} & \cdots & a_{1n}I_r & \bm{0}\\
+    \bm{0} & \bm{0} & \cdots & \bm{0} & \bm{0}\\
+    \vdots & \vdots & & \vdots & \vdots\\
+    a_{m1}I_r & \bm{0} & \cdots & a_{mn}I_r & \bm{0}\\
+    \bm{0} & \bm{0} & \cdots & \bm{0} & \bm{0}\\
+    \end{pmatrix}\\
+    &= \begin{pmatrix}
+    A & & & & & &\\
+    & A & & & & &\\
+    & & \ddots & & & &\\
+    & & & A & & & &\\
+    & & & & 0 & & \\
+    & & & & & \ddots &\\
+    & & & & & & 0\\
+    \end{pmatrix}
+\end{align*}
+Let $R_2$ and $Q_2$ be products of elementary transformations such that :
+\begin{align*}
+    R_2AQ_2 &=\begin{bmatrix}
+    I_r & 0_{r\times(n-r)}\\
+    0_{(m-r)\times r} & 0_{(m-r)\times (n-r)}
+    \end{bmatrix}
+\end{align*}
+\begin{align*}
+    \begin{pmatrix}
+    R_2 & & & & & \\
+    & \ddots & & & & \\
+    & & R_2 & & &\\
+    & & & 0 & &\\
+    & & & & \ddots &\\
+    & & & & & 0
+    \end{pmatrix}
+    \begin{pmatrix}
+    A & & & & & &\\
+    & \ddots & & & &\\
+    & & A & & & &\\
+    & & & 0 & & \\
+    & & & & \ddots &\\
+    & & & & & 0\\
+    \end{pmatrix}
+    \begin{pmatrix}
+    Q_2 & & & & & \\
+    & \ddots & & & & \\
+    & & Q_2 & & &\\
+    & & & 0 & &\\
+    & & & & \ddots &\\
+    & & & & & 0
+    \end{pmatrix}
+\end{align*}
 \end{proof}
 
 % TODO other questions
