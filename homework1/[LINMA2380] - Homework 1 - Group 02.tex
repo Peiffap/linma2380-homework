@@ -73,6 +73,8 @@
 
 % TODO
 % - copy the statements (?)
+% - clean up all notations
+% - check A2 group q with TA
 
 \begin{document}
 \section*{Exercise A: The Kronecker product}
@@ -139,7 +141,7 @@ A \kp B = \begin{bmatrix}
 We see that \(A \kp B \neq B \kp A\).
 \end{proof}
 
-Finally, the set \(\field^{n \times n}\) equipped with the Kronecker product is a group by virtue of it being a field. % TODO check this
+Finally, the set \(\field^{n \times n}\) equipped with the Kronecker product is not a group, as one can easily see that the Kronecker product of two matrices in \(\field^{n \times n}\) is an element of \(\field^{n^2 \times n^2}\).
 
 \subsection*{A3}
 Let \(A \in \field^{m \times n}\), \(B \in \field^{p \times q}\), \(C \in \field^{n \times r}\), and \(D \in \field^{q \times s}\)
@@ -290,7 +292,6 @@ From this, we can deduce that for \(A \in \field^{n \times n}\) and \(B \in \fie
 	\det(A \kp B) &= \det(A \kp I_m) \det(B \kp I_n)\\
 	&= \det(A)^m \det(B)^n.\qedhere
 	\end{align*}
-	% TODO perhaps prove det(AB) = det(A) det(B)
 \end{proof}
 
 \subsection*{A6}
@@ -487,12 +488,15 @@ This proves that $e^\lambda$ is an eigenvalue of $e^A$, with eigenvector \(v\).
 
 \subsection*{B2}
 For any matrix $A\in \complex^{n\times n}$, $\rank(e^A)=n$.
+
 \begin{proof}
-The matrix $e^A$ is invertible and its inverse is $e^{—A}$. In fact,
-\begin{equation*}
-    e^{A}e^{-A}=e^{-A}e^{A}=e^{A-A}=I
-\end{equation*}
-The second equality is valid since A and -A commute. It is then straightforward that $rank(e^A)=n$.
+The matrix $e^A$ is invertible and its inverse is $e^{—A}$.
+In fact,
+\[
+    e^{A}e^{-A}=e^{-A}e^{A}=e^{A-A}=I.
+\]
+The second equality is valid since \(A\) and \(-A\) commute.
+It is then straightforward that $\rank(e^A)=n$.
 \end{proof}
 
 \subsection*{B3}
