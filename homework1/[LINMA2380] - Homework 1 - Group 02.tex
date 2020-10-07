@@ -486,7 +486,14 @@ This proves that $e^\lambda$ is an eigenvalue of $e^A$, with eigenvector \(v\).
 \end{proof}
 
 \subsection*{B2}
-For any matrix $A\in \complex^{n\times n}$
+For any matrix $A\in \complex^{n\times n}$, $\rank(e^A)=n$.
+\begin{proof}
+The matrix $e^A$ is invertible and its inverse is $e^{—A}$. In fact,
+\begin{equation*}
+    e^{A}e^{-A}=e^{-A}e^{A}=e^{A-A}=I
+\end{equation*}
+The second equality is valid since A and -A commute. It is then straightforward that $rank(e^A)=n$.
+\end{proof}
 
 \subsection*{B3}
 If \(A \in \complex^{n \times n}\) is skew-Hermitian, i.e. $A=-A^*$, then $e^A$ is unitary, i.e. $e^A(e^A)^*=I)$.
