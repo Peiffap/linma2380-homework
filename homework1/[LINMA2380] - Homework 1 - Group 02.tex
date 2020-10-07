@@ -486,7 +486,7 @@ This proves that $e^\lambda$ is an eigenvalue of $e^A$, with eigenvector \(v\).
 \end{proof}
 
 \subsection*{B2}
-% TODO
+For any matrix $A\in \complex^{n\times n}$
 
 \subsection*{B3}
 If \(A \in \complex^{n \times n}\) is skew-Hermitian, i.e. $A=-A^*$, then $e^A$ is unitary, i.e. $e^A(e^A)^*=I)$.
@@ -516,7 +516,57 @@ The second line is valid since \(A\) and \(-A\) commute.
 \end{proof}
 
 \subsection*{B4}
-% TODO
+$(J_n(0))^n=0$
+\begin{proof}
+% TO DO
+\end{proof}
+
+We next show that
+\begin{equation*}
+    e^{J_n(\lambda)}=e^{\lambda}\Bigg(I+\sum_{k=1}^{n-1}\frac{1}{k!}(J_n(0))^k\Bigg)
+\end{equation*}
+\begin{proof}
+We note that $J_n(\lambda)=J_n(0)+\lambda I$. Furthermore, $J_n(0)$ and $\lambda I$ commute as the identity matrix multiplied by a scalar commute with every matrix. Thus, we can write :
+\begin{align*}
+    e^{J_n(\lambda)}&=e^{\lambda I+J_n(0)}\\
+    &=e^{\lambda I}e^{J_n(0)}
+\end{align*}
+If we develop the two last right-hand term and use the Taylor series of the exponential, we have :
+\begin{align*}
+    e^{J_n(0)}e^{\lambda I}&=\sum_{j=0}^{\infty}\frac{1}{j!}(\lambda I)^j\sum_{k=0}^{\infty}\frac{1}{k!}J_n(0)^k\\
+    &=I\sum_{j=0}^{\infty}\frac{1}{j!}\lambda ^j\sum_{k=0}^{\infty}\frac{1}{k!}J_n(0)^k\\
+    &=e^{\lambda}\Bigg(\sum_{k=0}^{\infty}\frac{1}{k!}J_n(0)^k\Bigg)\\
+    &=e^{\lambda}\Bigg(I+\sum_{k=1}^{\infty}\frac{1}{k!}J_n(0)^k\Bigg)
+\end{align*}
+\end{proof}
+
 \subsection*{B5}
-% TODO
+\begin{equation*}
+    e^{A\kp I+I\kp B}=e^A\kp e^B
+\end{equation*}
+\begin{proof}
+We first note that $A\kp I$ and $I\kp B$ commute. Indeed by using the mixed product property we observe that :
+\begin{align*}
+    (A\kp I)(I\kp B)=(AI)\kp(IB)=(I\kp B)(A\kp I)
+\end{align*}
+Hence we can write :
+\begin{equation*}
+    e^{A\kp I+I\kp B}=e^{A\kp I}e^{I\kp B}
+\end{equation*}
+Next, we develop the last equation using the definition of the exponential matrix :
+\begin{align*}
+    e^{A\kp I}e^{I\kp B}&=\sum_{k=0}^{\infty}\frac{1}{k!}(A\kp I)^k \sum_{j=0}^{\infty}\frac{1}{j!}(I\kp B)^j\\
+    &=\sum_{k=0}^{\infty}\sum_{j=0}^{\infty}\frac{1}{k!}\frac{1}{j!}(A\kp I)^k (I\kp B)^j\\
+    &=\sum_{k=0}^{\infty}\sum_{j=0}^{\infty}\frac{(k+j)!}{(k+j)!}\frac{1}{k!}\frac{1}{j!}(A\kp I)^k (I\kp B)^j\\
+    &=\sum_{k=0}^{\infty}\sum_{j=0}^{\infty}\frac{1}{(k+j)!}{k+j\choose j}(A\kp I)^k (I\kp B)^j
+\end{align*}
+Let $m=k+j$
+\begin{align*}
+    &=\sum_{j=0}^{\infty}\frac{1}{m!}{m\choose j}(A\kp I)^m-j (I\kp B)^j\\
+    &=\sum_{j=0}^{\infty}\frac{1}{m!}(A\kp I+I\kp B)^m\\
+    &=e^{A\kp I+I\kp B}
+\end{align*}
+The second equality comes from the binomial formula. 
+\end{proof}
+
 \end{document}
