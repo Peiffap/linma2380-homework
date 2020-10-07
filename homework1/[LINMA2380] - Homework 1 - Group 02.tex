@@ -516,57 +516,85 @@ The second line is valid since \(A\) and \(-A\) commute.
 \end{proof}
 
 \subsection*{B4}
-$(J_n(0))^n=0$
+We start by showing that \((J_n(0))^n=0\).
 \begin{proof}
-% TO DO
+One trivially notes that \(A \coloneqq J_n(0) \in \complex^{n \times n}\) is strictly upper triangular, for any \(n \geqslant 1\).
+
+We want to prove by induction on \(k \geqslant 1\) that \(a_{ij}^k = 0\) whenever \(i \leqslant j + k - 1\).
+When \(k = 1\), this is trivially true, as this precisely states that \(A\) is strictly upper triangular.
+
+For the induction step, we fix \(k \geqslant 1\) and we suppose that \(a_{ij}^k = 0\) when \(i \leqslant j + k - 1\).
+Fix \(i, j\) and suppose that \(i \leqslant j + k = j + (k + 1) - 1\).
+In that case,
+\[
+a_{ij}^{k+1} = \sum_{\ell = 0}^n a_{i \ell}^k a_{\ell j}.
+\]
+However, by the induction hypothesis, we know that \(a_{\ell j} = 0\) whenever \(\ell \leqslant j\), so that
+\[
+a_{ij}^{k+1} = \sum_{\ell = j + 1}^n a_{i \ell}^k a_{\ell j}.
+\]
+Moreover, if \(j+1 \leqslant \ell \leqslant n\), then
+\[
+\ell + k - 1 \geqslant (j + 1) + k - 1 = j - k \geqslant i
+\]
+so that \(a_{i \ell}^k = 0\) by the induction hypothesis.
+This allows us to conclude that \(a_{ij}^{k+1} = 0\), as desired.
+Finally, the result is obtained by taking the case \(k = n\), which tells us that \(a_{ij}^n = 0\) whenever \(i \leqslant j + n - 1\), but this is always true as \(i \leqslant n\) and \(j + n - 1 \geqslant n\) for all \(1 \leqslant i, j \leqslant n\).
+This shows that \(A = \Big(J_n(0)\Big)^n = 0\).
 \end{proof}
 
-We next show that
-\begin{equation*}
-    e^{J_n(\lambda)}=e^{\lambda}\Bigg(I+\sum_{k=1}^{n-1}\frac{1}{k!}(J_n(0))^k\Bigg)
-\end{equation*}
+Next, we show that
+\[
+    e^{J_n(\lambda)}=e^{\lambda}\Bigg(I+\sum_{k=1}^{n-1}\frac{1}{k!}\Big(J_n(0)\Big)^k\Bigg).
+\]
 \begin{proof}
-We note that $J_n(\lambda)=J_n(0)+\lambda I$. Furthermore, $J_n(0)$ and $\lambda I$ commute as the identity matrix multiplied by a scalar commute with every matrix. Thus, we can write :
+We note that $J_n(\lambda)=J_n(0)+\lambda I$.
+Furthermore, $J_n(0)$ and $\lambda I$ commute as the identity matrix multiplied by a scalar commutes with every matrix.
+Thus, we can write:
 \begin{align*}
     e^{J_n(\lambda)}&=e^{\lambda I+J_n(0)}\\
-    &=e^{\lambda I}e^{J_n(0)}
+    &=e^{\lambda I}e^{J_n(0)}.
 \end{align*}
-If we develop the two last right-hand term and use the Taylor series of the exponential, we have :
+If we develop the last two right-hand terms and use the Taylor series expansion of the exponential, we obtain
 \begin{align*}
-    e^{J_n(0)}e^{\lambda I}&=\sum_{j=0}^{\infty}\frac{1}{j!}(\lambda I)^j\sum_{k=0}^{\infty}\frac{1}{k!}J_n(0)^k\\
-    &=I\sum_{j=0}^{\infty}\frac{1}{j!}\lambda ^j\sum_{k=0}^{\infty}\frac{1}{k!}J_n(0)^k\\
-    &=e^{\lambda}\Bigg(\sum_{k=0}^{\infty}\frac{1}{k!}J_n(0)^k\Bigg)\\
-    &=e^{\lambda}\Bigg(I+\sum_{k=1}^{\infty}\frac{1}{k!}J_n(0)^k\Bigg)
+    e^{J_n(0)}e^{\lambda I}&=\sum_{j=0}^{\infty}\frac{1}{j!}(\lambda I)^j\sum_{k=0}^{\infty}\frac{1}{k!}\Big(J_n(0)\Big)^k\\
+    &=I\sum_{j=0}^{\infty}\frac{1}{j!}\lambda ^j\sum_{k=0}^{\infty}\frac{1}{k!}\Big(J_n(0)\Big)^k\\
+    &=e^{\lambda}\Bigg(\sum_{k=0}^{\infty}\frac{1}{k!}\Big(J_n(0)\Big)^k\Bigg)\\
+    &=e^{\lambda}\Bigg(I+\sum_{k=1}^{\infty}\frac{1}{k!}\Big(J_n(0)\Big)^k\Bigg).
 \end{align*}
+Putting the left-hand side in its original form, this is precisely what we were trying to prove.
 \end{proof}
 
 \subsection*{B5}
-\begin{equation*}
-    e^{A\kp I+I\kp B}=e^A\kp e^B
-\end{equation*}
+We want to show that for any matrices \(A, B \in \complex^{n \times n}\),
+\[
+    e^{A\kp I+I\kp B}=e^A\kp e^B.
+\]
+
 \begin{proof}
-We first note that $A\kp I$ and $I\kp B$ commute. Indeed by using the mixed product property we observe that :
+We first note that $A\kp I$ and $I\kp B$ commute.
+Indeed, by using the mixed product property, we observe that
 \begin{align*}
-    (A\kp I)(I\kp B)=(AI)\kp(IB)=(I\kp B)(A\kp I)
+    (A\kp I)(I\kp B)=(AI)\kp(IB)=(I\kp B)(A\kp I).
 \end{align*}
-Hence we can write :
+Hence we can write
 \begin{equation*}
-    e^{A\kp I+I\kp B}=e^{A\kp I}e^{I\kp B}
+    e^{A\kp I+I\kp B}=e^{A\kp I}e^{I\kp B}.
 \end{equation*}
-Next, we develop the last equation using the definition of the exponential matrix :
+
+Next, we develop the last equality using the definition of the matrix exponential:
 \begin{align*}
     e^{A\kp I}e^{I\kp B}&=\sum_{k=0}^{\infty}\frac{1}{k!}(A\kp I)^k \sum_{j=0}^{\infty}\frac{1}{j!}(I\kp B)^j\\
-    &=\sum_{k=0}^{\infty}\sum_{j=0}^{\infty}\frac{1}{k!}\frac{1}{j!}(A\kp I)^k (I\kp B)^j\\
-    &=\sum_{k=0}^{\infty}\sum_{j=0}^{\infty}\frac{(k+j)!}{(k+j)!}\frac{1}{k!}\frac{1}{j!}(A\kp I)^k (I\kp B)^j\\
-    &=\sum_{k=0}^{\infty}\sum_{j=0}^{\infty}\frac{1}{(k+j)!}{k+j\choose j}(A\kp I)^k (I\kp B)^j
+    &=\sum_{k=0}^{\infty}\sum_{j=0}^{\infty}\frac{1}{k!}\,\frac{1}{j!}(A\kp I)^k (I\kp B)^j\\
+    &=\sum_{k=0}^{\infty}\sum_{j=0}^{\infty}\frac{(k+j)!}{(k+j)!}\,\frac{1}{k!}\,\frac{1}{j!}(A\kp I)^k (I\kp B)^j\\
+    &=\sum_{k=0}^{\infty}\sum_{j=0}^{\infty}\frac{1}{(k+j)!}\binom{k+j}{j}(A\kp I)^k (I\kp B)^j.
 \end{align*}
-Let $m=k+j$
+Let $m=k+j$; we can then write this as
 \begin{align*}
-    &=\sum_{j=0}^{\infty}\frac{1}{m!}{m\choose j}(A\kp I)^{m-j} (I\kp B)^j\\
-    &=\sum_{j=0}^{\infty}\frac{1}{m!}(A\kp I+I\kp B)^m\\
-    &=e^{A\kp I+I\kp B}
+    &=\sum_{m=0}^{\infty}\frac{1}{m!}\binom{m}{j}(A\kp I)^{m-j} (I\kp B)^j\\
+    &=\sum_{m=0}^{\infty}\frac{1}{m!}(A\kp I+I\kp B)^m\\
+    &=e^{A\kp I+I\kp B},
 \end{align*}
-The second equality comes from the binomial formula. 
+where the second equality comes from the binomial formula, which we can use because of the commutativity we observed earlier. 
 \end{proof}
-
 \end{document}
