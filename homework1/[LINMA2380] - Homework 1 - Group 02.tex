@@ -532,26 +532,29 @@ The second line is valid since \(A\) and \(-A\) commute.
 We start by showing that \((J_n(0))^n=0\).
 \begin{proof}
 One trivially notes that \(A \coloneqq J_n(0) \in \complex^{n \times n}\) is strictly upper triangular, for any \(n \geqslant 1\).
-
 We want to prove by induction on \(k \geqslant 1\) that \(a_{ij}^k = 0\) whenever \(i \leqslant j + k - 1\).
-When \(k = 1\), this is trivially true, as this precisely states that \(A\) is strictly upper triangular.
 
-For the induction step, we fix \(k \geqslant 1\) and we suppose that \(a_{ij}^k = 0\) when \(i \leqslant j + k - 1\).
-Fix \(i, j\) and suppose that \(i \leqslant j + k = j + (k + 1) - 1\).
+\begin{itemize}
+\item When \(k = 1\), this is trivially true, as this precisely states that \(A\) is strictly upper triangular.
+
+\item For the induction step, we fix \(k \geqslant 1\) and we suppose that \(a_{ij}^k = 0\) when \(i \leqslant j + k - 1\).
+
+Fix \(i, j\) and suppose that \(i \leqslant j + (k + 1) - 1 = j + k \).
 In that case,
 \[
 a_{ij}^{k+1} = \sum_{\ell = 0}^n a_{i \ell}^k a_{\ell j}.
 \]
-However, by the induction hypothesis, we know that \(a_{\ell j} = 0\) whenever \(\ell \leqslant j\), so that
+However, regarding the base case, we know that \(a_{\ell j} = 0\) whenever \(\ell \leqslant j\), so that
 \[
 a_{ij}^{k+1} = \sum_{\ell = j + 1}^n a_{i \ell}^k a_{\ell j}.
 \]
-Moreover, if \(j+1 \leqslant \ell \leqslant n\), then
+Moreover, keeping in mind \(i \leqslant j + k \), we observe that if \(j+1 \leqslant \ell \leqslant n\), then
 \[
-\ell + k - 1 \geqslant (j + 1) + k - 1 = j - k \geqslant i
+i \leqslant j + k = (j + 1) + k - 1 \leqslant \ell + k - 1
 \]
 so that \(a_{i \ell}^k = 0\) by the induction hypothesis.
-This allows us to conclude that \(a_{ij}^{k+1} = 0\), as desired.
+This allows us to conclude that \(a_{ij}^{k+1} = 0\) when \(i \leqslant j + (k+1) -1 \), as desired.
+\end{itemize}
 Finally, the result is obtained by taking the case \(k = n\), which tells us that \(a_{ij}^n = 0\) whenever \(i \leqslant j + n - 1\), but this is always true as \(i \leqslant n\) and \(j + n - 1 \geqslant n\) for all \(1 \leqslant i, j \leqslant n\).
 This shows that \(A = \Big(J_n(0)\Big)^n = 0\).
 \end{proof}
