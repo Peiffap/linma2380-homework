@@ -71,11 +71,6 @@
 	\makebox[0pt][l]{$\smash{\underbrace{\phantom{%
 					\begin{matrix}#2\end{matrix}}}_{\text{$#1$}}}$}#2}
 
-% TODO
-% - copy the statements (?)
-% - clean up all notations
-% - check A2 group q with TA
-
 \begin{document}
 \section*{Exercise A: The Kronecker product}
 \subsection*{A1}
@@ -112,7 +107,7 @@ a_{m1} b_{p1} C & \cdots & a_{m1} b_{pq} C & \cdots & a_{mn} b_{p1} C & \cdots &
 \end{align*}
 \end{proof}
 
-The Kronecker is non-commutative; we show that \(A \kp B \neq B \kp A\)
+The Kronecker product is non-commutative; we show that \(A \kp B \neq B \kp A\)
 
 \begin{proof}
 We show a counterexample to the claim of commutativity.
@@ -179,7 +174,10 @@ and hence that
 \]
 
 \subsection*{A4}
-We first show the first property, P1.
+We first show the first property, P1:
+\[
+A^{\kp k} B^{\kp k} = (AB)^{\kp k}.
+\]
 \begin{proof}
 By induction.
 The base case is trivial:
@@ -188,14 +186,18 @@ A^{\kp 1} B^{\kp 1} = AB = (AB)^{\kp 1}.
 \]
 Next, we assume the property holds for $k$, and we prove it for $k+1$:
 \begin{align*}
-A^{\kp k+1} B^{\kp k+1} &= (A^{\kp k} \kp A) (B^{\kp k} \kp B)\\
-&\overset{\textnormal{A3}}{=}(A^{\kp k} B^{\kp k}) \kp AB\\
+A^{\kp k+1} B^{\kp k+1} &= \big(A^{\kp k} \kp A\big) \big(B^{\kp k} \kp B\big)\\
+&\overset{\textnormal{A3}}{=}\big(A^{\kp k} B^{\kp k}\big) \kp AB\\
 &= (AB)^{\kp k} \kp AB\\
 &= (AB)^{\kp k+1}.\qedhere
 \end{align*}
 \end{proof}
 
-Next, we show the second property, P2.
+Next, we show the second property, P2: for any vector \(v \in \mathbb{R}^n\),
+\[
+\norm{v^\kp k} = \norm{v}^{k},
+\]
+where \(\norm{v} = \sqrt{v^\top v}\).
 \begin{proof}
 We start by proving an auxiliary lemma, L1.
 \[
@@ -213,14 +215,14 @@ a_{1n} B^\top & \cdots & a_{mn} B^\top
 We then proceed by induction.
 The base case is trivial as before:
 \[
-(A^{\kp 1})^\top = A^\top = (A^\top)^{\kp 1}.
+\big(A^{\kp 1}\big)^\top = A^\top = \big(A^\top\big)^{\kp 1}.
 \]
 Next, we assume the property holds for $k$, and we prove it for $k+1$:
 \begin{align*}
-(A^{\kp k+1})^\top &= (A^{\kp k} \kp A)^\top\\
-&\overset{\textnormal{L1}}{=} (A^{\kp k})^\top \kp A^\top\\
-&= (A^\top)^{\kp k} \kp A^\top\\
-&= (A^\top)^{\kp k+1}.\qedhere
+\big(A^{\kp k+1}\big)^\top &= \big(A^{\kp k} \kp A\big)^\top\\
+&\overset{\textnormal{L1}}{=} \big(A^{\kp k}\big)^\top \kp A^\top\\
+&= \big(A^\top\big)^{\kp k} \kp A^\top\\
+&= \big(A^\top\big)^{\kp k+1}.\qedhere
 \end{align*}
 \end{proof}
 
@@ -230,10 +232,10 @@ Finally, we show the following:
 \]
 \begin{proof}
 \begin{align*}
-\norm{v^{\kp k}} &= \sqrt{(v^{\kp k})^\top v^{\kp k}}\\
-&\overset{\textnormal{P2}}{=} \sqrt{(v^\top)^{\kp k} v^{\kp k}}\\
+\norm{v^{\kp k}} &= \sqrt{\big(v^{\kp k}\big)^\top v^{\kp k}}\\
+&\overset{\textnormal{P2}}{=} \sqrt{\big(v^\top\big)^{\kp k} v^{\kp k}}\\
 &\overset{\textnormal{P1}}{=} \sqrt{(v^\top v)^{\kp k}}\\
-&= \sqrt{(v^\top v)^k}\\
+&= \sqrt{\big(v^\top v\big)^k}\\
 &= \Big(\sqrt{v^\top v}\,\Big)^k\\
 &= \norm{v}^k,
 \end{align*}
@@ -302,7 +304,7 @@ The rank of a matrix \(A \in \field^{m \times n}\) is equal to the largest size 
 From this, we prove the following property: $\rank(A\kp B)=\rank(A)\rank(B)=\rank(B\kp A)$.
 
 \begin{proof}
-Let \(A \in \field^{n\times m}, B \in \field^{p\times q}\).
+Let \(A \in \field^{m\times n}, B \in \field^{p\times q}\).
 
 First, we note that $B\kp A$ can be obtained by permuting rows and columns of $A\kp B$.
 As elementary operations do not affect the rank of a matrix, we deduce that $\rank(A\kp B) = \rank(B\kp A)$.
@@ -351,11 +353,11 @@ By manipulating the last matrix with permutation matrices, the following matrix 
 \[
     \begin{bmatrix}
     A & & & & &\\
-    & \ddots & & & &\\
+    & \ddots & & & 0_{mr \times n(q-r)} &\\
     & & A & & & \\
-    & & & 0 & &\\
-    & & & & \ddots &\\
-    & & & & & 0
+    & & & & &\\
+    & 0_{m(p-r) \times nr} & & & 0_{m(p-r) \times n(q-r)} &\\
+    & & & & &
     \end{bmatrix},
 \]
 where the matrix \(A\) appears \(r\) times on the diagonal and the rest of the matrix is only zeros. 
@@ -371,46 +373,47 @@ Let $R_2$ and $Q_2$ be products of elementary transformations such that:
 We multiply on both sides the matrix obtained previously by matrices with $R_2$ and $Q_2$ on the diagonal :
 \begin{align*}
     &\begin{bmatrix}
-    R_2 & & & & & \\
-    & \ddots & & & & \\
-    & & R_2 & & &\\
-    & & & 0 & &\\
-    & & & & \ddots &\\
-    & & & & & 0
+    R_2 & & & & &\\
+    & \ddots & & & 0_{mr \times m(p-r)} &\\
+    & & R_2 & & & \\
+    & & & & &\\
+    & 0_{m(p-r) \times nr} & & & 0_{m(p-r) \times m(p-r)} &\\
+    & & & & &
     \end{bmatrix}
     \begin{bmatrix}
-    A & & & & & &\\
-    & \ddots & & & &\\
-    & & A & & & &\\
-    & & & 0 & & \\
-    & & & & \ddots &\\
-    & & & & & 0\\
-    \end{bmatrix}
+    A & & & & &\\
+    & \ddots & & & 0_{nr \times n(q-r)} &\\
+    & & A & & & \\
+    & & & & &\\
+    & 0_{n(q-r) \times nr} & & & 0_{n(q-r) \times n(q-r)} &\\
+    & & & & &
+    \end{bmatrix}\\
+    &\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad
     \begin{bmatrix}
-    Q_2 & & & & & \\
-    & \ddots & & & & \\
-    & & Q_2 & & &\\
-    & & & 0 & &\\
-    & & & & \ddots &\\
-    & & & & & 0
+    Q_2 & & & & &\\
+    & \ddots & & & 0_{nr \times n(q-r)} &\\
+    & & Q_2 & & & \\
+    & & & & &\\
+    & 0_{n(q-r) \times nr} & & & 0_{n(q-r) \times n(q-r)} &\\
+    & & & & &
     \end{bmatrix}\\
     = &\begin{bmatrix}
-    R_2AQ_2 & & & & & \\
-    & \ddots & & & & \\
-    & & R_2AQ_2 & & &\\
-    & & & 0 & &\\
-    & & & & \ddots &\\
-    & & & & & 0    
+    R_2AQ_2 & & & & &\\
+    & \ddots & & & 0_{mr \times n(q-r)} &\\
+    & & R_2AQ_2 & & & \\
+    & & & & &\\
+    & 0_{m(p-r) \times nr} & & & 0_{m(p-r) \times n(q-r)} &\\
+    & & & & &
     \end{bmatrix}\\
     = &\begin{bmatrix}
     I_s & 0_{s \times (n-s)} & & & & & \\
     0_{(m-s) \times s} & 0_{(m-s) \times (n-s)} & & & & &\\
-    & & \ddots & & & &\\
+    & & \ddots & & & & 0_{mr \times n(q-r)} &\\
     & & & I_s & 0_{s \times (n - s)} & & &\\
     & & & 0_{(m-s) \times s} & 0_{(m-s) \times (n-s)} & & &\\
-    & & & & & 0 & &\\
-    & & & & & & \ddots &\\
-    & & & & & & & 0 
+    & & & & & & &\\
+    & & 0_{m(p-r) \times nr} & & & & 0_{m(p-r) \times n(q-r)} &\\
+    & & & & & & &
     \end{bmatrix}.
 \end{align*}
 As the identity matrix $I_s$ appears \(r\) times on the diagonal, we deduce that
@@ -420,18 +423,18 @@ As the identity matrix $I_s$ appears \(r\) times on the diagonal, we deduce that
 \end{proof}
 
 \subsection*{A7}
-We show that : $\vect(AXB)=(B^\top\kp A)\vect(X)$.
+We show that : $\vect(AXB)=\big(B^\top\kp A\big)\vect(X)$.
 \begin{proof}
 Let \(A \in \field^{m\times n}, B \in \field^{p\times q}\), and \(X \in \field^{n\times p}\).
 
 We develop the right-hand side of the equality we want to prove:
 \begin{align*}
-    (B^\top\kp A)\vect(X) &=
+    \big(B^\top\kp A\big)\vect(X) &=
     \begin{bmatrix}
     b_{11}A & b_{21}A & \cdots & b_{p1}A\\
-    b_{12}A & b_{22}A & & \\
-    \vdots & & \ddots & \\
-    b_{1q}A & & & b_{pq}A
+    b_{12}A & b_{22}A & \cdots & \vdots \\
+    \vdots & \vdots & \ddots & \vdots \\
+    b_{1q}A & \cdots & \cdots & b_{pq}A
     \end{bmatrix}
     \begin{bmatrix}
     X_{:,1}\\
@@ -451,17 +454,17 @@ We recognize the elements of a product \(D\) of three matrices in vectorized for
 \[
     d_i=\sum^{p}_{r=1}b_{ri}\sum^{n}_{k=1}a_{rk}x_{kr},
 \]
-which shows \(D\) is simply \(AXB\), and hence proves \(\vect(AXB)=(B^\top\kp A)\vect(X)\).
+which shows \(D\) is simply \(AXB\), and hence proves \(\vect(AXB)=\big(B^\top\kp A\big)\vect(X)\).
 \end{proof}
 
 The proven equality can be used to solve the Sylvester equation: $AX+XA^\top=B$ where $X$ is the unknown.
 Indeed, we can vectorize both sides of the equation:
 \[
-    \vect(AX) + \vect(XA^\top)=\vect(B).
+    \vect(AX) + \vect\big(XA^\top\big)=\vect(B).
 \]
 Then, we use some identity matrices to be able to apply the proven relation:
 \begin{align*}
-    \vect(B) = \vect(AX) + \vect(XA^\top) &= \vect(AXI) + \vect(IXA^\top)\\
+    \vect(B) = \vect(AX) + \vect\big(XA^\top\big) &= \vect(AXI) + \vect\big(IXA^\top\big)\\
     &=(I\kp A)\vect(X) + (A\kp I) \vect(X)\\
     &=(I\kp A + A\kp I) \vect(X).
 \end{align*}
@@ -507,15 +510,15 @@ If \(A \in \complex^{n \times n}\) is skew-Hermitian, i.e. $A=-A^*$, then $e^A$ 
 We have:
 \begin{align*}
     (e^A)^*&=\Bigg(I+\sum^{\infty}_{k=1}\frac{1}{k!}A^k\Bigg)^{*}\\
-    &=\Bigg(I^{*}+\sum^{\infty}_{k=1}\frac{1}{k!}(A^k)^{*}\Bigg)\\
-    &=\Bigg(I+\sum^{\infty}_{k=1}\frac{1}{k!}(A^{*})^k\Bigg)\\
+    &=\Bigg(I^{*}+\sum^{\infty}_{k=1}\frac{1}{k!}\big(A^k\big)^{*}\Bigg)\\
+    &=\Bigg(I+\sum^{\infty}_{k=1}\frac{1}{k!}\big(A^{*}\big)^k\Bigg)\\
     &=e^{A^{*}}\\
     &=e^{-A},
 \end{align*}
 where the second and third lines are derived using the following properties:
 \begin{itemize}
     \item $(A+B)^{*}=A^{*}+B^{*}$;
-    \item $(A^k)^*=(A^*)^k$.
+    \item $\big(A^k\big)^*=\big(A^*\big)^k$.
 \end{itemize}
 The fourth line comes from the definition of the exponential matrix and the last line from the fact that \(A\) is skew-Hermitian.
 
@@ -529,7 +532,7 @@ The second line is valid since \(A\) and \(-A\) commute.
 \end{proof}
 
 \subsection*{B4}
-We start by showing that \((J_n(0))^n=0\).
+We start by showing that \(\big(J_n(0)\big)^n=0\).
 \begin{proof}
 One trivially notes that \(A \coloneqq J_n(0) \in \complex^{n \times n}\) is strictly upper triangular, for any \(n \geqslant 1\).
 We want to prove by induction on \(k \geqslant 1\) that \(a_{ij}^k = 0\) whenever \(i \leqslant j + k - 1\).
@@ -561,7 +564,7 @@ This shows that \(A = \Big(J_n(0)\Big)^n = 0\).
 
 Next, we show that
 \[
-    e^{J_n(\lambda)}=e^{\lambda}\Bigg(I+\sum_{k=1}^{n-1}\frac{1}{k!}\Big(J_n(0)\Big)^k\Bigg).
+    e^{J_n(\lambda)}=e^{\lambda}\Bigg(I+\sum_{k=1}^{n-1}\frac{1}{k!}\big(J_n(0)\big)^k\Bigg).
 \]
 \begin{proof}
 We note that $J_n(\lambda)=J_n(0)+\lambda I$.
@@ -573,10 +576,10 @@ Thus, we can write:
 \end{align*}
 If we develop the last right-hand side and use the Taylor series expansion of the exponential, we obtain
 \begin{align*}
-    e^{J_n(0)}e^{\lambda I}&=\sum_{j=0}^{\infty}\frac{1}{j!}(\lambda I)^j\Bigg\sum_{k=0}^{\infty}\frac{1}{k!}\Big(J_n(0)\Big)^k\Bigg\\
-    &=I\sum_{j=0}^{\infty}\frac{1}{j!}\lambda ^j\sum_{k=0}^{\infty}\frac{1}{k!}\Big(J_n(0)\Big)^k\\
-    &=e^{\lambda}\Bigg(\sum_{k=0}^{\infty}\frac{1}{k!}\Big(J_n(0)\Big)^k\Bigg)\\
-    &=e^{\lambda}\Bigg(I+\sum_{k=1}^{\infty}\frac{1}{k!}\Big(J_n(0)\Big)^k\Bigg).
+    e^{J_n(0)}e^{\lambda I}&=\sum_{j=0}^{\infty}\frac{1}{j!}(\lambda I)^j\Bigg(\sum_{k=0}^{\infty}\frac{1}{k!}\big(J_n(0)\big)^k\Bigg)\\
+    &=I\sum_{j=0}^{\infty}\frac{1}{j!}\lambda ^j\sum_{k=0}^{\infty}\frac{1}{k!}\big(J_n(0)\big)^k\\
+    &=e^{\lambda}\Bigg(\sum_{k=0}^{\infty}\frac{1}{k!}\big(J_n(0)\big)^k\Bigg)\\
+    &=e^{\lambda}\Bigg(I+\sum_{k=1}^{\infty}\frac{1}{k!}\big(J_n(0)\big)^k\Bigg).
 \end{align*}
 Putting the left-hand side in its original form, this is precisely what we were trying to prove.
 \end{proof}
@@ -607,10 +610,11 @@ Next, we develop the last equality using the definition of the matrix exponentia
 \end{align*}
 Let $m=k+j$; we can then write this as
 \begin{align*}
-    &=\sum_{m=0}^{\infty}\frac{1}{m!}\binom{m}{j}(A\kp I)^{m-j} (I\kp B)^j\\
+    &=\sum_{m=0}^{\infty} \sum_{j = 0}^m\frac{1}{m!}\binom{m}{j}(A\kp I)^{m-j} (I\kp B)^j\\
     &=\sum_{m=0}^{\infty}\frac{1}{m!}(A\kp I+I\kp B)^m\\
     &=e^{A\kp I+I\kp B},
 \end{align*}
-where the second equality comes from the binomial formula, which we can use because of the commutativity we observed earlier. 
+where the second equality comes from the binomial formula, which we can use because of the commutativity we observed earlier.
+Note that the bounds on the sum indexed by \(j\) have changed; this is because of the change of variables and is consistent with the definition of \(m \geqslant j\).
 \end{proof}
 \end{document}
