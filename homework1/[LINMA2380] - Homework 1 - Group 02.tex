@@ -352,12 +352,15 @@ Next, we multiply on both sides the matrix $A\kp B$ by matrices with $R_1$ and $
 By manipulating the last matrix with permutation matrices, the following matrix is obtained:
 \[
     \begin{bmatrix}
-    A & & & & &\\
-    & \ddots & & & 0_{mr \times n(q-r)} &\\
-    & & A & & & \\
-    & & & & &\\
-    & 0_{m(p-r) \times nr} & & & 0_{m(p-r) \times n(q-r)} &\\
-    & & & & &
+    \begin{array}{c c c|c c c}
+    A & & & & \\
+    & \ddots & & & 0_{mr \times n(q-r)} \\
+    & & A & &  \\
+    \hline
+    & & & & \\
+    & 0_{m(p-r) \times nr} & & & 0_{m(p-r) \times n(q-r)} \\
+    & & & & 
+    \end{array}
     \end{bmatrix},
 \]
 where the matrix \(A\) appears \(r\) times on the diagonal and the rest of the matrix is only zeros. 
@@ -373,47 +376,63 @@ Let $R_2$ and $Q_2$ be products of elementary transformations such that:
 We multiply on both sides the matrix obtained previously by matrices with $R_2$ and $Q_2$ on the diagonal :
 \begin{align*}
     &\begin{bmatrix}
-    R_2 & & & & &\\
-    & \ddots & & & 0_{mr \times m(p-r)} &\\
-    & & R_2 & & & \\
+    \begin{array}{c c c|c c c}
+    R_2 & & & & \\
+    & \ddots & & & 0_{mr \times m(p-r)} \\
+    & & R_2 & &  \\
+    \hline
     & & & & &\\
-    & 0_{m(p-r) \times nr} & & & 0_{m(p-r) \times m(p-r)} &\\
-    & & & & &
+    & 0_{m(p-r) \times nr} & & & 0_{m(p-r) \times m(p-r)} \\
+    & & & & 
+    \end{array}
     \end{bmatrix}
     \begin{bmatrix}
-    A & & & & &\\
-    & \ddots & & & 0_{nr \times n(q-r)} &\\
-    & & A & & & \\
-    & & & & &\\
-    & 0_{n(q-r) \times nr} & & & 0_{n(q-r) \times n(q-r)} &\\
-    & & & & &
+    \begin{array}{c c c|c c c}
+    A & & & & \\
+    & \ddots & & & 0_{nr \times n(q-r)} \\
+    & & A & &  \\
+    \hline
+    & & & & \\
+    & 0_{n(q-r) \times nr} & & & 0_{n(q-r) \times n(q-r)} \\
+    & & & & 
+    \end{array}
     \end{bmatrix}\\
     &\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad
     \begin{bmatrix}
-    Q_2 & & & & &\\
-    & \ddots & & & 0_{nr \times n(q-r)} &\\
-    & & Q_2 & & & \\
-    & & & & &\\
-    & 0_{n(q-r) \times nr} & & & 0_{n(q-r) \times n(q-r)} &\\
-    & & & & &
+    \begin{array}{ccc|ccc}
+    Q_2 & & & & \\
+    & \ddots & & & 0_{nr \times n(q-r)} \\
+    & & Q_2 & & \\
+    \hline
+    & & & &\\
+    & 0_{n(q-r) \times nr} & & & 0_{n(q-r) \times n(q-r)}\\
+    & & & &
+    \end{array}
     \end{bmatrix}\\
     = &\begin{bmatrix}
-    R_2AQ_2 & & & & &\\
-    & \ddots & & & 0_{mr \times n(q-r)} &\\
-    & & R_2AQ_2 & & & \\
-    & & & & &\\
-    & 0_{m(p-r) \times nr} & & & 0_{m(p-r) \times n(q-r)} &\\
-    & & & & &
+    \begin{array}{ccc|ccc}
+    R_2AQ_2 & & & &\\
+    & \ddots & & & 0_{mr \times n(q-r)}\\
+    & & R_2AQ_2 & &\\
+    \hline
+    & & & &\\
+    & 0_{m(p-r) \times nr} & & & 0_{m(p-r) \times n(q-r)}\\
+    & & & &
+    \end{array}
     \end{bmatrix}\\
     = &\begin{bmatrix}
-    I_s & 0_{s \times (n-s)} & & & & & \\
-    0_{(m-s) \times s} & 0_{(m-s) \times (n-s)} & & & & &\\
+    \begin{array}{c c c c c|c c c}
+    I_s & 0_{s \times (n-s)} & & & & & & \\
+    0_{(m-s) \times s} & 0_{(m-s) \times (n-s)} & & & & & &\\
     & & \ddots & & & & 0_{mr \times n(q-r)} &\\
     & & & I_s & 0_{s \times (n - s)} & & &\\
     & & & 0_{(m-s) \times s} & 0_{(m-s) \times (n-s)} & & &\\
     & & & & & & &\\
+    \hline
+    & & & & & & &\\
     & & 0_{m(p-r) \times nr} & & & & 0_{m(p-r) \times n(q-r)} &\\
     & & & & & & &
+    \end{array}
     \end{bmatrix}.
 \end{align*}
 As the identity matrix $I_s$ appears \(r\) times on the diagonal, we deduce that
