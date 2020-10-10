@@ -263,7 +263,7 @@ The determinant of a square matrix \(A \in \field^{n \times n}\) is given by
 \]
 where the index vector \(\bm{j}\) constitutes a permutation of \(\{1, 2, \dots, n\}\), and \(t(\bm{j})\) denotes the parity of each quasi-diagonal.
 
-Next, we show that \(\det(A \kp I_m) = \det(A)^m\).
+First, we show that \(\det(A \kp I_m) = \det(A)^m\).
 \begin{proof}
 Laplace's theorem states that for a matrix \(B \in \field^{n\times n}\) and a \(p\)-tuple of rows $\bm{i}_p$, we have:
 \begin{align*}
@@ -300,6 +300,28 @@ a_{n1} I_{m-1} & \cdots & a_{nn} I_{m-1}
 From \eqref{recc}, we then conclude that \(\det(A \kp I_m) = \det(A)^m\).
 \end{proof}
 
+Similarly, we can also prove that \(\det(I_m \kp A) = \det(A)^m\).
+\begin{proof}
+    Indeed, if we take $B = I_m \kp A$ and $\bm{i_n} = (1, 2, \dots n)$, then we have :  
+    \begin{equation*}B' = 
+            \begin{bmatrix}
+    a_{11} & a_{12} & \cdots & a_{1n} & 0 & \cdots &0\\
+        a_{21} & a_{22} & \cdots & a_{2n} & 0 & \cdots &0\\
+        \vdots & \vdots &\ddots & \vdots & \vdots &\ddots &\vdots\\
+    a_{n1} & a_{n2} & \cdots & a_{nn} \undermat{(m-1)n \text{ columns}}{& 0 & \cdots &0}\\
+    \end{bmatrix}
+    \end{equation*}\\
+    
+    With the same argument as before, if $\bm{j}_n$ contains any index not present in $\bm{i}_n$, a column of zeros is included leading to a zero minor.
+    
+    We are left with
+\begin{align*}
+\det(I_m \kp A) = \det(B) &= B \binom{\bm{i}_n}{\bm{i}_n} B^c \binom{\bm{i}_n}{\bm{i}_n}\\ \label{recc}
+&= \det(A) \det(I_{m-1}\kp A).
+\end{align*}
+Which leads us to \(\det(I_m \kp A) = \det(A)^m\).
+
+\end{proof}
 From this, we can deduce that for \(A \in \field^{n \times n}\) and \(B \in \field^{m \times m}\), \(\det(A \kp B) = \det(A)^m \det(B)^n\).
 \begin{proof}
     We can write
@@ -308,7 +330,7 @@ From this, we can deduce that for \(A \in \field^{n \times n}\) and \(B \in \fie
     &\overset{A3}{=} (A \kp I_m) (I_n \kp B).\\
     \intertext{Taking the determinant on both sides, and using the fact that 
         \(\det(AB) = \det(A)\det(B)\) (Exercise~1.18 in the lecture notes), we then get}
-    \det(A \kp B) &= \det(A \kp I_m) \det(B \kp I_n)\\
+    \det(A \kp B) &= \det(A \kp I_m) \det(I_n \kp B)\\
     &= \det(A)^m \det(B)^n.\qedhere
     \end{align*}
 \end{proof}
