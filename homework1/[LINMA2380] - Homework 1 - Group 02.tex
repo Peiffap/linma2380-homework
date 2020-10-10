@@ -36,23 +36,23 @@
 \newcommand{\abs}[1]{\left\lvert#1\right\lvert}
 \usepackage{listings}
 \lstset{
-	language=Python,
-	numbers=left,
-	numberstyle=\tiny\color{gray},
-	basicstyle=\rm\small\ttfamily,
-	keywordstyle=\bfseries\color{dkred},
-	frame=single,
-	commentstyle=\color{gray}=small,
-	stringstyle=\color{dkgreen},
-	%backgroundcolor=\color{gray!10},
-	%tabsize=8, % Thank you Papa Torvalds
-	%rulecolor=\color{black!30},
-	%title=\lstname,
-	breaklines=true,
-	framextopmargin=2pt,
-	framexbottommargin=2pt,
-	extendedchars=true,
-	inputencoding=utf8,
+    language=Python,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    basicstyle=\rm\small\ttfamily,
+    keywordstyle=\bfseries\color{dkred},
+    frame=single,
+    commentstyle=\color{gray}=small,
+    stringstyle=\color{dkgreen},
+    %backgroundcolor=\color{gray!10},
+    %tabsize=8, % Thank you Papa Torvalds
+    %rulecolor=\color{black!30},
+    %title=\lstname,
+    breaklines=true,
+    framextopmargin=2pt,
+    framexbottommargin=2pt,
+    extendedchars=true,
+    inputencoding=utf8,
 }
 
 \DeclareMathOperator{\rank}{rank}
@@ -68,8 +68,8 @@
 \setcounter{MaxMatrixCols}{15}
 
 \newcommand\undermat[2]{% http://tex.stackexchange.com/a/102468/5764
-	\makebox[0pt][l]{$\smash{\underbrace{\phantom{%
-					\begin{matrix}#2\end{matrix}}}_{\text{$#1$}}}$}#2}
+    \makebox[0pt][l]{$\smash{\underbrace{\phantom{%
+                    \begin{matrix}#2\end{matrix}}}_{\text{$#1$}}}$}#2}
 
 \begin{document}
 \section*{Exercise A: The Kronecker product}
@@ -80,13 +80,27 @@ A \kp B \coloneqq \begin{bmatrix}
 a_{11} B & \cdots & a_{1n}B \\
 \vdots & \ddots & \vdots \\
 a_{m1} B & \cdots & a_{mn} B
-\end{bmatrix}.
+\end{bmatrix}
 \]
+ With $A = \begin{bmatrix}a_{11} & \cdots & a_{1n} \\
+\vdots & \ddots & \vdots \\
+a_{m1} & \cdots & a_{mn}
+\end{bmatrix}, \quad B = \begin{bmatrix}b_{11} & \cdots & b_{1q} \\
+\vdots & \ddots & \vdots \\
+b_{p1} & \cdots & b_{pq}
+\end{bmatrix}$
 
 \subsection*{A2}
 The Kronecker product is associative.
 Let \(C \in \field^{s \times t}\) be a third matrix.
 We show that \((A \kp B) \kp C = A \kp (B \kp C)\).
+
+With $C = \begin{bmatrix}c_{11} & \cdots & c_{1t} \\
+\vdots & \ddots & \vdots \\
+c_{s1} & \cdots & c_{st}
+\end{bmatrix}
+$
+
 \begin{proof}
 \begin{align*}
 (A \kp B) \kp C &= \begin{bmatrix}
@@ -193,11 +207,9 @@ A^{\kp k+1} B^{\kp k+1} &= \big(A^{\kp k} \kp A\big) \big(B^{\kp k} \kp B\big)\\
 \end{align*}
 \end{proof}
 
-Next, we show the second property, P2: for any vector \(v \in \mathbb{R}^n\),
-\[
-\norm{v^\kp k} = \norm{v}^{k},
+Next, we show the second property, P2:
+\[(A^{\kp k})^T = (A^T)^{\kp k}
 \]
-where \(\norm{v} = \sqrt{v^\top v}\).
 \begin{proof}
 We start by proving an auxiliary lemma, L1.
 \[
@@ -227,9 +239,11 @@ Next, we assume the property holds for $k$, and we prove it for $k+1$:
 \end{proof}
 
 Finally, we show the following:
+for any vector \(v \in \mathbb{R}^n\),
 \[
-\norm{v^{\kp k}} = \norm{v}^k.
+\norm{v^{\kp k}} = \norm{v}^{k},
 \]
+where \(\norm{v} = \sqrt{v^\top v}\).
 \begin{proof}
 \begin{align*}
 \norm{v^{\kp k}} &= \sqrt{\big(v^{\kp k}\big)^\top v^{\kp k}}\\
@@ -288,15 +302,15 @@ From \eqref{recc}, we then conclude that \(\det(A \kp I_m) = \det(A)^m\).
 
 From this, we can deduce that for \(A \in \field^{n \times n}\) and \(B \in \field^{m \times m}\), \(\det(A \kp B) = \det(A)^m \det(B)^n\).
 \begin{proof}
-	We can write
-	\begin{align*}
-	A \kp B &= (A I_n) \kp (I_m B)\\
-	&\overset{A3}{=} (A \kp I_m) (I_n \kp B).\\
-	\intertext{Taking the determinant on both sides, and using the fact that 
-		\(\det(AB) = \det(A)\det(B)\) (Exercise~1.18 in the lecture notes), we then get}
-	\det(A \kp B) &= \det(A \kp I_m) \det(B \kp I_n)\\
-	&= \det(A)^m \det(B)^n.\qedhere
-	\end{align*}
+    We can write
+    \begin{align*}
+    A \kp B &= (A I_n) \kp (I_m B)\\
+    &\overset{A3}{=} (A \kp I_m) (I_n \kp B).\\
+    \intertext{Taking the determinant on both sides, and using the fact that 
+        \(\det(AB) = \det(A)\det(B)\) (Exercise~1.18 in the lecture notes), we then get}
+    \det(A \kp B) &= \det(A \kp I_m) \det(B \kp I_n)\\
+    &= \det(A)^m \det(B)^n.\qedhere
+    \end{align*}
 \end{proof}
 
 \subsection*{A6}
