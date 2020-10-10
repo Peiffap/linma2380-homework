@@ -643,15 +643,21 @@ Next, we develop the last equality using the definition of the matrix exponentia
 \end{align*}
 The 7th equality comes from the distributivity of the kronecker product.
 
-Indeed, 
+Indeed, let's take $A = \begin{bmatrix}a_{11} & \cdots & a_{1n} \\
+\vdots & \ddots & \vdots \\
+a_{m1} & \cdots & a_{mn}
+\end{bmatrix}, \quad B = \begin{bmatrix}b_{11} & \cdots & b_{1n} \\
+\vdots & \ddots & \vdots \\
+b_{m1} & \cdots & b_{mn}
+\end{bmatrix}$.
 \[(A+B)\kp C = \begin{bmatrix}
 (a_{11}+b_{11} )C &\cdots& (a_{1n}+b_{1n})C\\
 \vdots & \ddots & \vdots\\
-(a_{n1}+b_{n1}) C &\cdots & (a_{nn}+b_{nn})C\\
+(a_{m1}+b_{m1}) C &\cdots & (a_{mn}+b_{mn})C\\
 \end{bmatrix} = \begin{bmatrix}
 a_{11}C+b_{11}C &\cdots& a_{1n}C+b_{1n}C\\
 \vdots & \ddots & \vdots\\
-a_{n1}C+b_{n1} C &\cdots & a_{nn}C+b_{nn}C\\
+a_{m1}C+b_{m1} C &\cdots & a_{mn}C+b_{mn}C\\
 \end{bmatrix} = A\kp C + B\kp C
 \]
 The left distributivity can also be proved the same way.
