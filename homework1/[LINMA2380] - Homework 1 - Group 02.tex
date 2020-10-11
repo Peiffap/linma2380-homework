@@ -82,25 +82,23 @@ A \kp B \coloneqq \begin{bmatrix}
 a_{11} B & \cdots & a_{1n}B \\
 \vdots & \ddots & \vdots \\
 a_{m1} B & \cdots & a_{mn} B
-\end{bmatrix}
+\end{bmatrix},
 \]
- With $A = \begin{bmatrix}a_{11} & \cdots & a_{1n} \\
+with $A = \begin{bmatrix}a_{11} & \cdots & a_{1n} \\
 \vdots & \ddots & \vdots \\
 a_{m1} & \cdots & a_{mn}
 \end{bmatrix}, \quad B = \begin{bmatrix}b_{11} & \cdots & b_{1q} \\
 \vdots & \ddots & \vdots \\
 b_{p1} & \cdots & b_{pq}
-\end{bmatrix}$
+\end{bmatrix}$.
 
 \subsection*{A2}
 The Kronecker product is associative.
 Let \(C \in \field^{s \times t}\) be a third matrix.
-We show that \((A \kp B) \kp C = A \kp (B \kp C)\).
-
-With $C = \begin{bmatrix}c_{11} & \cdots & c_{1t} \\
+We show that \((A \kp B) \kp C = A \kp (B \kp C)\), with $C = \begin{bmatrix}c_{11} & \cdots & c_{1t} \\
 \vdots & \ddots & \vdots \\
 c_{s1} & \cdots & c_{st}
-\end{bmatrix}
+\end{bmatrix}.
 $
 
 \begin{proof}
@@ -131,7 +129,7 @@ Let
 \[
 A = \begin{bmatrix}
 2 & 3 \\ 0 & 1
-\end{bmatrix}, \quad, B = \begin{bmatrix}
+\end{bmatrix}, \quad B = \begin{bmatrix}
 0 & -1 \\ -1 & 1
 \end{bmatrix}.
 \]
@@ -157,7 +155,7 @@ Finally, the set \(\field^{n \times n}\) equipped with the Kronecker product is 
 \subsection*{A3}
 Let \(A \in \field^{m \times n}\), \(B \in \field^{p \times q}\), \(C \in \field^{n \times r}\), and \(D \in \field^{q \times s}\),
 \begin{equation*}
-(A \kp B) (C \kp D)=(AC)\kp (BD)
+(A \kp B) (C \kp D)=(AC)\kp (BD).
 \end{equation*}
 \begin{proof}
 We simply verify that
@@ -210,7 +208,7 @@ A^{\kp k+1} B^{\kp k+1} &= \big(A^{\kp k} \kp A\big) \big(B^{\kp k} \kp B\big)\\
 \end{proof}
 
 Next, we show the second property, P2:
-\[(A^{\kp k})^T = (A^T)^{\kp k}
+\[(A^{\kp k})^T = (A^T)^{\kp k}.
 \]
 \begin{proof}
 We start by proving an auxiliary lemma, L1.
@@ -282,7 +280,8 @@ a_{21} & 0 & \cdots & 0 & a_{22} & 0 & \cdots & 0 & \cdots & a_{2n} & 0 & \cdots
 \undermat{m \text{ columns}}{a_{n1} & 0 & \cdots & 0} & a_{n2} & 0 & \cdots & 0 & \cdots & a_{nn} & 0 & \cdots & 0\\
 \end{bmatrix}.
 \]
-\newline
+\bigskip
+
 Thus if $\bm{j}_n$ contains any index not present in $\bm{i}_n$, a column of zeros is included leading to a zero minor.
 We are left with
 \begin{align}
@@ -304,26 +303,27 @@ From \eqref{recc}, we then conclude that \(\det(A \kp I_m) = \det(A)^m\).
 
 Similarly, we can also prove that \(\det(I_m \kp A) = \det(A)^m\).
 \begin{proof}
-    Indeed, if we take $B = I_m \kp A$ and $\bm{i_n} = (1, 2, \dots n)$, then we have :  
+    Indeed, if we take $B = I_m \kp A$ and $\bm{i_n} = (1, 2, \dots, n)$, then we have :  
     \begin{equation*}B' = 
             \begin{bmatrix}
     a_{11} & a_{12} & \cdots & a_{1n} & 0 & \cdots &0\\
         a_{21} & a_{22} & \cdots & a_{2n} & 0 & \cdots &0\\
         \vdots & \vdots &\ddots & \vdots & \vdots &\ddots &\vdots\\
     a_{n1} & a_{n2} & \cdots & a_{nn} \undermat{(m-1)n \text{ columns}}{& 0 & \cdots &0}\\
-    \end{bmatrix}
-    \end{equation*}\\
+    \end{bmatrix}.
+    \end{equation*}
+    \bigskip
     
     With the same argument as before, if $\bm{j}_n$ contains any index not present in $\bm{i}_n$, a column of zeros is included leading to a zero minor.
     
     We are left with
 \begin{align*}
 \det(I_m \kp A) = \det(B) &= B \binom{\bm{i}_n}{\bm{i}_n} B^c \binom{\bm{i}_n}{\bm{i}_n}\\ \label{recc}
-&= \det(A) \det(I_{m-1}\kp A).
+&= \det(A) \det(I_{m-1}\kp A),
 \end{align*}
-Which leads us to \(\det(I_m \kp A) = \det(A)^m\).
-
+which leads us to \(\det(I_m \kp A) = \det(A)^m\).
 \end{proof}
+
 From this, we can deduce that for \(A \in \field^{n \times n}\) and \(B \in \field^{m \times m}\), \(\det(A \kp B) = \det(A)^m \det(B)^n\).
 \begin{proof}
     We can write
@@ -587,7 +587,7 @@ so that \(a_{i \ell}^k = 0\) by the induction hypothesis.
 This allows us to conclude that \(a_{ij}^{k+1} = 0\) when \(i \leqslant j + (k+1) -1 \), as desired.
 \end{itemize}
 Finally, the result is obtained by taking the case \(k = n\), which tells us that \(a_{ij}^n = 0\) whenever \(i \leqslant j + n - 1\), but this is always true as \(i \leqslant n\) and \(j + n - 1 \geqslant n\) for all \(1 \leqslant i, j \leqslant n\).
-This shows that \(A = \Big(J_n(0)\Big)^n = 0\).
+This shows that \(A = \big(J_n(0)\big)^n = 0\).
 \end{proof}
 
 Next, we show that
@@ -634,32 +634,35 @@ Next, we develop the last equality using the definition of the matrix exponentia
 \begin{align*}
     e^{A\kp I}e^{I\kp B}&=\sum_{k=0}^{\infty}\frac{1}{k!}(A\kp I)^k \sum_{j=0}^{\infty}\frac{1}{j!}(I\kp B)^j\\
     &=\sum_{k=0}^{\infty}\sum_{j=0}^{\infty}\frac{1}{k!}\,\frac{1}{j!}(A\kp I)^k (I\kp B)^j\\
-    &=\sum_{k=0}^{\infty}\sum_{j=0}^{\infty}\frac{1}{k!}\,\frac{1}{j!}(A\kp I)\underbrace{\cdots}_{\mbox{k-2 times}} (A\kp I)(I\kp B)\underbrace{\cdots}_{\mbox{j-2 times}}(I\kp B)\\
-    &\overset{\textnormal{A3}}{=} \sum_{k=0}^{\infty}\sum_{j=0}^{\infty}\frac{1}{k!}\,\frac{1}{j!}(A^2\kp I^2)\underbrace{\cdots}_{\mbox{k-3 times}} (A\kp I)(I^2\kp B^2)\underbrace{\cdots}_{\mbox{j-3 times}}(I\kp B)\\
+    &=\sum_{k=0}^{\infty}\sum_{j=0}^{\infty}\frac{1}{k!}\,\frac{1}{j!}(A\kp I)\underbrace{\cdots}_{k-2 \textnormal{ times}} (A\kp I)(I\kp B)\underbrace{\cdots}_{j-2 \textnormal{ times}}(I\kp B)\\
+    &\overset{\textnormal{A3}}{=} \sum_{k=0}^{\infty}\sum_{j=0}^{\infty}\frac{1}{k!}\,\frac{1}{j!}(A^2\kp I^2)\underbrace{\cdots}_{k-3 \textnormal{ times}} (A\kp I)(I^2\kp B^2)\underbrace{\cdots}_{j-3 \textnormal{ times}}(I\kp B)\\
     &\overset{\textnormal{A3}}{=} \sum_{k=0}^{\infty}\sum_{j=0}^{\infty}\frac{1}{k!}\,\frac{1}{j!}(A^k\kp I^k) (I^j\kp B^j)\\
     &\overset{\textnormal{A3}}{=} \sum_{k=0}^{\infty}\sum_{j=0}^{\infty}\frac{1}{k!}\,\frac{1}{j!}(A^kI^j)\kp (I^k B^j)\\
         &= \sum_{k=0}^{\infty}\frac{1}{k!}\,A^k\kp\sum_{j=0}^{\infty}\frac{1}{j!} B^j\\
-        &= e^A\kp e^B
+        &= e^A\kp e^B.
 \end{align*}
-The 7th equality comes from the distributivity of the kronecker product.
+The second to last equality comes from the distributivity of the Kronecker product.
 
-Indeed, let's take $A = \begin{bmatrix}a_{11} & \cdots & a_{1n} \\
+Indeed, let us take $A = \begin{bmatrix}a_{11} & \cdots & a_{1n} \\
 \vdots & \ddots & \vdots \\
 a_{m1} & \cdots & a_{mn}
 \end{bmatrix}, \quad B = \begin{bmatrix}b_{11} & \cdots & b_{1n} \\
 \vdots & \ddots & \vdots \\
 b_{m1} & \cdots & b_{mn}
 \end{bmatrix}$.
-\[(A+B)\kp C = \begin{bmatrix}
+\begin{align*}
+(A+B)\kp C &= \begin{bmatrix}
 (a_{11}+b_{11} )C &\cdots& (a_{1n}+b_{1n})C\\
 \vdots & \ddots & \vdots\\
 (a_{m1}+b_{m1}) C &\cdots & (a_{mn}+b_{mn})C\\
-\end{bmatrix} = \begin{bmatrix}
+\end{bmatrix}\\
+&= \begin{bmatrix}
 a_{11}C+b_{11}C &\cdots& a_{1n}C+b_{1n}C\\
 \vdots & \ddots & \vdots\\
 a_{m1}C+b_{m1} C &\cdots & a_{mn}C+b_{mn}C\\
-\end{bmatrix} = A\kp C + B\kp C
-\]
+\end{bmatrix}\\
+&= A\kp C + B\kp C
+\end{align*}
 The left distributivity can also be proved the same way.
 
 \begin{comment}
