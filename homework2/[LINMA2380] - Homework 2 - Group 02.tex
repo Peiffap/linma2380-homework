@@ -1,0 +1,123 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,left=1.5cm,right=1.5cm,top=1.5cm,bottom=1.5cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{mleftright}
+\usepackage{verbatim}
+\renewcommand{\headrulewidth}{1pt}
+\fancyhead[C]{\textsc{[LINMA2380] --- Homework 2}}
+\fancyhead[L]{2 November 2020}
+\fancyhead[R]{Group 02}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{csquotes}
+\usepackage{mathtools,amssymb,amsthm}
+\usepackage[binary-units=true,separate-uncertainty = true,multi-part-units=single]{siunitx}
+\usepackage{float}
+\usepackage[linktoc=all]{hyperref}
+\hypersetup{breaklinks=true}
+\graphicspath{{img/}}
+\usepackage{caption}
+\usepackage{textcomp}
+\usepackage{array}
+\usepackage{color}
+\usepackage{tabularx,booktabs}
+\usepackage{titlesec}
+\usepackage{wrapfig}
+\pagestyle{fancy}
+\usepackage{mathrsfs}
+\usepackage{bm}
+\DeclarePairedDelimiterX{\norm}[1]{\lVert}{\rVert}{#1}
+
+\newcommand{\imag}{\mathrm{i}\mkern1mu} % Imaginary unit
+\newcommand{\abs}[1]{\left\lvert#1\right\lvert}
+\usepackage{listings}
+\lstset{
+    language=Python,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    basicstyle=\rm\small\ttfamily,
+    keywordstyle=\bfseries\color{dkred},
+    frame=single,
+    commentstyle=\color{gray}=small,
+    stringstyle=\color{dkgreen},
+    %backgroundcolor=\color{gray!10},
+    %tabsize=8, % Thank you Papa Torvalds
+    %rulecolor=\color{black!30},
+    %title=\lstname,
+    breaklines=true,
+    framextopmargin=2pt,
+    framexbottommargin=2pt,
+    extendedchars=true,
+    inputencoding=utf8,
+}
+
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\vect}{vec}
+\DeclareMathOperator{\newdiff}{d} % use \dif instead
+\newcommand{\dif}{\newdiff\!}
+\newcommand{\e}{\mathrm{e}}
+
+\newcommand{\field}{\mathbb{F}} % field
+\newcommand{\real}{\mathbb{R}} % real numbers
+\newcommand{\complex}{\mathbb{C}} % complex numbers
+
+\newcommand{\snorm}[1]{\norm{#1}_2} % spectral norm
+\newcommand{\fnorm}[1]{\norm{#1}_F} % frobenius norm
+
+\setcounter{MaxMatrixCols}{15}
+
+\newcommand\undermat[2]{% http://tex.stackexchange.com/a/102468/5764
+    \makebox[0pt][l]{$\smash{\underbrace{\phantom{%
+                    \begin{matrix}#2\end{matrix}}}_{\text{$#1$}}}$}#2}
+
+\begin{document}
+\section*{Exercise A: Least square problems}
+\subsection*{A1}
+\subsection*{A2}
+\subsection*{A3}
+
+\section*{Exercise B: Low-rank approximation}
+\subsection*{B1}
+\subsection*{B2}
+Let \(x \in \real^{m \times n}\) be such that \(\abs{X_{ij}} \leqslant \varepsilon\) for all \(i \in \{1, \dots, m\}\) and \(j \in \{1, \dots, n\}\).
+Let \(\snorm{X}\) be the \(2\)-norm of \(X\) and let \(\fnorm{X}\) be its Frobenius norm.
+We show that \(\snorm{X} \leqslant \fnorm{X} \leqslant \sqrt{mn} \varepsilon\).
+\begin{proof}
+	First, we show the first inequality.
+	We know from the lecture notes that
+	\begin{align*}
+	\snorm{X} &= \sigma_{\textnormal{max}},\\
+	\fnorm{X} &= \left[\sum_i \sigma_i\right]^{1/2},
+	\end{align*}
+	where \(\sigma_i\) are the singular values of \(X\).
+	From this, it is immediately clear that \(\snorm{X} \leqslant \fnorm{X}\).
+	
+	Next, we use an equivalent form of the Frobenius norm to show the second inequality:
+	\[
+	\fnorm{X} = \left[\sum_{i, j} \abs{X_{ij}}^2 \right]^{1/2}.
+	\]
+	Knowing that \(\abs{X_{ij}} \leqslant \varepsilon\), it is immediate that \(\fnorm{X} \leqslant \left[\sum_{i, j} \varepsilon^2\right]^{1/2} = \left[mn \varepsilon^2\right]^{1/2} = \sqrt{mn} \varepsilon\).
+	This concludes the proof.
+\end{proof}
+
+We also give an example where these bounds are tight.
+Indeed, consider the matrix \(X = I_1 \in \real^{1 \times 1}\).
+Clearly, we have \(\abs{X_{ij}} \leqslant \varepsilon = 1\) for all \(i, j\) (only one value is possible for each).
+We know that the only singular value of this matrix is \(1\), and hence
+\[
+\snorm{X} = \fnorm{X} = \sqrt{1 \cdot 1} \varepsilon = 1.
+\]
+\subsection*{B3}
+
+\section*{Exercise C: Low-rank approximation}
+\subsection*{Discussion}
+\subsection*{Bonus question}
+
+
+\end{document}
