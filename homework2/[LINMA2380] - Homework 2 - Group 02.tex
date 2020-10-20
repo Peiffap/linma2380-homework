@@ -84,6 +84,28 @@
 
 \section*{Exercise B: Low-rank approximation}
 \subsection*{B1}
+For every matrix \(A \in \real^{m \times n}\), there exist unitary transformations \(U \in \real^{m \times m}\) and \(V \in \real^{n \times n}\) such that
+\[
+A = U \Sigma V^*, \quad \textnormal{where}\quad \Sigma = \left[\begin{array}{ccc|c}
+\sigma_1 & & 0 & \\
+& \ddots & & 0_{r \times (n-r)}\\
+0 && \sigma_r & \\
+\hline
+& 0_{(m-r) \times r} & & 0_{(m-r) \times (n-r)}
+\end{array}\right],
+\]
+with real positive singular values \(\sigma_1 \geqslant \dots \geqslant \sigma_r > 0\).
+
+These singular values are unique: the intuition to see this is that the singular value decomposition is computed inductively, and that the unitary matrices preserve the norm.
+By taking the property that \(\snorm{X} = \sigma_1\), this means that at every step of the decomposition, no matter what unitary transformations are chosen, the norm (and thus the maximal singular value of the submatrix we are working on) is the same.
+
+Next, we show that the rank of a matrix is equal to its number of nonzero singular values.
+\begin{proof}
+	We know that the rank of a diagonal matrix is equal to the number of its nonzero entries.
+	We also note that in the decomposition \(A = U \Sigma V\), \(U\) and \(V\) are of full rank.
+	Therefore, \(\rank(A) = \rank(\Sigma) = r\).
+\end{proof}
+
 \subsection*{B2}
 Let \(x \in \real^{m \times n}\) be such that \(\abs{X_{ij}} \leqslant \varepsilon\) for all \(i \in \{1, \dots, m\}\) and \(j \in \{1, \dots, n\}\).
 Let \(\snorm{X}\) be the \(2\)-norm of \(X\) and let \(\fnorm{X}\) be its Frobenius norm.
