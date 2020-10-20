@@ -80,6 +80,39 @@
 \section*{Exercise A: Least square problems}
 \subsection*{A1}
 \subsection*{A2}
+Suppose the QR decomposition of $A$ is given by $\tiny{Q \begin{pmatrix}R\\0\end{pmatrix}}$, where $Q \in \real^{m\times m}$ is unitary and $R \in \real^{n\times n}$ is upper triangular. We will express the solution of 
+\begin{equation}\label{eqA2}
+    A^T Ax=A^T b
+\end{equation} in terms of the QR decomposition of A.\\
+Let $\tiny{R_f=\begin{pmatrix}R\\0\end{pmatrix}}$. We can rewrite equation \eqref{eqA2} as:
+\begin{align*}
+    (QR_f)^{T}QR_fx &= (QR_f)^Tb\\
+    R_f^{T}Q^{T}QR_fx &= R_f^{T}Q^Tb
+\end{align*}
+As Q is unitary and hence $Q^TQ=I$, we have:
+\begin{align*}
+    \begin{pmatrix}
+    R^T & 0
+    \end{pmatrix}
+    \begin{pmatrix}
+    R\\ 0
+    \end{pmatrix}x
+    &=\begin{pmatrix}
+    R^T & 0
+    \end{pmatrix}
+    Q^Tb
+\end{align*}
+If we call $\hat{Q}$ the matrix consisting of the first n columns of Q, equation \eqref{eqA2} becomes:
+\begin{align*}
+    R^TRx &= R^T\hat{Q}^Tb
+\end{align*}
+From theorem 2.8 of the course notes, we know that every matrix $A\in\complex^{m\times n}$ of full column-rank admits a factorization $A=Q_1R_1$ where $Q_1\in\complex^{m\times n}$ is an isometry and $R_1\in\complex^{n\times n}$ is an upper triangular matrix with positive diagonal. The matrix $Q_1$ corresponds to $\hat{Q}$ and $R_1$ simply to $R$. Hence we deduce that $R$ is invertible. This allows us to premultiply both sides of the equation by the inverse of $R^T$:
+\begin{align*}
+    R^{-T}R^TRx &= R^{-T}R^T\hat{Q}^Tb\\
+    Rx &= \hat{Q}^Tb
+\end{align*}
+The solution of equation \eqref{eqA2} is therefore $x=R^{-1}\hat{Q}^Tb$ and the computation of the solution is reduced to the resolution of a single triangular system of linear equations (which can be solved efficiently using backward substitution).
+
 \subsection*{A3}
 
 \section*{Exercise B: Low-rank approximation}
