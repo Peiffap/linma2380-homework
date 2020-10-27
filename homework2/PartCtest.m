@@ -45,7 +45,7 @@ title('Social Distancing Mode - Training error in function of p');
 
 figure
 plot(1:30, errorsd_val);
-title('Social Distancing Mode - Training error in function of p');
+title('Social Distancing Mode - Validation error in function of p');
 
 %%
 %-----------------------------------------
@@ -62,10 +62,11 @@ error_train = norm(y_train-y_train_p);
 
 %Validation Error
 ytemp = y(N+2-p:end);
+ytemp2 = ytemp;
 for t = p+1 : length(ytemp)
    ytemp(t) = alpha(1);
    for i = 2:p+1
-      ytemp(t) = ytemp(t)+alpha(i)*ytemp(t-i+1);
+      ytemp(t) = ytemp(t)+alpha(i)*ytemp2(t-i+1);
    end   
 end
 y_val_p = ytemp(p+1:end);
