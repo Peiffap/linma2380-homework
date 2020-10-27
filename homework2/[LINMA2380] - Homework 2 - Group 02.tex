@@ -170,7 +170,67 @@ We know that the only singular value of this matrix is \(1\), and hence
 \]
 \subsection*{B3}
 
-\section*{Exercise C: Low-rank approximation}
+\section*{Exercise C: Realization theory}
+
+In this last exercise, we are interested in finding an AR model corresponding to the data obtained during the covid pandemic. Indeed, we want to find the parameters $\alpha_i$ of :
+\[y(t) = \alpha_0 + \sum_{i=1}^p \alpha_iy(t-i)
+\]
+For this, we will minimimize the squared error $f = \|y-\hat{y} \|_2$. (We have N+1 outputs)
+
+\begin{comment}
+We will differenciate this error with respect to the parameters to find the minima. This gives us:
+
+
+\begin{align*}
+f &= \|y-\hat{y} \|_2 = \sum_{t=0}^N (y(t) - \alpha_0 - \sum_{i=1}^p \alpha_iy(t-i))^2\\
+\frac{\partial f}{\partial \alpha_0} &= -2 (\sum_{t=0}^N (y(t) - \alpha_0 - \sum_{i=1}^p \alpha_iy(t-i))) = 0\\ 
+\frac{\partial f}{\partial \alpha_i} &= -y(t-i) (\sum_{t=0}^N (y(t) - \alpha_0 - \sum_{i=1}^p \alpha_iy(t-i)))=0 \qquad \qquad i = 1\dots p\\ 
+\end{align*}
+\end{comment}
+Let's rewrite our problem as a system of linear equations to have a least squares problem.
+\begin{comment}
+\begin{align*}
+\hat{y}= \begin{bmatrix}
+\hat{y}(0)\\
+\vdots\\
+\hat{y}(N)\\
+\end{bmatrix}= \underbrace{\begin{bmatrix}
+1 & 0 & 0 &\dots & 0\\
+1 & y(0) & 0& \dots &0\\
+1 & y(1) & y(0)& \dots &0\\
+\vdots&\vdots &\vdots&\ddots&\\
+1 & y(p-1)& y(p-2)&\dots& y(0)\\
+1 & y(p)&y(p-1)&\dots& y(1)\\
+\vdots&\vdots &\vdots&&\vdots\\
+1& y(N-1)&y(N-2)&\dots& y(N-p)\\
+\end{bmatrix}}_A
+\underbrace{\begin{bmatrix}
+\alpha_0\\
+\vdots\\
+\alpha_p\\
+\end{bmatrix}}_x\\
+\end{align*}
+\end{comment}
+%---------NOT SURE about beginning of AR process------
+%\begin{comment}
+\begin{align*}
+\begin{bmatrix}
+\hat{y}(p)\\
+\vdots\\
+\hat{y}(N)\\
+\end{bmatrix}= \begin{bmatrix}
+1 & y(p-1)& y(p-2)&\dots& y(0)\\
+1 & y(p)&y(p-1)&\dots& y(1)\\
+\vdots&\vdots &\vdots&&\vdots\\
+1& y(N-1)&y(N-2)&\dots& y(N-p)\\
+\end{bmatrix}
+\end{align*}
+%\end{comment}
+%-------------------
+Note that we consider $\hat{y}(0) = y(0)\dots \hat{y}(p-1) = y(p-1)$ as initial conditions.
+Thus our problem can be written as $\min_{x\in\mathbb{R}^{p+1}} \|Ax-y\|_2$.
+
+From there, we can use what we obtained in question A2 to solve the problem with a QR decomposition and backward substitution.
 \subsection*{Discussion}
 \subsection*{Bonus question}
 
