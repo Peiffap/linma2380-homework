@@ -16,7 +16,7 @@ ysd_val = ysd(44:end);
 errorc_train = zeros(30,1);
 errorc_val = zeros(30,1);
 plot([yc_train;yc_val]); hold on;
-for p = 1:30
+for p = 30:30
 [errorc_val(p), errorc_train(p)] = error(yc,yc_train, yc_val, p);
 end
 title('Confinement Mode Fitting and Prediction');
@@ -34,7 +34,7 @@ title('Confinement Mode - Validation error in function of p');
 errorsd_train = zeros(30,1);
 errorsd_val = zeros(30,1);
 plot([ysd_train;ysd_val]); hold on;
-for p = 1:30
+for p = 30:30
 [errorsd_val(p), errorsd_train(p)] = error(ysd,ysd_train, ysd_val, p);
 end
 title('Social Distancing Mode Fitting and Prediction');
@@ -45,7 +45,7 @@ title('Social Distancing Mode - Training error in function of p');
 
 figure
 plot(1:30, errorsd_val);
-title('Social Distancing Mode - Training error in function of p');
+title('Social Distancing Mode - Validation error in function of p');
 
 %%
 %-----------------------------------------
@@ -62,13 +62,7 @@ error_train = norm(y_train-y_train_p);
 
 %Validation Error
 ytemp = y(N+2-p:end);
-for t = p+1 : length(ytemp)
-   ytemp(t) = alpha(1);
-   for i = 2:p+1
-      ytemp(t) = ytemp(t)+alpha(i)*ytemp(t-i+1);
-   end   
-end
-y_val_p = ytemp(p+1:end);
+y_val_p = pred(ytemp, alpha, p);
 error_val = norm(y_val-y_val_p);
 
 plot([y_train_p;y_val_p], 'DisplayName',strcat('p=', num2str(p))); hold on;
@@ -91,4 +85,15 @@ alpha = Rprim\(Qprim'*b);
 
 %model
 y_p = A*alpha;
+%y_p = pred([zeros(p,1);y], alpha, p);
+end
+
+function y_p = pred(ytemp, alpha, p)
+for t = p+1 : length(ytemp)
+   ytemp(t) = alpha(1);
+   for i = 2:p+1
+      ytemp(t) = ytemp(t)+alpha(i)*ytemp(t-i+1);
+   end   
+end
+y_p = ytemp(p+1:end);
 end

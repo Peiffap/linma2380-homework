@@ -75,6 +75,7 @@ error_val = norm(y_val-y_val_p);
 plot([y_train_p;y_val_p], 'DisplayName',strcat('p=', num2str(p))); hold on;
 end
 
+
 function [alpha, y_p] = solveLeastSquares(y,p,N)
 A = zeros(N+1,p+1);
 A(:,1) = 1;
@@ -91,5 +92,16 @@ Rprim = R(1:p+1,:);
 alpha = Rprim\(Qprim'*b);
 
 %model
-y_p = A*alpha;
+%y_p = A*alpha;
+y_p = pred([zeros(p,1);y], alpha, p);
+end
+
+function y_p = pred(ytemp, alpha, p)
+for t = p+1 : length(ytemp)
+   ytemp(t) = alpha(1);
+   for i = 2:p+1
+      ytemp(t) = ytemp(t)+alpha(i)*ytemp(t-i+1);
+   end   
+end
+y_p = ytemp(p+1:end);
 end
