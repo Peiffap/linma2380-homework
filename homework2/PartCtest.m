@@ -1,3 +1,9 @@
+%=====================================================================
+% PartCtest.m
+%-training error = error between real data y and ŷ(t) = f(ŷ(t-1)...ŷ(t-p))
+%-validation error = error between real data y and ŷ(t) = f(y(t-1)...y(t-p))
+%=======================================================================
+
 clear all
 close all
 load('y.mat', 'y');
