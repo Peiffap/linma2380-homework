@@ -79,6 +79,46 @@
 \begin{document}
 \section*{Exercise A: Least square problems}
 \subsection*{A1}
+Minimising $\snorm{Ax - b}$ in respect to x means finding x such that the derivative of $\snorm{Ax - b}$ in respect to x is equal to zero.\\
+$\snorm{Ax - b}$ can be developed as: \\
+\begin{align*}
+    \snorm{Ax - b} &= \snorm{Ax} - 2 <Ax,b> + \snorm{b} \\
+    &= x^{T}A^{T}Ax - 2x^{T}A^{T}b + b^{T}b 
+\end{align*}
+The derivative in respect to x is: \\
+\begin{align*}
+    \frac{\partial \snorm{Ax - b}}{\partial x} &= \frac{\partial(x^{T}A^{T}Ax - 2x^{T}A^{T}b + b^{T}b)}{\partial x} \\
+    &= \frac{\partial(x^{T}A^{T}Ax)}{\partial x} - \frac{\partial(2x^{T}A^{T}b)}{\partial x} + \frac{\partial(b^{T}b)}{\partial x} \\
+    &= 2A^{T}Ax - 2A^{T}b + 0
+\end{align*}
+This derivative has to be equal to zero. Thus: \\
+\begin{align*}
+    \frac{\partial \snorm{Ax - b}}{\partial x} = 0 \\
+    \Leftrightarrow 2A^{T}Ax - 2A^{T}b = 0 \\
+    \Leftrightarrow 2A^{T}Ax = 2A^{T}b \\
+    \Leftrightarrow A^{T}Ax = A^{T}b
+\end{align*}
+
+To demonstrate that when A has full rank column, i.e. rank(A)=n, the solution is unique, it is needed to prove that Ker($A^{T}A$)=Ker(A). \\
+\begin{align*}
+    \forall x \in Ker(A): Ax = 0 \Leftrightarrow A^{T}Ax = 0 \Leftrightarrow x \in Ker(A^{T}A) \Rightarrow Ker(A) \subset Ker(A^{T}A)
+\end{align*}
+
+\begin{align*}
+    \forall x \in Ker(A^{T}A): A^{T}Ax = 0 \Leftrightarrow x{T}A^{T}Ax = 0 \Leftrightarrow (Ax)^{T}(Ax) = 0 \Leftrightarrow Ax = 0 \Leftrightarrow x \in Ker(A) \\
+    \Rightarrow Ker(A^{T}A) \subset Ker(A)
+\end{align*}
+
+According to the rank-nullity Theorem: \\
+\begin{align*}
+    rank(A) = n - dim(Ker(A)) \\
+    yet: rank(A) = n \\
+    \Rightarrow n = n - dim(Ker(A)) \\
+    \Leftrightarrow dim(Ker(A))= 0 = dim(Ker(A^{T}A)) \\
+    \Rightarrow Ker(A^{T}A) = \{ 0 \}
+\end{align*}
+proving that the solution is unique according to Theorem 1.2. seen in the course.
+
 \subsection*{A2}
 Suppose the QR decomposition of $A$ is given by $\tiny{Q \begin{pmatrix}R\\0\end{pmatrix}}$, where $Q \in \real^{m\times m}$ is unitary and $R \in \real^{n\times n}$ is upper triangular. We will express the solution of 
 \begin{equation}\label{eqA2}
@@ -113,7 +153,6 @@ From theorem 2.8 of the course notes, we know that every matrix $A\in\complex^{m
 \end{align*}
 The solution of equation \eqref{eqA2} is therefore $x=R^{-1}\hat{Q}^Tb$ and the computation of the solution is reduced to the resolution of a single triangular system of linear equations (which can be solved efficiently using backward substitution).
 
-\subsection*{A3}
 
 \section*{Exercise B: Low-rank approximation}
 \subsection*{B1}
@@ -166,7 +205,7 @@ Indeed, consider the matrix \(X = I_1 \in \real^{1 \times 1}\).
 Clearly, we have \(\abs{X_{ij}} \leqslant \varepsilon = 1\) for all \(i, j\) (only one value is possible for each).
 We know that the only singular value of this matrix is \(1\), and hence
 \[
-\snorm{X} = \fnorm{X} = \sqrt{1 \cdot 1} \varepsilon = 1.
+\snorm{X} = \fnorm{X} = \sqrt{1 \cdot 1} \varepsilon = 1 \varepsilon.
 \]
 \subsection*{B3}
 
