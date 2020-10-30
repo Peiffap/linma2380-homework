@@ -79,33 +79,32 @@
 \begin{document}
 \section*{Exercise A: Least square problems}
 \subsection*{A1}
-Minimising $\snorm{Ax - b}$ in respect to x means finding x such that the derivative of $\snorm{Ax - b}$ in respect to x is equal to zero.\\
-$\snorm{Ax - b}$ can be developed as: \\
+Minimising $\snorm{Ax - b}$ with respect to x means finding x such that the derivative of $\snorm{Ax - b}$ with respect to x is equal to zero. Equivalently, we can minimise the square of the norm which can be developed as follows:
 \begin{align*}
-    \snorm{Ax - b} &= \snorm{Ax} - 2 <Ax,b> + \snorm{b} \\
+    \snorm{Ax - b}^2 &= \snorm{Ax}^2 - 2 <Ax,b> + \snorm{b}^2 \\
     &= x^{T}A^{T}Ax - 2x^{T}A^{T}b + b^{T}b 
 \end{align*}
-The derivative in respect to x is: \\
+The derivative with respect to x is: \\
 \begin{align*}
-    \frac{\partial \snorm{Ax - b}}{\partial x} &= \frac{\partial(x^{T}A^{T}Ax - 2x^{T}A^{T}b + b^{T}b)}{\partial x} \\
+    \frac{\partial \snorm{Ax - b}^2}{\partial x} &= \frac{\partial(x^{T}A^{T}Ax - 2x^{T}A^{T}b + b^{T}b)}{\partial x} \\
     &= \frac{\partial(x^{T}A^{T}Ax)}{\partial x} - \frac{\partial(2x^{T}A^{T}b)}{\partial x} + \frac{\partial(b^{T}b)}{\partial x} \\
     &= 2A^{T}Ax - 2A^{T}b + 0
 \end{align*}
 This derivative has to be equal to zero. Thus: \\
 \begin{align*}
-    \frac{\partial \snorm{Ax - b}}{\partial x} = 0 \\
+    \frac{\partial \snorm{Ax - b}^2}{\partial x} = 0 \\
     \Leftrightarrow 2A^{T}Ax - 2A^{T}b = 0 \\
     \Leftrightarrow 2A^{T}Ax = 2A^{T}b \\
     \Leftrightarrow A^{T}Ax = A^{T}b
 \end{align*}
 
-To demonstrate that when A has full rank column, i.e. rank(A)=n, the solution is unique, it is needed to prove that Ker($A^{T}A$)=Ker(A). \\
+To demonstrate that when A has full column rank, i.e. rank(A)=n, the solution is unique, we first prove that Ker($A^{T}A$)=Ker(A): \\
 \begin{align*}
     \forall x \in Ker(A): Ax = 0 \Leftrightarrow A^{T}Ax = 0 \Leftrightarrow x \in Ker(A^{T}A) \Rightarrow Ker(A) \subset Ker(A^{T}A)
 \end{align*}
 
 \begin{align*}
-    \forall x \in Ker(A^{T}A): A^{T}Ax = 0 \Leftrightarrow x{T}A^{T}Ax = 0 \Leftrightarrow (Ax)^{T}(Ax) = 0 \Leftrightarrow Ax = 0 \Leftrightarrow x \in Ker(A) \\
+    \forall x \in Ker(A^{T}A): A^{T}Ax = 0 \Leftrightarrow x^{T}A^{T}Ax = 0 \Leftrightarrow \snorm{Ax} = 0 \Leftrightarrow Ax = 0 \Leftrightarrow x \in Ker(A) \\
     \Rightarrow Ker(A^{T}A) \subset Ker(A)
 \end{align*}
 
@@ -117,7 +116,7 @@ According to the rank-nullity Theorem: \\
     \Leftrightarrow dim(Ker(A))= 0 = dim(Ker(A^{T}A)) \\
     \Rightarrow Ker(A^{T}A) = \{ 0 \}
 \end{align*}
-proving that the solution is unique according to Theorem 1.2. seen in the course.
+As $Ker(A^{T}A)=\{ 0\}$ and $A^{T}A$ is square, we deduce $A^{T}A$ is invertible and it follows from Theorem 2.1 of the course notes that the solution of the system is unique.
 
 \subsection*{A2}
 Suppose the QR decomposition of $A$ is given by $\tiny{Q \begin{pmatrix}R\\0\end{pmatrix}}$, where $Q \in \real^{m\times m}$ is unitary and $R \in \real^{n\times n}$ is upper triangular. We will express the solution of 
