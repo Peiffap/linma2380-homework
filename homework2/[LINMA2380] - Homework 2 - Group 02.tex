@@ -57,6 +57,8 @@
     inputencoding=utf8,
 }
 
+\DeclareMathOperator*{\argmin}{arg\,min}
+
 \DeclareMathOperator{\rank}{rank}
 \DeclareMathOperator{\vect}{vec}
 \DeclareMathOperator{\newdiff}{d} % use \dif instead
@@ -207,6 +209,20 @@ We know that the only singular value of this matrix is \(1\), and hence
 \snorm{X} = \fnorm{X} = \sqrt{1 \cdot 1} \varepsilon = 1 \varepsilon.
 \]
 \subsection*{B3}
+We start by observing that if \(B = A + X\), then by Theorem~3.28 in the lecture notes, we can write
+\begin{align*}
+\sigma_{\min(m, n) - j + 1}(B) &= \min_{\mathcal{S}_j} \max_{x \in \mathcal{S}_j \setminus \{0\}} \frac{\snorm{B\bm{x}}}{\snorm{\bm{x}}}\\
+&= \min_{\mathcal{S}_j} \max_{x \in \mathcal{S}_j \setminus \{0\}} \frac{\snorm{(A + X)\bm{x}}}{\snorm{\bm{x}}}\\
+&\leqslant\min_{\mathcal{S}_j} \max_{x \in \mathcal{S}_j \setminus \{0\}} \left(\frac{\snorm{A\bm{x}}}{\snorm{\bm{x}}} + \frac{\snorm{X\bm{x}}}{\snorm{\bm{x}}}\right)\\
+&\leqslant \sigma_{\min(m, n) - j + 1}(A) + \sigma_{\min(m, n) - j + 1}(X).\\
+\intertext{However, we know that \(A\) has rank \(r\), and hence by the result of B1, we find that if \(\min(m, n) - j + 1 > r\), the singular value of \(A\) in the expression is zero, and hence that}
+\sigma_{\min(m, n) - j + 1}(B) &\leqslant \sigma_{\min(m, n) - j + 1}(X)\\
+&\leqslant \sqrt{mn} \varepsilon,
+\end{align*}
+where the last inequality is a consequence of B2.
+
+A criterion that can then be used to estimate the rank \(r\) of \(A\) is then to take the smallest \(r\) such that \(\sigma_{r + 1}(B) \leqslant \sqrt{mn} \varepsilon\).
+This is very similar to the description given on p.~60 of the lecture notes, concerning the numerical rank of the matrix \(A\). 
 
 \section*{Exercise C: Realization theory}
 
