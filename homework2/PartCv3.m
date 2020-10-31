@@ -22,8 +22,9 @@ ysd_val = ysd(44:end);
 %--------------------------------
 errorc_train = zeros(30,1);
 errorc_val = zeros(30,1);
-plot([yc_train;yc_val]); hold on;
-for p = 1:30
+figure
+plot([yc_train;yc_val], '.-'); hold on;
+for p = 1:26
 [errorc_val(p), errorc_train(p)] = error(yc,yc_train, yc_val, p);
 end
 title('Confinement Mode Fitting and Prediction');
@@ -40,9 +41,9 @@ title('Confinement Mode - Validation error in function of p');
 %--------------------------------
 errorsd_train = zeros(30,1);
 errorsd_val = zeros(30,1);
-plot([ysd_train;ysd_val]); hold on;
 figure
-for p = 1:30
+plot([ysd_train;ysd_val], '.-'); hold on;
+for p = 1:20
 [errorsd_val(p), errorsd_train(p)] = error(ysd,ysd_train, ysd_val, p);
 end
 title('Social Distancing Mode Fitting and Prediction');
@@ -63,26 +64,27 @@ function [error_val, error_train] = error(y,y_train, y_val, p)
 N = length(y_train)-1;
 
 % Solve least squares prob
-[alpha, y_train_p] = solveLeastSquares(y_train, p,N);
+alpha = solveLeastSquares(y_train, p,N);
 
+y_train_p = pred(y_train, alpha, p);
 %Training Error
-error_train = norm(y_train-y_train_p);
+error_train = norm(y_train(p+1:end)-y_train_p);
 
 %Validation Error
 ytemp = y(N+2-p:end);
 y_val_p = pred(ytemp, alpha, p);
 error_val = norm(y_val-y_val_p);
 
-plot([y_train_p;y_val_p], 'DisplayName',strcat('p=', num2str(p))); hold on;
+plot([y_train(1:p);y_train_p;y_val_p], 'DisplayName',strcat('p=', num2str(p))); hold on;
 end
 
-function [alpha, y_p] = solveLeastSquares(y,p,N)
-A = zeros(N+1,p+1);
+function alpha = solveLeastSquares(y,p,N)
+A = zeros(N-p+1,p+1);
 A(:,1) = 1;
 for j = 1:p
-    A(j+1:end,j+1) = y(1:end-j);
+    A(:,p+2-j) = y(j:j+(N-p));
 end
-b=y;
+b=y(p+1:end);
 
 %QR decomp
 [Q,R] = qr(A);
@@ -92,7 +94,7 @@ Rprim = R(1:p+1,:);
 alpha = Rprim\(Qprim'*b);
 
 %model
-y_p = A*alpha;
+%y_p = A*alpha;
 %y_p = pred([zeros(p,1);y], alpha, p);
 end
 
@@ -101,7 +103,7 @@ ytemp2 = ytemp;
 for t = p+1 : length(ytemp)
    ytemp(t) = alpha(1);
    for i = 2:p+1
-      ytemp(t) = ytemp(t)+alpha(i)*ytemp2(t-i+1);
+      ytemp(t) = ytemp(t)+alpha(i)*ytemp(t-i+1);
    end   
 end
 y_p = ytemp(p+1:end);
