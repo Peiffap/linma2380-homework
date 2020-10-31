@@ -259,7 +259,7 @@ y(N)\\
 Note that we consider $\hat{y}(0) = y(0)\dots \hat{y}(p-1) = y(p-1)$ as initial conditions.\\ 
 We want to solve the system \eqref{system} to obtain estimation of the parameters $\alpha_i$. We call $A$ the matrix and we observe that it usually has more lines than columns. Therefore, it is of interest to solve the system using the least squares method. To do so, we can use what we obtained in question A2 to solve the problem with a QR decomposition and backward substitution. Indeed, we must simply solve the triangular system :
 \begin{equation*}
-    Rx &= \hat{Q}^Tb
+    Rx = \hat{Q}^Tb
 \end{equation*}
 where $\hat{Q}$ and $R$ are derived from the QR decomposition of $A$.\\
 We consider two cases : the confinement mode and the social distancing mode. Moreover, for each cases, we divide the data set into a training set (70\% of the data) and a validation set (30\% of the data).\\
@@ -271,8 +271,60 @@ Considering one mode, the system \eqref{system} has to be solved using the data 
 % QUESTION : est-ce qu'on utilise les y estimé pour les p premières valeurs de y_val ou alors les vraies valeurs ?
 The error between the true $y$ and the estimated $\hat{y}$ can be computed on both the training and validation set. This gives an idea of the estimation quality.\\
 
-\subsection*{Discussion}
-\subsection*{Bonus question}
+Next we will show the results we obtained while varying the parameter p.
+\newpage 
 
+\paragraph{Confinement mode}
+First we will study the confinement mode.
+
+As you can see in Figure \ref{fig:Conf_train}, when the parameter p increases, the training error has a tendency to decrease. Indeed, the AR model that we obtain fits better and better our training set data.
+
+
+Then in Figure \ref{fig:Conf_val}, we observe that the validation error decreases (approximatively) until p = 19. And from then on, the error rises again. Through this, we can understand that around p = 20, the model "overfits" our training set and so it gives a good approximation for the training set but gives a poor performance for the validation set.
+
+\begin{figure}[h!]
+\includegraphics[scale=0.25]{Conf_train.jpg}
+\includegraphics[scale=0.25]{Conf_Err_Train.jpg}
+\caption{Confinement Mode - Training set - Fitting to AR Models}
+\label{fig:Conf_train}
+\end{figure}
+
+\begin{figure}[h!]
+\includegraphics[scale=0.25]{Conf_val.jpg}
+\includegraphics[scale=0.25]{Conf_Err_Val.jpg}
+\caption{Confinement Mode - Validation set}
+\label{fig:Conf_val}
+\end{figure}
+
+\newpage
+
+\paragraph{Social Distancing mode}
+
+In the social distancing mode, we can make the same observations (in Figures \ref{fig:SD_train} and \ref{fig:SD_val}) as in the previous mode : the error in the training set decreases when p increases except at some peaks.
+For the validation set, we once again observe overfitting when p is higher than 19.
+\begin{figure}[h!]
+\includegraphics[scale=0.25]{SD_train.jpg}
+\includegraphics[scale=0.25]{SD_Err_Train.jpg}
+\caption{Social Distancing Mode - Training set - Fitting to AR Models}
+\label{fig:SD_train}
+\end{figure}
+
+\begin{figure}[h!]
+\includegraphics[scale=0.25]{SD_val.jpg}
+\includegraphics[scale=0.25]{SD_Err_Val.jpg}
+\caption{Social Distancing Mode - Validation set}
+\label{fig:SD_val}
+\end{figure}
+\subsection*{Discussion}
+
+In both modes, we have confirmed our intuition that the error in the training set would decrease. However, it is not monotonic and we still observe some peaks. One way to try to explain it is that when we solve the least squares problem, we minimize the error between the real values $y(t)$ and $\hat{y}(t) = f(y(t-1),...y(t-p))$ : $e_1 = \| y-\hat{y}\|_2$. But when we calculate the error of the training set, we consider $\tilde{y}(t) = f(\tilde{y}(t-1),... \tilde{y}(t-p))$ : $e_2 = \| y-\tilde{y}\|_2$, and so we propagate the errors along the time $t$. And clearly this last error $e_2$ is bigger than the first one $e_1$. So our intuition that the error should decrease monotonically only applies to the error $e_1$ (which we have indeed observed) and not to $e_2$.
+
+Then, about the validation set errors, we can conclude that overfitting a training set doesn't yield good results for future predictions.
+
+Note that in the analysis above, we only considered values of p such that the linear system of equations has more rows than columns. 
+In the case that we have more columns than rows, our system is underdetermined and so solving the system, so we get an infinity number of solutions that are exact solutions (if there are no linear combinations in the rows of course) which means that our training error is null in theory (in practice we have errors of order $10^{-4}$, for confinement mode, and $10^{-9}$, for social distancing mode, due to numerical errors). For the validation error, we still have an overfitting so it is very big for both modes.
+
+\subsection*{Bonus question}
+If we approximate the model in real time with data that we receive at fixed interval, we will have to solve a new least squares problem everytime we want to include new data to improve the system. This can be expensive especially if the system is big.
 
 \end{document}
