@@ -20,40 +20,42 @@ ysd_val = ysd(44:end);
 %---------------------------------
 % Confinement Mode
 %--------------------------------
-errorc_train = zeros(30,1);
-errorc_val = zeros(30,1);
+pval = 27;
+errorc_train = zeros(length(pval),1);
+errorc_val = zeros(length(pval),1);
 figure
-plot([yc_train;yc_val], '.-'); hold on;
-for p = 1:26
-[errorc_val(p), errorc_train(p)] = error(yc,yc_train, yc_val, p);
+plot(yc, '.-', 'LineWidth',3); hold on;
+for p = 1:length(pval)
+[errorc_val(p), errorc_train(p)] = error(yc,yc_train, yc_val, pval(p));
 end
 title('Confinement Mode Fitting and Prediction');
 figure
-plot(1:30, errorc_train);
+plot(pval, errorc_train, 'o');
 title('Confinement Mode - Training error in function of p');
 figure
-plot(1:30, errorc_val);
+plot(pval, errorc_val, 'o');
 title('Confinement Mode - Validation error in function of p');
 
 %% 
 %---------------------------------
 % Social distancing Mode
 %--------------------------------
-errorsd_train = zeros(30,1);
-errorsd_val = zeros(30,1);
+pval = 21;
+errorsd_train = zeros(length(pval),1);
+errorsd_val = zeros(length(pval),1);
 figure
-plot([ysd_train;ysd_val], '.-'); hold on;
-for p = 1:20
-[errorsd_val(p), errorsd_train(p)] = error(ysd,ysd_train, ysd_val, p);
+plot(ysd, '.-', 'LineWidth',3); hold on;
+for p = 1:length(pval)
+[errorsd_val(p), errorsd_train(p)] = error(ysd,ysd_train, ysd_val, pval(p));
 end
-title('Social Distancing Mode Fitting and Prediction');
+title('Social Distancing Mode - AR models of nb of hospitalizations - Training set');
 
 figure
-plot(1:30, errorsd_train);
+plot(pval, errorsd_train, 'o');
 title('Social Distancing Mode - Training error in function of p');
 
 figure
-plot(1:30, errorsd_val);
+plot(pval, errorsd_val, 'o');
 title('Social Distancing Mode - Validation error in function of p');
 
 %%
@@ -75,7 +77,9 @@ ytemp = y(N+2-p:end);
 y_val_p = pred(ytemp, alpha, p);
 error_val = norm(y_val-y_val_p);
 
-plot([y_train(1:p);y_train_p;y_val_p], 'DisplayName',strcat('p=', num2str(p))); hold on;
+%plot([y_train(1:p);y_train_p], 'DisplayName',strcat('p=', num2str(p))); hold on;
+plot([y_train;y_val_p], 'DisplayName',strcat('p=', num2str(p))); hold on;
+
 end
 
 function alpha = solveLeastSquares(y,p,N)
@@ -86,12 +90,16 @@ for j = 1:p
 end
 b=y(p+1:end);
 
-%QR decomp
-[Q,R] = qr(A);
-Qprim = Q(:,1:p+1);
-Rprim = R(1:p+1,:);
-%TODO : backward substitution
-alpha = Rprim\(Qprim'*b);
+if (N-p)>= p+1
+    %QR decomp
+    [Q,R] = qr(A);
+    Qprim = Q(:,1:p+1);
+    Rprim = R(1:p+1,:);
+    %TODO : backward substitution
+    alpha = Rprim\(Qprim'*b);
+else
+    alpha = A\b;
+end
 
 %model
 %y_p = A*alpha;
@@ -104,7 +112,7 @@ for t = p+1 : length(ytemp)
    ytemp(t) = alpha(1);
    for i = 2:p+1
       ytemp(t) = ytemp(t)+alpha(i)*ytemp(t-i+1);
-   end   
+   end
 end
 y_p = ytemp(p+1:end);
 end
