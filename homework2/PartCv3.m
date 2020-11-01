@@ -20,7 +20,7 @@ ysd_val = ysd(44:end);
 %---------------------------------
 % Confinement Mode
 %--------------------------------
-pval = 27;
+pval = 1:26;
 errorc_train = zeros(length(pval),1);
 errorc_val = zeros(length(pval),1);
 figure
@@ -30,17 +30,17 @@ for p = 1:length(pval)
 end
 title('Confinement Mode Fitting and Prediction');
 figure
-plot(pval, errorc_train, 'o');
+plot(pval, errorc_train);
 title('Confinement Mode - Training error in function of p');
 figure
-plot(pval, errorc_val, 'o');
+plot(pval, errorc_val);
 title('Confinement Mode - Validation error in function of p');
 
 %% 
 %---------------------------------
 % Social distancing Mode
 %--------------------------------
-pval = 21;
+pval = 1:20;
 errorsd_train = zeros(length(pval),1);
 errorsd_val = zeros(length(pval),1);
 figure
@@ -51,11 +51,11 @@ end
 title('Social Distancing Mode - AR models of nb of hospitalizations - Training set');
 
 figure
-plot(pval, errorsd_train, 'o');
+plot(pval, errorsd_train);
 title('Social Distancing Mode - Training error in function of p');
 
 figure
-plot(pval, errorsd_val, 'o');
+plot(pval, errorsd_val);
 title('Social Distancing Mode - Validation error in function of p');
 
 %%
@@ -111,7 +111,7 @@ ytemp2 = ytemp;
 for t = p+1 : length(ytemp)
    ytemp(t) = alpha(1);
    for i = 2:p+1
-      ytemp(t) = ytemp(t)+alpha(i)*ytemp(t-i+1);
+      ytemp(t) = ytemp(t)+alpha(i)*ytemp2(t-i+1);
    end
 end
 y_p = ytemp(p+1:end);
