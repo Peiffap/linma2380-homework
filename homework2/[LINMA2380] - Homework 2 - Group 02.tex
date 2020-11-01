@@ -60,6 +60,7 @@
 \DeclareMathOperator*{\argmin}{arg\,min}
 
 \DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Ker}{Ker}
 \DeclareMathOperator{\vect}{vec}
 \DeclareMathOperator{\newdiff}{d} % use \dif instead
 \newcommand{\dif}{\newdiff\!}
@@ -81,79 +82,90 @@
 \begin{document}
 \section*{Exercise A: Least square problems}
 \subsection*{A1}
-Minimising $\snorm{Ax - b}$ with respect to x means finding x such that the derivative of $\snorm{Ax - b}$ with respect to x is equal to zero. Equivalently, we can minimise the square of the norm which can be developed as follows:
+\begin{proof}
+Minimising $\snorm{Ax - b}$ with respect to \(x\) means finding \(x\) such that the derivative of $\snorm{Ax - b}$ with respect to \(x\) is equal to zero.
+Equivalently, we can minimise the square of the norm which can be developed as follows:
 \begin{align*}
-    \snorm{Ax - b}^2 &= \snorm{Ax}^2 - 2 <Ax,b> + \snorm{b}^2 \\
-    &= x^{T}A^{T}Ax - 2x^{T}A^{T}b + b^{T}b 
+    \snorm{Ax - b}^2 &= \snorm{Ax}^2 - 2 \langle Ax,b \rangle + \snorm{b}^2 \\
+    &= x^\top A^\top Ax - 2x^\top A^\top b + b^\top b. 
 \end{align*}
-The derivative with respect to x is: \\
+The derivative of this expression with respect to \(x\) is
 \begin{align*}
-    \frac{\partial \snorm{Ax - b}^2}{\partial x} &= \frac{\partial(x^{T}A^{T}Ax - 2x^{T}A^{T}b + b^{T}b)}{\partial x} \\
-    &= \frac{\partial(x^{T}A^{T}Ax)}{\partial x} - \frac{\partial(2x^{T}A^{T}b)}{\partial x} + \frac{\partial(b^{T}b)}{\partial x} \\
-    &= 2A^{T}Ax - 2A^{T}b + 0
+    \frac{\partial \snorm{Ax - b}^2}{\partial x} &= \frac{\partial(x^\top A^\top Ax - 2x^\top A^\top b + b^\top b)}{\partial x} \\
+    &= \frac{\partial(x^\top A^\top Ax)}{\partial x} - \frac{\partial(2x^\top A^\top b)}{\partial x} + \frac{\partial(b^\top b)}{\partial x} \\
+    &= 2A^\top Ax - 2A^\top b + 0.
 \end{align*}
-This derivative has to be equal to zero. Thus: \\
+We set this derivative to zero to obtain the following:
 \begin{align*}
-    \frac{\partial \snorm{Ax - b}^2}{\partial x} = 0 \\
-    \Leftrightarrow 2A^{T}Ax - 2A^{T}b = 0 \\
-    \Leftrightarrow 2A^{T}Ax = 2A^{T}b \\
-    \Leftrightarrow A^{T}Ax = A^{T}b
+    \frac{\partial \snorm{Ax - b}^2}{\partial x} = 0\\
+    \iff 2A^\top Ax - 2A^\top b = 0 \\
+    \iff 2A^\top Ax = 2A^\top b \\
+    \iff A^\top Ax = A^\top b.
 \end{align*}
 
+<<<<<<< HEAD
 It is indeed a minima and not a maxima as we consider $\|Ax-b\|_2^2$ : second order havin only one extrema that is a minima.
 To demonstrate that when A has full column rank, i.e. rank(A)=n, the solution is unique, we first prove that Ker($A^{T}A$)=Ker(A): \\
+=======
+To prove that when \(A\) has full column rank, i.e. \(\rank(A)=n\), the solution is unique, we first show that \(\Ker(A^\top A) = \Ker(A)\):
+>>>>>>> a628ab0899208dd582eb17bbc156e7c7088cf613
 \begin{align*}
-    \forall x \in Ker(A): Ax = 0 \Leftrightarrow A^{T}Ax = 0 \Leftrightarrow x \in Ker(A^{T}A) \Rightarrow Ker(A) \subset Ker(A^{T}A)
+    \forall x \in \Ker(A): Ax = 0 \iff A^\top Ax = 0 \iff x \in \Ker(A^\top A) \implies \Ker(A) \subseteq \Ker(A^\top A).
 \end{align*}
 
 \begin{align*}
-    \forall x \in Ker(A^{T}A): A^{T}Ax = 0 \Leftrightarrow x^{T}A^{T}Ax = 0 \Leftrightarrow \snorm{Ax} = 0 \Leftrightarrow Ax = 0 \Leftrightarrow x \in Ker(A) \\
-    \Rightarrow Ker(A^{T}A) \subset Ker(A)
+    \forall x \in \Ker(A^\top A): A^\top Ax = 0 \iff x^\top A^\top Ax = 0 \iff \snorm{Ax} = 0 \iff Ax = 0 \iff x \in \Ker(A) \\
+    \implies \Ker(A^\top A) \subseteq \Ker(A).
 \end{align*}
+Combining these results, we have \(\Ker(A^\top A) = \Ker(A)\).
 
-According to the rank-nullity Theorem: \\
+According to the rank-nullity theorem,
 \begin{align*}
-    rank(A) = n - dim(Ker(A)) \\
-    yet: rank(A) = n \\
-    \Rightarrow n = n - dim(Ker(A)) \\
-    \Leftrightarrow dim(Ker(A))= 0 = dim(Ker(A^{T}A)) \\
-    \Rightarrow Ker(A^{T}A) = \{ 0 \}
+    \rank(A) = n - \dim(\Ker(A)). \\
+    \intertext{However, \(\rank(A) = n\), and thus}
+    n = n - \dim(\Ker(A)) \\
+    \iff \dim(\Ker(A))= 0 = \dim(\Ker(A^\top A)) \\
+    \implies \Ker(A^\top A) = \{0\}.
 \end{align*}
-As $Ker(A^{T}A)=\{ 0\}$ and $A^{T}A$ is square, we deduce $A^{T}A$ is invertible and it follows from Theorem 2.1 of the course notes that the solution of the system is unique.
+As $\Ker(A^\top A)=\{0\}$ and $A^\top A$ is square, we deduce that $A^\top A$ is invertible. It then follows from Theorem~2.1 of the lecture notes that the solution of the system is unique.
+\end{proof}
 
 \subsection*{A2}
 Suppose the QR decomposition of $A$ is given by $\tiny{Q \begin{pmatrix}R\\0\end{pmatrix}}$, where $Q \in \real^{m\times m}$ is unitary and $R \in \real^{n\times n}$ is upper triangular. We will express the solution of 
 \begin{equation}\label{eqA2}
-    A^T Ax=A^T b
-\end{equation} in terms of the QR decomposition of A.\\
-Let $\tiny{R_f=\begin{pmatrix}R\\0\end{pmatrix}}$. We can rewrite equation \eqref{eqA2} as:
+    A^\top Ax=A^\top b
+\end{equation} in terms of the QR decomposition of \(A\).
+
+Let $\tiny{R_f=\begin{pmatrix}R\\0\end{pmatrix}}$.
+We can rewrite \eqref{eqA2} as
 \begin{align*}
-    (QR_f)^{T}QR_fx &= (QR_f)^Tb\\
-    R_f^{T}Q^{T}QR_fx &= R_f^{T}Q^Tb
+    (QR_f)^\top QR_fx &= (QR_f)^\top b\\
+    R_f^\top Q^\top QR_fx &= R_f^\top Q^\top b.
 \end{align*}
-As Q is unitary and hence $Q^TQ=I$, we have:
+As \(Q\) is unitary and hence $Q^\top Q=I$, we have
 \begin{align*}
     \begin{pmatrix}
-    R^T & 0
+    R^\top & 0
     \end{pmatrix}
     \begin{pmatrix}
     R\\ 0
     \end{pmatrix}x
     &=\begin{pmatrix}
-    R^T & 0
+    R^\top & 0
     \end{pmatrix}
-    Q^Tb
+    Q^\top b.
 \end{align*}
-If we call $\hat{Q}$ the matrix consisting of the first n columns of Q, equation \eqref{eqA2} becomes:
+If we call $\hat{Q}$ the matrix consisting of the first \(n\) columns of \(Q\), \eqref{eqA2} becomes
 \begin{align*}
-    R^TRx &= R^T\hat{Q}^Tb
+    R^\top Rx &= R^\top \hat{Q}^\top b.
 \end{align*}
-From theorem 2.8 of the course notes, we know that every matrix $A\in\complex^{m\times n}$ of full column-rank admits a factorization $A=Q_1R_1$ where $Q_1\in\complex^{m\times n}$ is an isometry and $R_1\in\complex^{n\times n}$ is an upper triangular matrix with positive diagonal. The matrix $Q_1$ corresponds to $\hat{Q}$ and $R_1$ simply to $R$. Hence we deduce that $R$ is invertible. This allows us to premultiply both sides of the equation by the inverse of $R^T$:
+From Theorem~2.8 of the lecture notes, we know that every matrix $A\in\complex^{m\times n}$ of full column rank admits a factorization $A=Q_1R_1$ where $Q_1\in\complex^{m\times n}$ is an isometry and $R_1\in\complex^{n\times n}$ is an upper triangular matrix with positive diagonal.
+The matrix $Q_1$ corresponds to $\hat{Q}$ and $R_1$ simply to $R$. Hence, we deduce that $R$ is invertible. This allows us to premultiply both sides of the equation by the inverse of $R^\top$:
 \begin{align*}
-    R^{-T}R^TRx &= R^{-T}R^T\hat{Q}^Tb\\
-    Rx &= \hat{Q}^Tb
+    R^{-\top}R^\top Rx &= R^{-\top}R^\top \hat{Q}^\top b\\
+    Rx &= \hat{Q}^\top b.
 \end{align*}
-The solution of equation \eqref{eqA2} is therefore $x=R^{-1}\hat{Q}^Tb$ and the computation of the solution is reduced to the resolution of a single triangular system of linear equations (which can be solved efficiently using backward substitution).
+The solution of \eqref{eqA2} is therefore $x=R^{-1}\hat{Q}^\top b$ and the computation of the solution is reduced to the resolution of a single triangular system of linear equations (which can be solved efficiently using backward substitution).
 
 
 \section*{Exercise B: Low-rank approximation}
@@ -169,19 +181,24 @@ A = U \Sigma V^*, \quad \textnormal{where}\quad \Sigma = \left[\begin{array}{ccc
 \end{array}\right],
 \]
 with real positive singular values \(\sigma_1 \geqslant \dots \geqslant \sigma_r > 0\).
-These singular values are unique. Indeed, they can be derived from the eigenvalues of the hermitian matrix $A^*A$ (as explained on page 39 of the course notes) which are uniquely defined.
+These singular values are unique. Indeed, they can be derived from the eigenvalues of the Hermitian matrix $A^*A$ (as explained on p.~39 of the course notes) which are uniquely defined.
 %These singular values are unique: the intuition to see this is that the singular value decomposition is computed inductively, and that the unitary matrices preserve the norm. By taking the property that \(\snorm{X} = \sigma_1\), this means that at every step of the decomposition, no matter what unitary transformations are chosen, the norm (and thus the maximal singular value of the submatrix we are working on) is the same.
 
 Next, we show that the rank of a matrix is equal to its number of nonzero singular values.
 \begin{proof}
-    We first prove that if $A$ is a $K\times L$ matrix and $B$ is a full-rank $L\times L$ matrix then $\rank(AB)=\rank(A)$.\\
-    Let $S_1$ be the space generated by the columns of $A$ and $S_2$ the space generated by the columns of $AB$.\\
-    If $x\in S_1$ then there exists $y\in \real^{L\times 1}$ such that $x=Ay$. Considering $\hat{y}=B^{-1}y$ we note that $x=ABB^{-1}y=(AB)\hat{y}$ and so $x\in S_2$. If $x\in S_2$ then there exists $y\in \real^{L\times 1}$ such that $x=(AB)y$, we note that $x=A(By)$ and so $x\in S_2$. This shows that the spaces generated by the columns of $A$ and $AB$ coincide and hence $\rank(A)=\rank(AB)$.\\
-    Similarly we prove that if $A$ is a $K\times L$ matrix and $B$ is a full-rank $K\times K$ matrix then $\rank(BA)=\rank(A)$.\\
-    Let $S_1$ be the space generated by the rows of $A$ and $S_2$ the space generated by the rows of $BA$.\\
-    If $x\in S_1$ then there exists $y\in \real^{1\times K}$ such that $x=yA$. Considering $\hat{y}=yB^{-1}$ we note that $x=yB^{-1}BA=\hat{y}(BA)$ and so $x\in S_2$. If $x\in S_2$ then there exists $y\in \real^{1\times K}$ such that $x=y(BA)$, we note $x=(yB)A$ and so $x\in S_1$. This shows that the spaces generated by the rows of $A$ and $AB$ coincide and hence $\rank(A)=\rank(BA)$.\\
+    We first prove that if $A$ is a $k\times \ell$ matrix and $B$ is a full-rank $\ell \times \ell$ matrix then $\rank(AB)=\rank(A)$.
+    Let $S_1$ be the space generated by the columns of $A$ and $S_2$ the space generated by the columns of $AB$.
+    If $x\in S_1$ then there exists $y\in \real^{\ell \times 1}$ such that $x=Ay$.
+    Considering $\hat{y}=B^{-1}y$, we note that $x=ABB^{-1}y=(AB)\hat{y}$ and so $x\in S_2$. If $x\in S_2$ then there exists $y\in \real^{\ell\times 1}$ such that $x=(AB)y$.
+    We note that $x=(A)By$ and so $x\in S_2$. This shows that the spaces generated by the columns of $A$ and $AB$ coincide and hence $\rank(A)=\rank(AB)$.
+    
+    Similarly we prove that if $A$ is a $k \times \ell$ matrix and $B$ is a full-rank $k\times k$ matrix then $\rank(BA)=\rank(A)$.
+    Let $S_1$ be the space generated by the rows of $A$ and $S_2$ the space generated by the rows of $BA$.
+    If $x\in S_1$ then there exists $y\in \real^{1\times k}$ such that $x=yA$. Considering $\hat{y}=yB^{-1}$ we note that $x=yB^{-1}BA=\hat{y}(BA)$ and so $x\in S_2$. If $x\in S_2$ then there exists $y\in \real^{1\times k}$ such that $x=y(BA)$.
+    We note $x=yB(A)$ and so $x\in S_1$. This shows that the spaces generated by the rows of $A$ and $AB$ coincide and hence $\rank(A)=\rank(BA)$.
+    
 	We know that the rank of a diagonal matrix is equal to the number of its nonzero entries.
-	We also note that in the decomposition \(A = U \Sigma V^*\), \(U\) and \(V^*\) are of full-rank.
+	We also note that in the decomposition \(A = U \Sigma V^*\), \(U\) and \(V^*\) have full rank.
 	Therefore, \(\rank(A) = \rank(\Sigma) = r\) where $r$ is the number of nonzero singular values.
 \end{proof}
 
@@ -212,7 +229,7 @@ Indeed, consider the matrix \(X = \varepsilon \in \real^{1 \times 1}\).
 Clearly, we have \(\abs{X_{ij}} \leqslant \varepsilon \) for all \(i, j\) (only one value is possible for each).
 We know that the only singular value of this matrix is \(\varepsilon\), and hence
 \[
-\snorm{X} = \fnorm{X} = \sqrt{1 \cdot 1} \varepsilon = 1 \varepsilon.
+\snorm{X} = \fnorm{X} = \sqrt{1 \cdot 1} \varepsilon = \varepsilon.
 \]
 \subsection*{B3}
 We start by observing that if \(B = A + X\), then by Theorem~3.28 in the lecture notes, we can write
@@ -232,16 +249,16 @@ This is very similar to the description given on p.~60 of the lecture notes, con
 
 \section*{Exercise C: Realization theory}
 
-In this last exercise, we are interested in finding an AR model corresponding to the data obtained during the covid pandemic. Indeed, we want to find the parameters $\alpha_i$ of:
+In this last exercise, we are interested in finding an AR model corresponding to the data obtained during the coronavirus pandemic. Indeed, we want to find the parameters $\alpha_i$ of
 \[y(t) = \alpha_0 + \sum_{i=1}^p \alpha_iy(t-i)
 \]
 %For this, we will minimimize the squared error $f = \|y-\hat{y} \|_2$ where $\hat{y}$ is the estimated output and $y$ the true output.
-Let's rewrite the problem as a system of linear equations:
+Let us rewrite the problem as a system of linear equations:
 \begin{align}\label{system}
 \begin{pmatrix}
 1 & y(p-1)& y(p-2)&\dots& y(0)\\
 1 & y(p)&y(p-1)&\dots& y(1)\\
-\vdots&\vdots &\vdots&&\vdots\\
+\vdots&\vdots &\vdots&\ddots&\vdots\\
 1& y(N-1)&y(N-2)&\dots& y(N-p)\\
 \end{pmatrix}
 \begin{pmatrix}
@@ -257,71 +274,91 @@ y(p)\\
 y(N)\\
 \end{pmatrix}
 \end{align}
-Note that we consider $\hat{y}(0) = y(0)\dots \hat{y}(p-1) = y(p-1)$ as initial conditions.\\ 
-We want to solve the system \eqref{system} to obtain estimation of the parameters $\alpha_i$. We call $A$ the matrix and we observe that it usually has more lines than columns. Therefore, it is of interest to solve the system using the least squares method. To do so, we can use what we obtained in question A2 to solve the problem with a QR decomposition and backward substitution. Indeed, we must simply solve the triangular system :
+Note that we consider $\hat{y}(0) = y(0),\dots, \hat{y}(p-1) = y(p-1)$ as initial conditions.\\ 
+We want to solve the system \eqref{system} to obtain an estimate of the optimal parameters $\alpha_i$. We call $A$ the matrix and we observe that it usually has more lines than columns. Therefore, it is of interest to solve the system using the least squares method. To do so, we can use what we obtained in question A2 to solve the problem with a QR decomposition and backward substitution. Indeed, we must simply solve the triangular system :
 \begin{equation*}
-    Rx = \hat{Q}^Tb
+    Rx = \hat{Q}^\top b,
 \end{equation*}
-where $\hat{Q}$ and $R$ are derived from the QR decomposition of $A$.\\
-We consider two cases : the confinement mode and the social distancing mode. Moreover, for each cases, we divide the data set into a training set (70\% of the data) and a validation set (30\% of the data).\\
-Considering one mode, the system \eqref{system} has to be solved using the data of the training set. Next, an estimated $y$ that we call $\hat{y}$ can be reconstructed using the AR model equation. The first $p$ components of $\hat{y}$ are given by the initial conditions and then the next components are constructed based on the previous calculated estimates:
+where $\hat{Q}$ and $R$ are derived from the QR decomposition of $A$.
+
+We consider two cases: the lockdown mode and the social distancing mode. Moreover, for each case, we divide the data set into a training set (\SI{70}{\percent} of the data) and a validation set (\SI{30}{\percent} of the data).
+
+Considering one mode, \eqref{system} has to be solved using the data of the training set. Next, an estimate $y$ that we call $\hat{y}$ can be reconstructed using the AR model equation. The first $p$ components of $\hat{y}$ are given by the initial conditions and then the next components are constructed based on the previously computed estimates:
 \begin{equation*}
     \hat{y}(t)=\alpha_0+\sum_{i=1}^p \alpha_i\hat{y}(t-i)
 \end{equation*}
 %Similarly, $\hat{y}$ can be calculated on the validation set as well using the estimated parameters.\\
 % QUESTION : est-ce qu'on utilise les y estimé pour les p premières valeurs de y_val ou alors les vraies valeurs ?
-The error between the true $y$ and the estimated $\hat{y}$ can be computed on both the training and validation set. This gives an idea of the estimation quality.\\
+The error between the true $y$ and the estimate $\hat{y}$ can be computed on both the training and validation set. This allows one to judge the quality of the model.
 
-Next we will show the results we obtained while varying the parameter p.
-\newpage 
+Next, we show the results we obtained while varying the parameter \(p\).
 
-\paragraph{Confinement mode}
-First we will study the confinement mode.
+\paragraph{Lockdown mode}
+First, we study the lockdown mode.
+As one can see in Figure~\ref{fig:Conf_train}, when the parameter \(p\) increases, the training error has a tendency to decrease. Indeed, the AR model that we obtain is able to better represent our training set data as the size of the history grows.
 
-As you can see in Figure \ref{fig:Conf_train}, when the parameter p increases, the training error has a tendency to decrease. Indeed, the AR model that we obtain fits better and better our training set data.
-
-
-Then in Figure \ref{fig:Conf_val}, we observe that the validation error decreases (approximatively) until p = 19. And from then on, the error rises again. Through this, we can understand that around p = 20, the model "overfits" our training set and so it gives a good approximation for the training set but gives a poor performance for the validation set.
+Then, in Figure~\ref{fig:Conf_val}, we observe that the validation error decreases (approximatively) until \(p = 19\), and from then on, the error rises again. Through this, we can understand that around \(p = 20\), the model starts ``overfitting'' our training set, and so it gives a good approximation for the training set but performs poorly on the validation set.
 
 \begin{figure}[h!]
+<<<<<<< HEAD
 \centering
 \includegraphics[scale=0.3]{Conf_train.jpg}
 \includegraphics[scale=0.3]{Conf_Err_Train.jpg}
 \caption{Confinement Mode - Training set - Fitting to AR Models}
+=======
+\includegraphics[scale=0.25]{Conf_train.jpg}
+\includegraphics[scale=0.25]{Conf_Err_Train.jpg}
+\caption{Lockdown mode: training set predictions and error using the AR model, for different values of \(p\).}
+>>>>>>> a628ab0899208dd582eb17bbc156e7c7088cf613
 \label{fig:Conf_train}
 \end{figure}
 
 \begin{figure}[h!]
+<<<<<<< HEAD
 \centering
 \includegraphics[scale=0.3]{Conf_val.jpg}
 \includegraphics[scale=0.3]{Conf_Err_Val.jpg}
 \caption{Confinement Mode - Validation set}
+=======
+\includegraphics[scale=0.25]{Conf_val.jpg}
+\includegraphics[scale=0.25]{Conf_Err_Val.jpg}
+\caption{Lockdown mode: validation set predictions and error using the AR model, for different values of \(p\).}
+>>>>>>> a628ab0899208dd582eb17bbc156e7c7088cf613
 \label{fig:Conf_val}
 \end{figure}
 
-\newpage
-
-\paragraph{Social Distancing mode}
-
-In the social distancing mode, we can make the same observations (in Figures \ref{fig:SD_train} and \ref{fig:SD_val}) as in the previous mode : the error in the training set decreases when p increases except at some peaks.
-For the validation set, we once again observe overfitting when p is higher than 19.
+\paragraph{Social distancing mode}
+In the social distancing mode, we can make the same observations (in Figures~\ref{fig:SD_train} and \ref{fig:SD_val}) as in the previous mode: the error in the training set decreases when \(p\) increases except at some peaks.
+For the validation set, we once again observe overfitting when \(p\) is higher than \(19\).
 \begin{figure}[h!]
+<<<<<<< HEAD
 \centering
 \includegraphics[scale=0.3]{SD_train.jpg}
 \includegraphics[scale=0.3]{SD_Err_Train.jpg}
 \caption{Social Distancing Mode - Training set - Fitting to AR Models}
+=======
+\includegraphics[scale=0.25]{SD_train.jpg}
+\includegraphics[scale=0.25]{SD_Err_Train.jpg}
+\caption{Social distancing mode: training set predictions and error using the AR model, for different values of \(p\).}
+>>>>>>> a628ab0899208dd582eb17bbc156e7c7088cf613
 \label{fig:SD_train}
 \end{figure}
 
 \begin{figure}[h!]
+<<<<<<< HEAD
 \centering
 \includegraphics[scale=0.3]{SD_val.jpg}
 \includegraphics[scale=0.3]{SD_Err_Val.jpg}
 \caption{Social Distancing Mode - Validation set}
+=======
+\includegraphics[scale=0.25]{SD_val.jpg}
+\includegraphics[scale=0.25]{SD_Err_Val.jpg}
+\caption{Lockdown mode: validation set predictions and error using the AR model, for different values of \(p\).}
+>>>>>>> a628ab0899208dd582eb17bbc156e7c7088cf613
 \label{fig:SD_val}
 \end{figure}
-\subsection*{Discussion}
 
+<<<<<<< HEAD
 In both modes, we have confirmed our intuition that the error in the training set would decrease. However, it is not monotonic and we still observe some peaks. One way to try to explain it is that when we solve the least squares problem, we minimize the error between the real values $y(t)$ and $\tilde{y}(t) = \alpha_0 + \sum_{i=1}^p \alpha_iy(t-i)$ : $e_1 = \| y-\tilde{y}\|_2$. But when we calculate the error of the training set, we consider $\hat{y}(t) = \alpha_0 + \sum_{i=1}^p \alpha_i \hat{y}(t-i)$ : $e_2 = \| y-\hat{y}\|_2$, and so we propagate the errors along the time $t$. And clearly this last error $e_2$ is bigger than the first one $e_1$. So our intuition that the error should decrease monotonically can only apply to the error $e_1$ (which we have indeed observed in Figure \ref{fig:e1}) and not to $e_2$.
 
 \begin{figure}[h!]
@@ -339,5 +376,17 @@ In the case that we have more columns than rows, our system is underdetermined a
 
 \subsection*{Bonus question}
 If we approximate the model in real time with data that we receive at fixed interval, we will have to solve a new least squares problem (as defined in the beginning of this section) everytime we want to include new data to improve the system. Indeed, we will have to add new rows each time we receive new data and solve it again. This can be expensive especially if the system is big.
+=======
+\subsection*{Discussion}
+In both modes, we have confirmed our intuition that the error in the training set should decrease. However, it is not monotonic and we still observe some peaks. One way to try to explain this is that when we solve the least squares problem, we minimize the error between the real values $y(t)$ and $\hat{y}(t) = f(y(t-1),\dots, y(t-p))$: $e_1 = \snorm{y-\hat{y}}$. However, when we compute the error on the training set, we consider $\tilde{y}(t) = f(\tilde{y}(t-1),\dots, \tilde{y}(t-p))$: $e_2 = \snorm{y-\tilde{y}}$, and so we propagate the errors along the time $t$. Clearly, this last error $e_2$ is bigger than the first one $e_1$. So our intuition that the error should decrease monotonically only applies to the error $e_1$ (which we have indeed observed) and not to $e_2$.
+
+Then, about the validation set errors, we can conclude that overfitting a training set doesn't yield good results for future predictions.
+
+Note that in the analysis above, we only considered values of \(p\) such that the linear system of equations has more rows than columns.
+In the case that we have more columns than rows, our system is underdetermined and so solving the system yields an infinity of solutions that are exact (if there are no linear combinations in the rows of course) which means that our training error is zero in theory (in practice, we have errors of order $10^{-4}$, for the confinement mode, and $10^{-9}$ for the social distancing mode, due to numerical imprecisions). For the validation error, we still overfit, so the error is very big for both modes.
+
+\subsection*{Bonus question}
+If we approximate the model in real time with data that we receive at fixed intervals, we will have to solve a new ``full-size'' least squares problem everytime we want to include new data to improve the system. This can be expensive especially if the system is big.
+>>>>>>> a628ab0899208dd582eb17bbc156e7c7088cf613
 
 \end{document}
