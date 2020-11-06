@@ -1,0 +1,107 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,left=1.5cm,right=1.5cm,top=1.5cm,bottom=1.5cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{mleftright}
+\usepackage{verbatim}
+\renewcommand{\headrulewidth}{1pt}
+\fancyhead[C]{\textsc{[LINMA2380] --- Homework 3}}
+\fancyhead[L]{23 November 2020}
+\fancyhead[R]{Group 02}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{csquotes}
+\usepackage{mathtools,amssymb,amsthm}
+\usepackage[binary-units=true,separate-uncertainty = true,multi-part-units=single]{siunitx}
+\usepackage{float}
+\usepackage[linktoc=all]{hyperref}
+\hypersetup{breaklinks=true}
+\graphicspath{{img/}}
+\usepackage{caption}
+\usepackage{textcomp}
+\usepackage{array}
+\usepackage{color}
+\usepackage{tabularx,booktabs}
+\usepackage{titlesec}
+\usepackage{wrapfig}
+\pagestyle{fancy}
+\usepackage{mathrsfs}
+\usepackage{bm}
+\DeclarePairedDelimiterX{\norm}[1]{\lVert}{\rVert}{#1}
+
+\newcommand{\imag}{\mathrm{i}\mkern1mu} % Imaginary unit
+\newcommand{\abs}[1]{\left\lvert#1\right\lvert}
+\usepackage{listings}
+\lstset{
+	language=Python,
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	basicstyle=\rm\small\ttfamily,
+	keywordstyle=\bfseries\color{dkred},
+	frame=single,
+	commentstyle=\color{gray}=small,
+	stringstyle=\color{dkgreen},
+	%backgroundcolor=\color{gray!10},
+	%tabsize=8, % Thank you Papa Torvalds
+	%rulecolor=\color{black!30},
+	%title=\lstname,
+	breaklines=true,
+	framextopmargin=2pt,
+	framexbottommargin=2pt,
+	extendedchars=true,
+	inputencoding=utf8,
+}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\vect}{vec}
+\DeclareMathOperator{\newdiff}{d} % use \dif instead
+\newcommand{\dif}{\newdiff\!}
+\newcommand{\e}{\mathrm{e}}
+
+\newcommand{\field}{\mathbb{F}} % field
+\newcommand{\real}{\mathbb{R}} % real numbers
+\newcommand{\complex}{\mathbb{C}} % complex numbers
+
+\newcommand{\snorm}[1]{\norm{#1}_2} % spectral norm
+\newcommand{\fnorm}[1]{\norm{#1}_F} % frobenius norm
+
+\setcounter{MaxMatrixCols}{15}
+
+\newcommand\undermat[2]{% http://tex.stackexchange.com/a/102468/5764
+	\makebox[0pt][l]{$\smash{\underbrace{\phantom{%
+					\begin{matrix}#2\end{matrix}}}_{\text{$#1$}}}$}#2}
+
+\begin{document}
+\section*{Exercise A: Boundedness of trajectories and Lyapunov equation}
+\subsection*{A1}
+\subsection*{A2}
+\subsection*{A3}
+The minimal polynomial of a matrix \(A \in \complex^{n \times n}\) is the polynomial
+\[
+m(\lambda) = \prod_i (\lambda - \lambda_i)^{k_i^*},
+\]
+where
+\[
+f(J) = \mathop{\mathrm{diag}} \left\{f\left(J_{k_{i_j}}(\lambda_{i_j})\right)\right\}, \quad k_i^* = \max_{1 \leqslant j \leqslant n_i} k_{i_j},
+\]
+and \(n_i\) is the number of Jordan blocks with eigenvalue \(\lambda_i\).
+
+If \(\lambda_i\) is a simple eigenvalue, then the size of the largest Jordan block with eigenvalue \(\lambda_i\) is \(1\) (i.e. \(k_i^* = 1\)).
+\subsection*{A4}
+\subsection*{A5}
+\subsection*{A6}
+\subsection*{A7}
+\subsection*{A8}
+
+\section*{Exercise B: Implementation}
+\subsection*{B1}
+\subsection*{B2}
+\end{document}
