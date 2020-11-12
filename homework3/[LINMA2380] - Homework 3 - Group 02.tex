@@ -34,6 +34,10 @@
 \usepackage{bm}
 \DeclarePairedDelimiterX{\norm}[1]{\lVert}{\rVert}{#1}
 
+\newcommand\bovermat[2]{%
+  \makebox[0pt][l]{$\smash{\overbrace{\phantom{%
+    \begin{matrix}#2\end{matrix}}}^{\text{#1}}}$}#2}
+    
 \newcommand{\imag}{\mathrm{i}\mkern1mu} % Imaginary unit
 \newcommand{\abs}[1]{\left\lvert#1\right\lvert}
 \usepackage{listings}
@@ -83,6 +87,73 @@
 \section*{Exercise A: Boundedness of trajectories and Lyapunov equation}
 \subsection*{A1}
 \subsection*{A2}
+We assume that $A=J_n(\lambda)$. Hence we can write :
+\begin{equation*}
+    x(t)=e^{At}x(0)=e^{J_n(\lambda)t}x(0)
+\end{equation*}
+We can use the result of question B4 from Homework 1 which develops $e^{J_n(\lambda)}$:
+\begin{align*}
+    x(t)&=e^{J_n(\lambda)t}x(0)\\
+    &=e^{\lambda t}\Bigg(I+\sum_{k=1}^{n-1}\frac{1}{k!}\big(J_n(0)\big)^k\Bigg)^t x(0)\\
+    &=e^{\lambda t}e^{J_n(0) t} x(0)\\
+    &=e^{\lambda t}\Bigg(I+\sum_{k=1}^{n-1}\frac{1}{k!}\big(J_n(0) t\big)^k\Bigg) x(0)\\
+    &=e^{\lambda t}\Bigg(I+\sum_{k=1}^{n-1}\frac{1}{k!}J_n^k(0) t^k\Bigg) x(0)
+\end{align*}
+The third and fourth equalities come from the definition of the matrix exponential. We can now develop the terms in parentheses : 
+\begin{align*}
+    I+\sum_{k=1}^{n-1}\frac{1}{k!}J_n^k(0) t^k = I &+ \frac{t}{1!}
+    \begin{pmatrix}
+    0&1&&\\
+    &\ddots&\ddots&&\\
+    &&0&1&\\
+    &&&0&1\\
+    &&&&0
+    \end{pmatrix} + \frac{t^2}{2!}
+    \begin{pmatrix}
+    0&0&1&\\
+    &\ddots&\ddots&\ddots&\\
+    &&0&0&1\\
+    &&&0&0\\
+    &&&&0
+    \end{pmatrix}\\ \\
+    &+ \dots +\frac{t^k}{k!}
+    %\begin{pmatrix}
+    %\bovermat{k zero columns}{0&\dots&0}&1&\\
+    %&\ddots&&\ddots&\ddots&\\
+    %&&0&\dots&0&1\\
+    %&&&0&\dots&0\\
+    %&&&&\ddots&\vdots\\
+    %&&&&&0
+    %\end{pmatrix}
+    \begin{pmatrix}
+    \bovermat{$k$ zeros}{0&\dots&0}&1&\\
+    &\ddots&&\ddots&\ddots&\\
+    &&\ddots&&\ddots&1\\
+    &&&\ddots&&0\\
+    &&&&\ddots&\vdots\\
+    &&&&&0
+    \end{pmatrix}
+    +\dots+\frac{t^{n-1}}{(n-1)!}
+    \begin{pmatrix}
+    \bovermat{$n-1$ zeros}{0&\dots&0}&1\\
+     &\ddots&&0\\
+     & & \ddots & \vdots\\
+     & & & 0\\
+    \end{pmatrix}\\
+    &=
+    \begin{pmatrix}
+    1 & t/1! & \dots & t/k! & \dots & t^{n-1}/(n-1)!\\
+      & \ddots & \ddots &  & \ddots & \vdots\\
+      & & 1 & t/1! & & t/k! &\\
+      & & & \ddots & \ddots & \vdots\\
+      & & & & 1 & t/1!\\
+      & & & & & 1\\
+    \end{pmatrix}
+\end{align*}
+We deduce from the previous expression that for $i\in [n]$:
+\begin{equation*}
+    x_i(t)=e^{\lambda t}\sum^{n}_{j=i}\frac{1}{(j-i)!}t^{j-i}x_i(0)
+\end{equation*}
 \subsection*{A3}
 The minimal polynomial of a matrix \(A \in \complex^{n \times n}\) is the polynomial
 \[
