@@ -165,9 +165,27 @@ f(J) = \mathop{\mathrm{diag}} \left\{f\left(J_{k_{i_j}}(\lambda_{i_j})\right)\ri
 \]
 and \(n_i\) is the number of Jordan blocks with eigenvalue \(\lambda_i\).
 
-If \(\lambda_i\) is a simple eigenvalue, then the size of the largest Jordan block with eigenvalue \(\lambda_i\) is \(1\) (i.e. \(k_i^* = 1\)).
+Simple eigenvalues thus have the property that the size of the largest Jordan block with that eigenvalue \(\lambda_i\) is \(1\) (i.e. \(k_i^* = 1\)).
 \subsection*{A4}
+
 \subsection*{A5}
+% not really sure this is what they're asking for
+\begin{proof}
+	One can show that the matrix \(P\) must exist by proving that for \(P = I_n\), the statement holds.
+	Indeed, \(I_n\) is positive definite and Hermitian.
+	Since \(D\) and \(D^*\) are diagonal, their sum is also diagonal.
+	In fact,
+	\[
+	D + D^* = \mathop{\mathrm{diag}}(\lambda_1 + \lambda_1^*, \dots, \lambda_n + \lambda_n^*),
+	\]
+	where \(\lambda_i\) and \(\lambda_i^*\) are the eigenvalues of \(D\) and \(D^*\), respectively.
+	We know that the imaginary parts of these eigenvalues cancel each other out, and that the real parts are the same (and are nonpositive), by virtue of the definition of the conjugate transpose.
+	We thus get
+	\[
+	D^*P + PD = D^*I_n + I_nD = D^* + D = \mathop{\mathrm{diag}}(\lambda_1 + \lambda_1^*, \dots, \lambda_n + \lambda_n^*) \preceq 0,
+	\]
+	which proves the existence of such a positive definite Hermitian matrix \(P\).
+\end{proof}
 \subsection*{A6}
 \subsection*{A7}
 \subsection*{A8}
