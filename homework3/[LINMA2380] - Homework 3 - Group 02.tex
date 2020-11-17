@@ -40,6 +40,9 @@
     
 \newcommand{\imag}{\mathrm{i}\mkern1mu} % Imaginary unit
 \newcommand{\abs}[1]{\left\lvert#1\right\lvert}
+\newcommand{\kp}{\otimes}
+\DeclareMathOperator{\vect}{vec}
+
 \usepackage{listings}
 \lstset{
 	language=Python,
@@ -199,7 +202,102 @@ We've shown $y_i(t)$ and hence $\norm{y(t)}=\norm{Tx(t)}$ tends to zero.
 	which proves the existence of such a positive definite Hermitian matrix \(P\).
 \end{proof}
 \subsection*{A6}
+First, we develop $B=I\kp A^*+A^T\kp I$:
+\begin{align*}
+    B=
+    \begin{pmatrix}
+    A^* & & \\
+    &\ddots&\\
+    & & A^*
+    \end{pmatrix}+
+    \begin{pmatrix}
+    a_{11} I & \dots & a_{1n} I\\
+    \vdots & & \vdots\\
+    a_{n1} I & \dots & a_{nn} I\\
+    \end{pmatrix}
+\end{align*}
+We know $A\in\complex^{n\times n}$ is a Jordan block with eigenvalue $\lambda$:
+\begin{align*}
+    B&=
+    \renewcommand{\arraystretch}{1.5}
+    \begin{pmatrix}
+    J_n(\lambda)^* & & \\
+    &\ddots&\\
+    & & J_n(\lambda)^*
+    \end{pmatrix}+
+    \begin{pmatrix}
+    \lambda I & & &\\
+    I & \ddots & &\\
+    & \ddots & \ddots &\\
+    & & I & \lambda I
+    \end{pmatrix}\\
+    &=\begin{pmatrix}
+    J_n(\lambda)^*+\lambda I &  &  & \\
+    I & \ddots & &\\
+    & \ddots & \ddots &\\
+    & & I & J_n(\lambda)^*+\lambda I
+    \end{pmatrix}\\
+    &=\begin{pmatrix}
+    J_n(\lambda+\lambda^*)^* & & & \\
+    I & \ddots & &\\
+    & \ddots & \ddots &\\
+    & & I & J_n(\lambda+\lambda^*)^*
+    \end{pmatrix}
+\end{align*}
+The matrix B is a lower triangular and therefore its eigenvalues are the diagonal elements : $\lambda+\lambda^*$. Moreover, we know $Re(\lambda)>0$ and so $\lambda+\lambda^*=2Re(\lambda)>0$. From this we deduce that $B$ is positive definite and hence invertible. It follows that the system $B\vect(P)=-\vect(Q)$ has a unique solution and consequently we conclude that P exists and is unique.\\
+Next we show that if $P\in\complex^{n\times n}$ satisfies $A^*P+PA=-Q$ then $P^*$ also satisfies $A^*P^*+P^*A=-Q$. This can be simply proven by taking the transpose conjuguate of both sides of the equation $A^*P+PA=-Q$ that P satisfies taking into account that Q is hermitian:
+\begin{align*}
+    (A^*P+PA)^*&=(-Q)^*\\
+    P^*A+A^*P^*&=-Q
+\end{align*}
+This shows that $P^*$ satisfies $A^*P^*+P^*A=-Q$.\\
+Combining the two last results, we deduce that there always exists a unique hermitian matrix $P$ satisfying $B\vect(P)=-\vect(Q)$.\\
+Finally, we want to show that $P$ is hermitian. We consider a trajectory $x(t)$ starting from $x(0)$. If we define $V(x(t))=x(t)^*Px(t)$, we observe that:
+\begin{align*}
+    \dot{V}(x(t))&=\dot{x}(t)^*P x(t)+x(t)^*P\dot{x}(t)\\
+    &=x(t)^*A^*P x(t)+x(t)^*P A x(t)\\
+    &=x(t)^*(A^*P+P A) x(t)\\
+    &=x(t)^*(-Q) x(t)\\
+    &\leq 0
+\end{align*}
+Consequently, we find that for $t>0$ we have: $x(t)^*P x(t)< x(0)^*P x(0)$.
+%%%% TROUVER LA DERNIERE PARTIE
 \subsection*{A7}
+2 => 3\\
+%IDEE
+% prouver pourquoi on peut considerer la jordan form
+Jordan form of A such that simple eigenvalues in block $A_1$ and other eigenvalues in block $A_2$:
+\begin{align*}
+    \begin{pmatrix}
+    A_1 & \\
+    & A_2
+    \end{pmatrix}
+\end{align*}
+By A3 we find $P_1$ such that $P_1A_1+A_1^*P_1=-Q1$ and by A6 we find $P_2$ such that $P_2A_2+A_2^*P_2=-Q2$
+\begin{align*}
+    \begin{pmatrix}
+    P_1 & \\
+    & P_2
+    \end{pmatrix}
+    \begin{pmatrix}
+    A_1 & \\
+    & A_2
+    \end{pmatrix}
+    +
+    \begin{pmatrix}
+    A_1^* & \\
+    & A_2^*
+    \end{pmatrix}
+    \begin{pmatrix}
+    P_1 & \\
+    & P_2
+    \end{pmatrix}=-
+    \begin{pmatrix}
+    Q_1 & \\
+    & Q_2
+    \end{pmatrix}\preceq 0
+\end{align*}
+
 \subsection*{A8}
 
 \section*{Exercise B: Implementation}
