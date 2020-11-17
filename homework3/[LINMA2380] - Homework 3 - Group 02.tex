@@ -32,6 +32,8 @@
 \pagestyle{fancy}
 \usepackage{mathrsfs}
 \usepackage{bm}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+
 \DeclarePairedDelimiterX{\norm}[1]{\lVert}{\rVert}{#1}
 
 \newcommand\bovermat[2]{%
@@ -302,5 +304,102 @@ By A3 we find $P_1$ such that $P_1A_1+A_1^*P_1=-Q1$ and by A6 we find $P_2$ such
 
 \section*{Exercise B: Implementation}
 \subsection*{B1}
+First, $I \otimes A^{*} + A^{T} \otimes I = V (I \otimes S^{*} + S^{T} \otimes I) V^{*}$ has to be demonstrated:\\
+
+\begin{align*}
+   V (I \otimes S^{*} + S^{T} \otimes I) V^{*} &= (U^{*} \otimes U) (I \otimes S^{*} + S^{T} \otimes I) (U^{*} \otimes U)^{*} \\
+   &= [(U^{*} \otimes U) (I \otimes S^{*}) + (U^{*} \otimes U) (S^{T} \otimes I)] (U \otimes U^{*}) \\
+   &= [(U^{*} I \otimes U S^{*}) + (U^{*}S^{T} \otimes U I)] (U \otimes U^{*}) \\
+   &= (U^{*} I \otimes U S^{*}) (U \otimes U^{*}) + (U^{*}S^{T} \otimes U I) (U \otimes U^{*}) \\
+   &= (U^{*} I U \otimes U S^{*} U^{*}) + (U^{*}S^{T}U \otimes U I U^{*}) \\
+   &= (I \otimes U (U S)^{*} ) + (U^{*} (U^{T} S)^{T} \otimes I) \\
+   &= (I \otimes (U S U^{*})^{*} ) + ((U^{T} S U^{*T})^{T} \otimes I) \\
+   &= (I \otimes A^{*} ) + (A^{T} \otimes I) \\
+\end{align*}
+
+Secondly, the demonstration of V being unitary:\\
+
+\begin{align*}
+   V V^{*} &= I \\
+   &= (U^{*} \otimes U) (U^{*} \otimes U)^{*} \\
+   &= (U^{*} \otimes U) (U \otimes U^{*}) \\
+   &= U^{*} U \otimes U U^{*} \\
+   &= I \otimes I \\
+   &= I
+\end{align*}
+
+Thirdly, $I \otimes S^{*} + S^{T} \otimes I$ is lower triangular because S is upper triangular, thus $S^{T}$ and $S^{*}$ and lower triangular. Their Kronecker products with the identity matrix remain lower triangular matrices and finally their sum remains a lower triangular matrix. \\
+
+Before presenting the method to solve $(I \otimes A^{*} + A^{T} \otimes I) vec(P) = - vec(Q)$, let's introduce a lemme \label{lemme}
+Consider two matrices C,D partitioned in blocks of size $n_{1} x n_{p}, n_{2} x n_{p}, ..., n_{p-1} x n_{p}$ according to
+\begin{align*}
+P = \begin{pmatrix} P_{1} \\ \vdots \\ P_{p-1} \end{pmatrix} \in R^{N x n_{r}}, D = \begin{pmatrix} D_{1} \\ \vdots \\ D_{p-1} \end{pmatrix} \in R^{N x n_{p}}
+\end{align*}
+where $C_{}, D_{j} \in R^{n_{j}xn_{p}}$ and $N = \sum_{j=1}^{p-1} n_{j}$. Let $T \in R^{nxn}$ be a block triangular matrix partitioned as P and D. For any $R_22 \in R^{n_{p}xn_{p}}$, if P satisfies the equation $D = T P + P R_{22}^{T}$, then $P_{j}$, p-1, p-2, ..., 1 satisfy 
+\begin{align}
+    T_{jj} P_{j} + P_{j} R_{22}^{T} = D_{j}^{\sim}
+\end{align} \label{lemme}
+where $D_{j}^{\sim} = D_{j} - \sum_{i=j+1}^{p-1} T_{ji} P_{i}$.
+
+The method to solve $(I \otimes A^{*} + A^{T} \otimes I) vec(P) = - vec(Q)$ is the following:\\
+Since all matrices have a Schur decomposition: there exists matrices U and S such that:$A = U S U^{*}$ where U is an orthogonal matrix and $S \in R^{nxn}$ a block-triangular matrix where
+\begin{align}
+S = \begin{pmatrix} S_{11}  & \hdots & T_{1,r} \\  & \ddots & \vdots \\ & & T_{r,r}
+\end{pmatrix}
+\end{align} \label{matrix_S}
+and $S_{jj} \in R^{n_{j}xn_{j}}$, $n_{j} \in \{1, 2\}$, j = 1, ..., r and $\sum_{j=1}^{r} n_{j} = n$. \\
+The Lyapunov equation is multiplied from the right and left with U and $U^{*}$ respectively,
+\begin{align}
+- U Q U^{*} &= U A^{*} P U^{*} + U P A U^{*} \\
+&= U A^{*} U^{*} U P U^{*} + U P U^{*} U A U^{*} \\
+&= S Y + Y S^{*} \label{syys}
+\end{align}
+where $Y = U^{*} P U^{*}$. \\
+Matrices and corresponding blocks are introduced such that
+\begin{align}
+    - U Q U^{*} = \begin{pmatrix} C_{11} & C_{12} \\ C_{21} & C_{22} \end{pmatrix}, Y = \begin{pmatrix} Z_{11} & Z_{12} \\ Z_{21} & Z{22} \end{pmatrix}, S = \begin{pmatrix} R_{11} & R_{12} \\ 0 & R_{22} \end{pmatrix}
+\end{align}
+where the blocks are such that $Z_{22}, C_{22}, S_{rr} = R_{22} \in R^{n_{r}xn_{r}}$ (the size of the last block of S). \\
+This triangularized problem can be solved with backward substitution. \\
+The following equations are obtained by separating thr blocks in the equation (\ref{syys})
+\begin{align}
+    C_{11} &= R_{11} Z_{11} + R_{12} Z_{21} + Z_{11} R_{11}^{T} + Z_{12} R_{12}^{T} \label{C11} \\
+    C_{12} &= R_{11} Z_{12} + R_{12} Z_{22} + Z_{12} R_{22}^{T} \\
+    C_{21} &= R_{22} Z_{21} + Z_{21} R_{11}^{T} + Z_{22} R_{12}^{T} \\
+    C_{22} &= R_{22} Z_{22} + Z_{22} R_{22}^{T} \label{C22}
+\end{align}
+
+The last equation of size $n_{r} x n_{r}$ can be solved explicitly since $n_{r} \in \{1, 2\}$ thanks to the choice of block sizes:\\
+if $n_{r} = 1$, $Z_{22}$ is scalar: $Z_{22} = \frac{C_{22}}{2 R_{22}}$ \label{Y22} \\
+if $n_{r} = 2$, the equation \ref{C22} can be solved easily because it is a 2x2 Lyapunov equation. It can be solved with:$vec(Z_{22} = (I \otimes R_{22} + R_{22} \otimes I)^{-1} vec(C_{22})$ \label{vecY22}.\\
+Thanks to the lemme \ref{lemme}, the now known matrix $Z_{22}$ can be insert in the others:\\
+\begin{align}
+C_{12}^{\sim} &= C_{12} - R_{12} Z_{22} = R_{11} Z_{12} + Z_{12} R_{22}^{T} \label{C12sim} \\ 
+C_{21}^{\sim} &= C_{21}^{T} - R_{12} Z_{21}^{T} + Z_{21}^{T} R_{22}^{T} \label{C21sim}
+\end{align}
+$P_{j}$ can be computed explicitly from a small linear system $vec(P_j) = (I \otimes S_{jj} + R_{22} \otimes I)^{-1} vec(-Q_{j}^{\sim})$ \label{vecpj}. By solving \ref{vecpj} for j= p-1, ..., 1 for both equations of (\ref{C12sim}) and (\ref{C21}), solutions for $Z_{12}$ and $Z_{21}$ are obtained. Insertion of $Z_{12}, Z_{21}$ and $Z_{22}$ into (\ref{C11}) gives a new Lyapunov equation of size $n-n_{p}$ and the process can be repeated for the smaller matrix.
+
+\begin{algorithm}[H]
+Compute the real Schur decomposition [U, S] = schur(A) and establish $n_{1}, ..., n_{r}, S_{12}, S_{1r}, ..., S_{rr}$ with partitioning according to \ref{matrix_S}\\
+Set $C = U (-Q) U^{*}$ \\
+Set m = n \\
+\For{k = r, ..., 1 do}
+{Set $m = m - n_{k}$ \\
+Partition the matrix C with $C_{11}, C_{12}, C_{21}, C_{22}$ according to C = \begin{pmatrix}
+C_{11} & C_{12} \\ C_{21} & C_{22} \end{pmatrix} with $C_{22} \in R^{n_{k}xn_{k}}$ \\
+Set $R_{22} = S_{kk}$ and $R_{11}$ = \begin{pmatrix} S_{11} & \hdots & S_{1,k-1} \\ & \ddots & \vdots \\ & & S_{k-1,k-1} \end{pmatrix}, $R_{12}$ = \begin{pmatrix} S_{1,k} \\ \vdots \\ S_{k-1,k} \end{pmatrix} \\
+Solve \ref{C22} for $Z_{22} \in R^{n_{k}xn_{k}}$ using \ref{Y22} or \ref{vecY22} \\
+Compute $C_{12}^{\sim}, C_{21}^{\sim}$ using \ref{C12sim} and \ref{C21sim} \\
+Solve \ref{C12sim} and \ref{C21sim} for $Z_{12} \in R^{mxn_{k}}$ and $Z_{21} \in R^{n_{k}xm}$ using the lemme \ref{lemme} and \ref{vecpj} with p=j \\
+Store Y(1:m,m+(1:$n_{k}$))=$Z_{12}$ \\
+Store Y(m(1:$n_{k}$), 1:m) = $Z_{21}$ \\
+Store Y(m+(1:$n_{k}$), m+(1:$n_{k}$))=$Z_{22}$ \\
+Set $C = C_{11} - R_{12} Z_{21} - Z_{12} R_{12}^{T}$} \\
+end
+\Return{solution $P = U Y U^{*}$}
+\caption{ }
+\end{algorithm}
+
+
 \subsection*{B2}
 \end{document}
