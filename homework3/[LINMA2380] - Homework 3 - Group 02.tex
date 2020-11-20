@@ -8,8 +8,6 @@
 \fancyhead[L]{23 November 2020}
 \fancyhead[R]{Group 02}
 
-\usepackage{tikz}
-\usepackage{pgfplots}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
@@ -28,7 +26,6 @@
 \usepackage{color}
 \usepackage{tabularx,booktabs}
 \usepackage{titlesec}
-\usepackage{wrapfig}
 \pagestyle{fancy}
 \usepackage{mathrsfs}
 \usepackage{bm}
@@ -45,35 +42,16 @@
 \newcommand{\kp}{\otimes}
 \DeclareMathOperator{\vect}{vec}
 
-\usepackage{listings}
-\lstset{
-	language=Python,
-	numbers=left,
-	numberstyle=\tiny\color{gray},
-	basicstyle=\rm\small\ttfamily,
-	keywordstyle=\bfseries\color{dkred},
-	frame=single,
-	commentstyle=\color{gray}=small,
-	stringstyle=\color{dkgreen},
-	%backgroundcolor=\color{gray!10},
-	%tabsize=8, % Thank you Papa Torvalds
-	%rulecolor=\color{black!30},
-	%title=\lstname,
-	breaklines=true,
-	framextopmargin=2pt,
-	framexbottommargin=2pt,
-	extendedchars=true,
-	inputencoding=utf8,
-}
-
 \DeclareMathOperator*{\argmin}{arg\,min}
 
 \DeclareMathOperator{\rank}{rank}
 \DeclareMathOperator{\Ker}{Ker}
-\DeclareMathOperator{\vect}{vec}
 \DeclareMathOperator{\newdiff}{d} % use \dif instead
 \newcommand{\dif}{\newdiff\!}
 \newcommand{\e}{\mathrm{e}}
+\newcommand{\bo}{\mathcal{O}}
+
+\DeclareMathOperator{\diag}{diag}
 
 \newcommand{\field}{\mathbb{F}} % field
 \newcommand{\real}{\mathbb{R}} % real numbers
@@ -91,30 +69,32 @@
 \begin{document}
 \section*{Exercise A: Boundedness of trajectories and Lyapunov equation}
 \subsection*{A1}
-The speed can by derived from the equality y(t) = T x(t):
+\begin{proof}
+From the equality \(y(t) = T x(t) \iff x(t) = T^{-1} y(t)\), we can write
 \begin{align*}
-    \Dot{y(t)} &= T \Dot{x(t)} \\
+    \dot{y}(t) &= T \dot{x}(t) \\
     &= T A x(t) \\
     &= T A T^{-1} y(t) \\
-    &= diag\{J_1(\lambda_1), ..., J_r(\lambda_r)\} y(t)
+    &= \diag\left\{J_1(\lambda_1), \dots, J_r(\lambda_r)\right\} y(t).
 \end{align*}
+This is the equation of a continuous-time linear system, and each \(y_i(t)\) has the Jordan block \(J_i(\lambda_i)\) as transition matrix.
+\end{proof}
 
 \subsection*{A2}
-We assume that $A=J_n(\lambda)$. Hence we can write :
-\begin{equation*}
-    x(t)=e^{At}x(0)=e^{J_n(\lambda)t}x(0)
-\end{equation*}
-We can use the result of question B4 from Homework 1 which develops $e^{J_n(\lambda)}$:
+We assume that $A=J_n(\lambda)$, hence we can write
 \begin{align*}
-    x(t)&=e^{J_n(\lambda)t}x(0)\\
-    &=e^{\lambda t}\Bigg(I+\sum_{k=1}^{n-1}\frac{1}{k!}\big(J_n(0)\big)^k\Bigg)^t x(0)\\
-    &=e^{\lambda t}e^{J_n(0) t} x(0)\\
-    &=e^{\lambda t}\Bigg(I+\sum_{k=1}^{n-1}\frac{1}{k!}\big(J_n(0) t\big)^k\Bigg) x(0)\\
-    &=e^{\lambda t}\Bigg(I+\sum_{k=1}^{n-1}\frac{1}{k!}J_n^k(0) t^k\Bigg) x(0)
+    x(t) &= e^{At}x(0)=e^{J_n(\lambda)t}x(0)
+\intertext{We can use the result of question B4 from Homework 1, which develops $e^{J_n(\lambda)}$, to obtain}
+    x(t) &= e^{J_n(\lambda)t}x(0)\\
+    &= e^{\lambda t}\Bigg(I+\sum_{k=1}^{n-1}\frac{1}{k!}\big(J_n(0)\big)^k\Bigg)^t x(0)\\
+    &= e^{\lambda I t} e^{J_n(0) t} x(0)\\
+    &= e^{\lambda t} \Bigg(I+\sum_{k=1}^{n-1} \frac{1}{k!}\big(J_n(0) t\big)^k\Bigg) x(0)\\
+    &= e^{\lambda t} \Bigg(I+\sum_{k=1}^{n-1} \frac{1}{k!}\big(J_n(0)\big)^k t^k\Bigg) x(0),
 \end{align*}
-The third and fourth equalities come from the definition of the matrix exponential. We can now develop the terms in parentheses : 
+where the third and fourth equalities come from the definition of the matrix exponential.
+We then develop the terms in parentheses: 
 \begin{align*}
-    I+\sum_{k=1}^{n-1}\frac{1}{k!}J_n^k(0) t^k = I &+ \frac{t}{1!}
+    I+\sum_{k=1}^{n-1}\frac{1}{k!}\big(J_n(0)\big)^k t^k = I &+ \frac{t}{1!}
     \begin{pmatrix}
     0&1&&\\
     &\ddots&\ddots&&\\
@@ -130,14 +110,6 @@ The third and fourth equalities come from the definition of the matrix exponenti
     &&&&0
     \end{pmatrix}\\ \\
     &+ \dots +\frac{t^k}{k!}
-    %\begin{pmatrix}
-    %\bovermat{k zero columns}{0&\dots&0}&1&\\
-    %&\ddots&&\ddots&\ddots&\\
-    %&&0&\dots&0&1\\
-    %&&&0&\dots&0\\
-    %&&&&\ddots&\vdots\\
-    %&&&&&0
-    %\end{pmatrix}
     \begin{pmatrix}
     \bovermat{$k$ zeros}{0&\dots&0}&1&\\
     &\ddots&&\ddots&\ddots&\\
@@ -155,18 +127,19 @@ The third and fourth equalities come from the definition of the matrix exponenti
     \end{pmatrix}\\
     &=
     \begin{pmatrix}
-    1 & t/1! & \dots & t/k! & \dots & t^{n-1}/(n-1)!\\
+    1 & t/1! & \dots & t^k/k! & \dots & t^{n-1}/(n-1)!\\
       & \ddots & \ddots &  & \ddots & \vdots\\
-      & & 1 & t/1! & & t/k! &\\
+      & & 1 & t/1! & & t^k/k! &\\
       & & & \ddots & \ddots & \vdots\\
       & & & & 1 & t/1!\\
       & & & & & 1\\
-    \end{pmatrix}
+    \end{pmatrix}.
 \end{align*}
-We deduce from the previous expression that for $i\in [n]$:
+We deduce from the previous expression that for $i\in [n]$,
 \begin{equation*}
-    x_i(t)=e^{\lambda t}\sum^{n}_{j=i}\frac{1}{(j-i)!}t^{j-i}x_j(0)
+    x_i(t)=e^{\lambda t} \sum^{n}_{j=i} \frac{1}{(j-i)!}t^{j-i}x_j(0).
 \end{equation*}
+
 \subsection*{A3}
 The minimal polynomial of a matrix \(A \in \complex^{n \times n}\) is the polynomial
 \[
@@ -174,17 +147,34 @@ m(\lambda) = \prod_i (\lambda - \lambda_i)^{k_i^*},
 \]
 where
 \[
-f(J) = \mathop{\mathrm{diag}} \left\{f\left(J_{k_{i_j}}(\lambda_{i_j})\right)\right\}, \quad k_i^* = \max_{1 \leqslant j \leqslant n_i} k_{i_j},
+f(J) = \diag \left\{f\left(J_{k_{i_j}}(\lambda_{i_j})\right)\right\}, \quad k_i^* = \max_{1 \leqslant j \leqslant n_i} k_{i_j},
 \]
 and \(n_i\) is the number of Jordan blocks with eigenvalue \(\lambda_i\).
 
 Simple eigenvalues thus have the property that the size of the largest Jordan block with that eigenvalue \(\lambda_i\) is \(1\) (i.e. \(k_i^* = 1\)).
+
 \subsection*{A4}
-=>\\
-By A1, we know there exists a change of coordinates $y=Tx$ such that $y(t)$ can be decomposed as follows: $y(t) = [y_1(t)^T, . . . , y_r(t)^T]^T$,where each $y_i(t)$, $i \in [r]$, is the trajectory of a continuous-time linear dynamical system with a Jordan block as transition matrix.\\
-By A2, we have an expression for the time course of the components $y_i(t)$.\\
-If $\lambda_i$ is such that $Re(\lambda_i)<0$, then from A2 we clearly see that the expression $y_i(t)$ tends to zero. If $\lambda_i$ is such that $Re(\lambda_i)<0$, by A3 we know the size of the largest Jordan block with that eigenvalue is 1, hence the expression of $y_i(t)$ simplifies to $y_i(t)=e^{\lambda t} y_j(0)$ which tends to zero when t tends to infinity.\\
-We've shown $y_i(t)$ and hence $\norm{y(t)}=\norm{Tx(t)}$ tends to zero.
+\begin{proof}\leavevmode
+\begin{itemize}
+	\item \(\textnormal{1} \implies \textnormal{2}\).
+	\item \(\textnormal{2} \implies \textnormal{1}\).
+
+	From A1, we know there exists a change of coordinates $y=Tx$ such that $y(t)$ can be decomposed as follows
+	\[
+	y(t) = \big[y_1(t)^\top, \dots, y_r(t)^\top\big]^\top,
+	\]
+	where each $y_i(t)$, $i \in [r]$, is the trajectory of a continuous-time linear dynamical system with a Jordan block as transition matrix.
+	
+	From A2, one can then obtain an expression for the components $y_i(t)$.
+	If $\lambda_i$ is such that $\Re(\lambda_i)<0$, then from A2, we clearly see that the expression $y_i(t)$ tends to zero, as the exponential decreases more rapidly than the polynomial.
+	If $\lambda_i$ is purely imaginary, i.e. $\Re(\lambda_i) = 0$, then we can assume it is simple and hence by A3 we know the size of the largest Jordan block with that eigenvalue is \(1\).
+	The expression of $y_i(t)$ then simplifies to $y_i(t)=e^{\lambda t} y_j(0)$, which tends to zero as \(t\) goes to infinity.
+	
+	This shows that if all eigenvalues are either in the open left-hand plane or imaginary and simple, then $y_i(t)$ and hence $\norm{y(t)}=\norm{Tx(t)}$ tends to zero.
+	Finally, by virtue of the inversibility of \(T\), this shows that \(\sup_{t \geqslant 0} \norm{x(t)} < \infty\).\qedhere
+\end{itemize}
+\end{proof}
+
 \subsection*{A5}
 % not really sure this is what they're asking for
 \begin{proof}
@@ -203,8 +193,10 @@ We've shown $y_i(t)$ and hence $\norm{y(t)}=\norm{Tx(t)}$ tends to zero.
 	\]
 	which proves the existence of such a positive definite Hermitian matrix \(P\).
 \end{proof}
+
 \subsection*{A6}
-First, we develop $B=I\kp A^*+A^T\kp I$:
+\begin{proof}
+First, we develop $B=I\kp A^*+A^\top\kp I$:
 \begin{align*}
     B=
     \begin{pmatrix}
@@ -214,18 +206,18 @@ First, we develop $B=I\kp A^*+A^T\kp I$:
     \end{pmatrix}+
     \begin{pmatrix}
     a_{11} I & \dots & a_{1n} I\\
-    \vdots & & \vdots\\
+    \vdots & \ddots & \vdots\\
     a_{n1} I & \dots & a_{nn} I\\
-    \end{pmatrix}
+    \end{pmatrix}.
 \end{align*}
-We know $A\in\complex^{n\times n}$ is a Jordan block with eigenvalue $\lambda$:
+We know $A\in\complex^{n\times n}$ is a Jordan block with eigenvalue $\lambda$, thus
 \begin{align*}
     B&=
     \renewcommand{\arraystretch}{1.5}
     \begin{pmatrix}
-    J_n(\lambda)^* & & \\
+    \big(J_n(\lambda)\big)^* & & \\
     &\ddots&\\
-    & & J_n(\lambda)^*
+    & & \big(J_n(\lambda)\big)^*
     \end{pmatrix}+
     \begin{pmatrix}
     \lambda I & & &\\
@@ -234,114 +226,187 @@ We know $A\in\complex^{n\times n}$ is a Jordan block with eigenvalue $\lambda$:
     & & I & \lambda I
     \end{pmatrix}\\
     &=\begin{pmatrix}
-    J_n(\lambda)^*+\lambda I &  &  & \\
+    \big(J_n(\lambda)\big)^*+\lambda I &  &  & \\
     I & \ddots & &\\
     & \ddots & \ddots &\\
-    & & I & J_n(\lambda)^*+\lambda I
+    & & I & \big(J_n(\lambda)\big)^*+\lambda I
     \end{pmatrix}\\
     &=\begin{pmatrix}
-    J_n(\lambda+\lambda^*)^* & & & \\
+    \big(J_n(\lambda+\lambda^*)\big)^* & & & \\
     I & \ddots & &\\
     & \ddots & \ddots &\\
-    & & I & J_n(\lambda+\lambda^*)^*
-    \end{pmatrix}
+    & & I & \big(J_n(\lambda+\lambda^*)\big)^*
+    \end{pmatrix}.
 \end{align*}
-The matrix B is a lower triangular and therefore its eigenvalues are the diagonal elements : $\lambda+\lambda^*$. Moreover, we know $Re(\lambda)>0$ and so $\lambda+\lambda^*=2Re(\lambda)>0$. From this we deduce that $B$ is positive definite and hence invertible. It follows that the system $B\vect(P)=-\vect(Q)$ has a unique solution and consequently we conclude that P exists and is unique.\\
-Next we show that if $P\in\complex^{n\times n}$ satisfies $A^*P+PA=-Q$ then $P^*$ also satisfies $A^*P^*+P^*A=-Q$. This can be simply proven by taking the transpose conjuguate of both sides of the equation $A^*P+PA=-Q$ that P satisfies taking into account that Q is hermitian:
+The matrix \(B\) is lower-triangular and therefore its eigenvalues are the diagonal elements $\lambda+\lambda^*$.
+Moreover, we know that $\Re(\lambda)>0$ and so $\lambda+\lambda^*=2 \Re(\lambda)>0$.
+From this, we deduce that $B$ is positive definite and hence invertible.
+It follows that the system $B\vect(P)=-\vect(Q)$ has a unique solution and consequently we conclude that \(P\) exists and is unique.
+\end{proof}
+
+\begin{proof}
+Next we show that if $P\in\complex^{n\times n}$ satisfies $A^*P+PA=-Q$ then $P^*$ also satisfies $A^*P^*+P^*A=-Q$.
+This can simply be proven by taking the transpose conjugate of both sides of the equation $A^*P+PA=-Q$ that \(P\) satisfies taking into account that \(Q\) is Hermitian:
 \begin{align*}
-    (A^*P+PA)^*&=(-Q)^*\\
-    P^*A+A^*P^*&=-Q
+    \big(A^*P+PA\big)^*&=(-Q)^*\\
+    \iff P^*A+A^*P^*&=-Q
 \end{align*}
-This shows that $P^*$ satisfies $A^*P^*+P^*A=-Q$.\\
-Combining the two last results, we deduce that there always exists a unique hermitian matrix $P$ satisfying $B\vect(P)=-\vect(Q)$.\\
-Finally, we want to show that $P$ is hermitian. We consider a trajectory $x(t)$ starting from $x(0)$. If we define $V(x(t))=x(t)^*Px(t)$, we observe that:
+This shows that $P^*$ satisfies $A^*P^*+P^*A=-Q$.
+
+Combining the two last results, we deduce that there always exists a unique Hermitian matrix $P$ satisfying $B\vect(P)=-\vect(Q)$.
+\end{proof}
+
+\begin{proof}
+Finally, we want to show that $P$ is positive definite. We consider a trajectory $x(t)$ starting from $x(0)$. If we define $V\big(x(t)\big)=x(t)^*Px(t)$, we observe that:
 \begin{align*}
-    \dot{V}(x(t))&=\dot{x}(t)^*P x(t)+x(t)^*P\dot{x}(t)\\
+    \dot{V}\big(x(t)\big)&=\dot{x}(t)^*P x(t)+x(t)^*P\dot{x}(t)\\
     &=x(t)^*A^*P x(t)+x(t)^*P A x(t)\\
     &=x(t)^*(A^*P+P A) x(t)\\
     &=x(t)^*(-Q) x(t)\\
-    &\leq 0
+    &< 0.
 \end{align*}
-Consequently, we find that for $t>0$ we have: $x(t)^*P x(t)< x(0)^*P x(0)$.
-%%%% TROUVER LA DERNIERE PARTIE
+Consequently, we find that for $t>0$ we have $x(t)^*P x(t) < x(0)^*P x(0)$.
+We know from A2 that \(\lim_{t \to \infty} x(t) = 0\), as it decreases exponentially.
+We thus have that \(V\big(x(t)\big)\) is always positive, and hence \(P\) is positive definite.
+\end{proof}
+
 \subsection*{A7}
-2 => 3\\
-%IDEE
-% prouver pourquoi on peut considerer la jordan form
-Jordan form of A such that simple eigenvalues in block $A_1$ and other eigenvalues in block $A_2$:
-\begin{align*}
-    \begin{pmatrix}
-    A_1 & \\
-    & A_2
-    \end{pmatrix}
-\end{align*}
-By A3 we find $P_1$ such that $P_1A_1+A_1^*P_1=-Q1$ and by A6 we find $P_2$ such that $P_2A_2+A_2^*P_2=-Q2$
-\begin{align*}
-    \begin{pmatrix}
-    P_1 & \\
-    & P_2
-    \end{pmatrix}
-    \begin{pmatrix}
-    A_1 & \\
-    & A_2
-    \end{pmatrix}
-    +
-    \begin{pmatrix}
-    A_1^* & \\
-    & A_2^*
-    \end{pmatrix}
-    \begin{pmatrix}
-    P_1 & \\
-    & P_2
-    \end{pmatrix}=-
-    \begin{pmatrix}
-    Q_1 & \\
-    & Q_2
-    \end{pmatrix}\preceq 0
-\end{align*}
+\begin{proof}\leavevmode
+\begin{itemize}
+	\item \(\textnormal{2} \implies \textnormal{3}\).
+	
+	%IDEE
+	% prouver pourquoi on peut considerer la jordan form
+	Jordan form of A such that simple eigenvalues in block $A_1$ and other eigenvalues in block $A_2$:
+	\begin{align*}
+	\begin{pmatrix}
+	A_1 & \\
+	& A_2
+	\end{pmatrix}
+	\end{align*}
+	By A3 we find $P_1$ such that $P_1A_1+A_1^*P_1=-Q1$ and by A6 we find $P_2$ such that $P_2A_2+A_2^*P_2=-Q2$
+	\begin{align*}
+	\begin{pmatrix}
+	P_1 & \\
+	& P_2
+	\end{pmatrix}
+	\begin{pmatrix}
+	A_1 & \\
+	& A_2
+	\end{pmatrix}
+	+
+	\begin{pmatrix}
+	A_1^* & \\
+	& A_2^*
+	\end{pmatrix}
+	\begin{pmatrix}
+	P_1 & \\
+	& P_2
+	\end{pmatrix}=-
+	\begin{pmatrix}
+	Q_1 & \\
+	& Q_2
+	\end{pmatrix}\preceq 0
+	\end{align*}
+	\item \(\textnormal{3} \implies \textnormal{1}\).
+	
+	\qedhere
+\end{itemize}
+\end{proof}
 
 \subsection*{A8}
+\begin{proof}\leavevmode
+\begin{itemize}
+	\item \(\textnormal{3}\hphantom{'} \implies \textnormal{3'}\).
+	
+	\item \(\textnormal{3'} \implies \textnormal{3}\).
+	
+	\qedhere
+\end{itemize}
+\end{proof}
 
 \section*{Exercise B: Implementation}
 \subsection*{B1}
-First, $I \otimes A^{*} + A^{T} \otimes I = V (I \otimes S^{*} + S^{T} \otimes I) V^{*}$ has to be demonstrated:\\
+First, we show that $I \kp A^{*} + A^\top \kp I = V (I \kp S^{*} + S^\top \kp I) V^{*}$, where \(V = U^* \kp U\).
 
+\begin{proof}
 \begin{align*}
-   V (I \otimes S^{*} + S^{T} \otimes I) V^{*} &= (U^{*} \otimes U) (I \otimes S^{*} + S^{T} \otimes I) (U^{*} \otimes U)^{*} \\
-   &= [(U^{*} \otimes U) (I \otimes S^{*}) + (U^{*} \otimes U) (S^{T} \otimes I)] (U \otimes U^{*}) \\
-   &= [(U^{*} I \otimes U S^{*}) + (U^{*}S^{T} \otimes U I)] (U \otimes U^{*}) \\
-   &= (U^{*} I \otimes U S^{*}) (U \otimes U^{*}) + (U^{*}S^{T} \otimes U I) (U \otimes U^{*}) \\
-   &= (U^{*} I U \otimes U S^{*} U^{*}) + (U^{*}S^{T}U \otimes U I U^{*}) \\
-   &= (I \otimes U (U S)^{*} ) + (U^{*} (U^{T} S)^{T} \otimes I) \\
-   &= (I \otimes (U S U^{*})^{*} ) + ((U^{T} S U^{*T})^{T} \otimes I) \\
-   &= (I \otimes A^{*} ) + (A^{T} \otimes I) \\
+   V (I \kp S^{*} + S^\top \kp I) V^{*}
+   &= (U^{*} \kp U) (I \kp S^{*} + S^\top \kp I) (U^{*} \kp U)^{*} \\
+   &= \Big[(U^{*} \kp U) (I \kp S^{*}) + (U^{*} \kp U) (S^\top \kp I)\Big] (U \kp U^{*}) \\
+   &= \Big[(U^{*} I \kp U S^{*}) + (U^{*}S^\top \kp U I)\Big] (U \kp U^{*}) \\
+   &= (U^{*} I \kp U S^{*}) (U \kp U^{*}) + (U^{*}S^\top \kp U I) (U \kp U^{*}) \\
+   &= (U^{*} I U \kp U S^{*} U^{*}) + (U^{*}S^\top U \kp U I U^{*}) \\
+   &= (I \kp U (U S)^{*} ) + (U^{*} (U^\top S)^\top \kp I) \\
+   &= \Big(I \kp (U S U^{*})^{*}\Big) + \Big((U^\top S U^{*\top})^\top \kp I) \\
+   &= (I \kp A^{*} ) + (A^\top \kp I).\qedhere
 \end{align*}
+\end{proof}
 
-Secondly, the demonstration of V being unitary:\\
-
+Next, we prove that \(V\) is unitary:
+\begin{proof}[\leavevmode]
 \begin{align*}
-   V V^{*} &= I \\
-   &= (U^{*} \otimes U) (U^{*} \otimes U)^{*} \\
-   &= (U^{*} \otimes U) (U \otimes U^{*}) \\
-   &= U^{*} U \otimes U U^{*} \\
-   &= I \otimes I \\
-   &= I
+   V V^{*} &= (U^{*} \kp U) (U^{*} \kp U)^{*} \\
+   &= (U^{*} \kp U) (U \kp U^{*}) \\
+   &= U^{*} U \kp U U^{*} \\
+   &= I \kp I \\
+   &= I.\qedhere
 \end{align*}
+\end{proof}
 
-Thirdly, $I \otimes S^{*} + S^{T} \otimes I$ is lower triangular because S is upper triangular, thus $S^{T}$ and $S^{*}$ and lower triangular. Their Kronecker products with the identity matrix remain lower triangular matrices and finally their sum remains a lower triangular matrix. \\
+We also show that $I \kp S^{*} + S^\top \kp I$ is lower triangular.
+\begin{proof}
+	This is apparent because \(S\) is upper triangular, thus $S^\top$ and $S^{*}$ are lower triangular.
+	Their Kronecker products with the identity matrix remain lower triangular matrices and finally the sum of these products remains lower triangular as well.
+\end{proof}
 
-Before presenting the method to solve $(I \otimes A^{*} + A^{T} \otimes I) vec(P) = - vec(Q)$, let's introduce a lemme \label{lemme}
-Consider two matrices C,D partitioned in blocks of size $n_{1} x n_{p}, n_{2} x n_{p}, ..., n_{p-1} x n_{p}$ according to
+This system can then be solved as follows: we want to solve the system
+\[
+(I \kp A^* + A^\top \kp I) \vect(P) = -\vect(Q).
+\]
+By the first proof result of this question, that yields
+\[
+V (I \kp S^* + S^\top \kp I) V^* = -\vect(Q),
+\]
+which, by virtue of the second result, becomes
+\[
+(I \kp S^* + S^\top \kp I) V^* = - V^*\vect(Q).
+\]
+
+The third result of this question tells us that the system on the left is lower triangular.
+This means it can be solved efficiently by forward substitution, leaving us with \(V^* \vect(P)\).
+Finally, we premultiply this by \(V\), and are left with \(\vect(P)\).
+
+Next, we show that this method has a computational complexity in \(\bo(n^4)\).
+\begin{proof}
+A rudimentary complexity analysis of this method goes as follows (some negligible complexities are not considered as they are dominated by another complexity in the same step):
+\begin{itemize}
+	\item Compute the Schur decomposition of \(A = U S U^*\) in \(\bo(n^3)\).
+	\item Compute \(V = U^* \kp U\) and \(C = I \kp S^* + S^\top \kp I\) (Kronecker product, sum) in \(\bo(n^4)\) each.
+	\item Compute \(D = -V^* \vect(Q)\) (matrix-vector product between \(n^2 \times n^2\) matrix and \(n^2 \times 1\) vector) in \(\bo(n^4)\).
+	\item Solve \(C X = D\) (forward substitution on \(n^2 \times n^2\) system) in \(\bo(n^4)\).
+	\item Compute \(\vect(P) = VX\) (matrix-vector product between \(n^2 \times n^2\) matrix and \(n^2 \times 1\) vector) in \(\bo(n^4)\).
+\end{itemize}
+As these computations are done sequentially, their total complexity is simply the dominant complexity of all the steps, i.e. \(\bo(n^4)\).
+\end{proof}
+
+\begin{comment}
+Before presenting a method to solve $(I \kp A^{*} + A^\top \kp I) \vect(P) = - \vect(Q)$, let us introduce a lemma.
+\begin{lemma}
+\label{lemme}
+Consider two matrices \(P, D\) partitioned in blocks according to
 \begin{align*}
-P = \begin{pmatrix} P_{1} \\ \vdots \\ P_{p-1} \end{pmatrix} \in R^{N x n_{r}}, D = \begin{pmatrix} D_{1} \\ \vdots \\ D_{p-1} \end{pmatrix} \in R^{N x n_{p}}
+P = \begin{pmatrix} P_{1} \\ \vdots \\ P_{p-1} \end{pmatrix} \in \real^{N \times n_{p}}, \quad D = \begin{pmatrix} D_{1} \\ \vdots \\ D_{p-1} \end{pmatrix} \in \real^{N \times n_{p}},
 \end{align*}
-where $C_{}, D_{j} \in R^{n_{j}xn_{p}}$ and $N = \sum_{j=1}^{p-1} n_{j}$. Let $T \in R^{nxn}$ be a block triangular matrix partitioned as P and D. For any $R_22 \in R^{n_{p}xn_{p}}$, if P satisfies the equation $D = T P + P R_{22}^{T}$, then $P_{j}$, p-1, p-2, ..., 1 satisfy 
+where $P_{j}, D_{j} \in \real^{n_{j} \times n_{p}}$ and $N = \sum_{j=1}^{p-1} n_{j}$.
+Let $T \in \real^{n \times n}$ be a block triangular matrix containing P and D. For any $R_22 \in R^{n_{p}xn_{p}}$, if P satisfies the equation $D = T P + P R_{22}^{T}$, then $P_{j}$, p-1, p-2, ..., 1 satisfy 
 \begin{align}
-    T_{jj} P_{j} + P_{j} R_{22}^{T} = D_{j}^{\sim}
-\end{align} \label{lemme}
+    T_{jj} P_{j} + P_{j} R_{22}^{T} = D_{j}^{\sim},
+\end{align}
 where $D_{j}^{\sim} = D_{j} - \sum_{i=j+1}^{p-1} T_{ji} P_{i}$.
+\end{lemma}
 
-The method to solve $(I \otimes A^{*} + A^{T} \otimes I) vec(P) = - vec(Q)$ is the following:\\
+The method to solve $(I \kp A^{*} + A^{T} \kp I) vec(P) = - vec(Q)$ is the following:\\
 Since all matrices have a Schur decomposition: there exists matrices U and S such that:$A = U S U^{*}$ where U is an orthogonal matrix and $S \in R^{nxn}$ a block-triangular matrix where
 \begin{align}
 S = \begin{pmatrix} S_{11}  & \hdots & T_{1,r} \\  & \ddots & \vdots \\ & & T_{r,r}
@@ -371,14 +436,13 @@ The following equations are obtained by separating thr blocks in the equation (\
 
 The last equation of size $n_{r} x n_{r}$ can be solved explicitly since $n_{r} \in \{1, 2\}$ thanks to the choice of block sizes:\\
 if $n_{r} = 1$, $Z_{22}$ is scalar: $Z_{22} = \frac{C_{22}}{2 R_{22}}$ \label{Y22} \\
-if $n_{r} = 2$, the equation \ref{C22} can be solved easily because it is a 2x2 Lyapunov equation. It can be solved with:$vec(Z_{22} = (I \otimes R_{22} + R_{22} \otimes I)^{-1} vec(C_{22})$ \label{vecY22}.\\
+if $n_{r} = 2$, the equation \ref{C22} can be solved easily because it is a 2x2 Lyapunov equation. It can be solved with:$vec(Z_{22} = (I \kp R_{22} + R_{22} \kp I)^{-1} vec(C_{22})$ \label{vecY22}.\\
 Thanks to the lemme \ref{lemme}, the now known matrix $Z_{22}$ can be insert in the others:\\
 \begin{align}
 C_{12}^{\sim} &= C_{12} - R_{12} Z_{22} = R_{11} Z_{12} + Z_{12} R_{22}^{T} \label{C12sim} \\ 
 C_{21}^{\sim} &= C_{21}^{T} - R_{12} Z_{21}^{T} + Z_{21}^{T} R_{22}^{T} \label{C21sim}
 \end{align}
-$P_{j}$ can be computed explicitly from a small linear system $vec(P_j) = (I \otimes S_{jj} + R_{22} \otimes I)^{-1} vec(-Q_{j}^{\sim})$ \label{vecpj}. By solving \ref{vecpj} for j= p-1, ..., 1 for both equations of (\ref{C12sim}) and (\ref{C21}), solutions for $Z_{12}$ and $Z_{21}$ are obtained. Insertion of $Z_{12}, Z_{21}$ and $Z_{22}$ into (\ref{C11}) gives a new Lyapunov equation of size $n-n_{p}$ and the process can be repeated for the smaller matrix.
-
+$P_{j}$ can be computed explicitly from a small linear system $vec(P_j) = (I \kp S_{jj} + R_{22} \kp I)^{-1} vec(-Q_{j}^{\sim})$ \label{vecpj}. By solving \ref{vecpj} for j= p-1, ..., 1 for both equations of (\ref{C12sim}) and (\ref{C21}), solutions for $Z_{12}$ and $Z_{21}$ are obtained. Insertion of $Z_{12}, Z_{21}$ and $Z_{22}$ into (\ref{C11}) gives a new Lyapunov equation of size $n-n_{p}$ and the process can be repeated for the smaller matrix.
 \begin{algorithm}[H]
 Compute the real Schur decomposition [U, S] = schur(A) and establish $n_{1}, ..., n_{r}, S_{12}, S_{1r}, ..., S_{rr}$ with partitioning according to \ref{matrix_S}\\
 Set $C = U (-Q) U^{*}$ \\
@@ -394,11 +458,12 @@ Solve \ref{C12sim} and \ref{C21sim} for $Z_{12} \in R^{mxn_{k}}$ and $Z_{21} \in
 Store Y(1:m,m+(1:$n_{k}$))=$Z_{12}$ \\
 Store Y(m(1:$n_{k}$), 1:m) = $Z_{21}$ \\
 Store Y(m+(1:$n_{k}$), m+(1:$n_{k}$))=$Z_{22}$ \\
-Set $C = C_{11} - R_{12} Z_{21} - Z_{12} R_{12}^{T}$} \\
+Set $C = C_{11} - R_{12} Z_{21} - Z_{12} R_{12}^{T}$}\\
 end
 \Return{solution $P = U Y U^{*}$}
 \caption{ }
 \end{algorithm}
+\end{comment}
 
 
 \subsection*{B2}
