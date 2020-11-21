@@ -481,4 +481,85 @@ end
 
 
 \subsection*{B2}
+We want to test the boundednesss of trajectories defined by systems with three different matrices: $A_1$, $A_2$ and $A_3$ (see the statement). For this purpose, we use statement 2 and 3 of the introduction of exercise A.
+\subsubsection*{Statement 2}
+To check whether statement 2 is satisfied or not, we looked at the eigenvalues $\Lambda_i$ and Jordan form $J_i$ of the matrices:
+\begin{align*}
+    \Lambda_1=\begin{pmatrix}
+    -0.5\\
+    -0.5\\
+    -1\\
+    -2
+    \end{pmatrix}
+    &
+    J_1=\begin{pmatrix}
+    -2 & 0 & 0 & 0\\
+    0 &-1 & 0 & 0\\
+    0 & 0 & -0.5 &1\\
+    0 & 0 & 0 & -0.5
+    \end{pmatrix}\\
+    \Lambda_2=\begin{pmatrix}
+    0\\
+    -0.5\\
+    -1\\
+    -2
+    \end{pmatrix}
+    &
+    J_2=\begin{pmatrix}
+    0 & 0 & 0 & 0\\
+    0 &-0.5 & 0 & 0\\
+    0 & 0 & -2 & 0\\
+    0 & 0 & 0 & -1
+    \end{pmatrix}\\
+    \Lambda_3=\begin{pmatrix}
+    0\\
+    0\\
+    -1\\
+    -2
+    \end{pmatrix}
+    &
+    J_2=\begin{pmatrix}
+    0 & 1 & 0 & 0\\
+    0 & 0 & 0 & 0\\
+    0 & 0 & -2 & 0\\
+    0 & 0 & 0 & -1
+    \end{pmatrix}
+\end{align*}
+We observe that $A_1$ has eigenvalues such that $\Re(\lambda)<0$ and hence satisfies statement 2. The matrix $A_2$ has eigenvalues such $\Re(\lambda)<0$ except for one ($\lambda=0$) which is simple (largest Jordan block associated to $\lambda=0$ has size 1) so the statement is again verified. The matrix $A_3$ has an eigenvalue ($\lambda$=0) such that $\Re(\lambda)=0$ and associated to a Jordan block of size 2, hence not simple, therefore it does not satisfied the statement. We conclude that the trajectory will remain bounded only for the two first systems.\\
+\subsubsection*{Statement 3}
+The use of statement 3 is less straightforward than the previous one. To know whether it exists a positive definite Hermitian matrix $P$ satisfying the Lyapunov equation with $A_i$, we can use the method described in the previous subsection to obtain $P$. To do so, we need to choose a matrix $Q$. We first start by choosing $Q$ as being the identity matrix.\\
+For the matrix $A_1$, we obtain:
+\begin{align*}
+P_1=
+    \begin{pmatrix}
+    735.2222& -696.2622& -398.0000&  377.9289\\
+    -696.2622&  661.8022&  377.2533& -359.0156\\
+    -398.0000&  377.2533&  216.1111& -205.1422\\
+    377.9289& -359.0156& -205.1422&  195.3400\\
+    \end{pmatrix}
+\end{align*}
+The eigenvalues of matrix $P_1$ are: $1806.1$, $1.4$, $0.8$ and $0.2$. Hence the matrix $P_1$ is a positive definite Hermitian matrix and the statement 3 is fulfilled.\\
+Doing the exact same thing with the matrices $A_2$ and $A_3$ does not achieve good results due to the zero eigenvalue. For example, the matrix P obtained with $A_2$ is:
+\begin{align*}
+P_2 = 10^{15}
+    \begin{pmatrix}
+    6.3488&   -6.3488&   -3.1744&    3.1744\\
+   -6.3488&    6.3488&    3.1744&   -3.1744\\
+   -3.1744&    3.1744&    1.5872&   -1.5872\\
+    3.1744&   -3.1744&   -1.5872&    1.5872
+    \end{pmatrix}
+\end{align*}
+with eigenvalues: $0$ and $1.5872\cdot 10^{16}$.\\
+Computing $A_2^*P_2+P_2A_2$ gives:
+\begin{align*}
+    A_2^*P_2+P_2A_2=
+    \begin{pmatrix}
+    88&   -40&   -24&     8\\
+   -24&   -28&    -8&    18\\
+   -24&    -8&    -8&     6\\
+     8&    16&     2&   -16\\
+    \end{pmatrix}\neq -I
+\end{align*}
+As $P_2$ is not positive definite and the computations are prone to numerical errors, we cannot conclude that statement 3 is satisfied for $A_2$ using the identity matrix as $Q$.\\
+By theorem 5.11 of the course notes, we know that for every positive definite matrix $Q$ we can find a positive definite Hermitian matrix $P$ satisfying the Lyapunov equation if $A$ has its eigenvalues in the open left-hand plane. This was the case for $A_1$. However, both $A_2$ and $A_3$ have a zero eigenvalue which prevents to use the theorem. Hence, it is not guaranteed that for all semidefinite positive $Q$ we can find a positive definite Hermitian matrix $P$ satisfying the Lyapunov equation. Finding a semidefinite positive matrix $Q$ such that there is an appropriate solution $P$ is tedious. On top of that, as we have seen with the computations using $Q=I$, numerical errors make the work even harder. We tried to generate random positive definite matrices by generating a random matrix $Z$ and setting $Q=ZZ^*$ but that did not yield good results. Finally we note that such a matrix $Q$ does not even exists for $A_3$ as it does not fulfill statement 2.
 \end{document}
