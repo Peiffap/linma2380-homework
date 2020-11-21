@@ -330,13 +330,14 @@ We thus have that \(V\big(x(t)\big)\) is always positive, and hence \(P\) is pos
 
 \subsection*{A8}
 \begin{proof}\leavevmode
-\begin{itemize}
-	\item \(\textnormal{3}\hphantom{'} \implies \textnormal{3'}\).
-	
-	\item \(\textnormal{3'} \implies \textnormal{3}\).
-	
-	\qedhere
-\end{itemize}
+Clearly, if statement 3' is satisfied then so is statement 3 as real positive definite symmetric matrices are positive definite Hermitian matrices.\\
+If statement 3 is satisfied we know we have a positive definite Hermitian matrix $P$ such that $A^*P+PA\succeq 0$. We consider the real matrix $P_r=P+P^*$ and we observe that:
+\begin{align*}
+    A^* P_r+P_r A &= A^*(P+P^*)+(P+P^*)A\\
+    &= A^*P+A^*P^*+PA+P^*A\\
+    &= (A^*P+PA)+(A^*P+PA)^* \succeq 0
+\end{align*}
+We know the last expression is semipositive definite as the conjugate transpose of a positive semidefinite matrix is positive semidefinite and the sum of positive semidefinite matrices is positive semidefinite. Hence, $P_r$ is a real matrix satisfying the Lyapunov equation.
 \end{proof}
 
 \section*{Exercise B: Implementation}
