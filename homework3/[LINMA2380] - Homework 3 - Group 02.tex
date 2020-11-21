@@ -161,7 +161,7 @@ Simple eigenvalues thus have the property that the size of the largest Jordan bl
 	We start by applying A1, to obtain a trajectory \(y(t)\).
 	If all trajectories are bounded, then that means (from applying A2 on the Jordan transition matrix for \(y(t)\)) that
 	\[
-	y_i(t) = e^{\lambda_t} \sum_{j = i}^n \frac{t^{j - i}}{(j - i)!} y_j(0).
+	y_i(t) = e^{\lambda_t} \sum_{j = i}^n \frac{t^{j - i}}{(j - i)!} y_j(0) < \infty \hspace{1cm} \forall t %%% j'imagine que c'est de cette condition qu'on parle dans la phrase suivante ?
 	\]
 	Clearly, there are two ways to satisfy this condition: either \(\Re(\lambda) < 0\) (in which case the exponential dominates any polynomial to its right), or \(\Re(\lambda) = 0\), and \(n = i\) (otherwise, the sum becomes an unbounded polynomial which is \textit{not} dominated by the exponential as the latter simply performs a rotation in the complex plane).
 	We thus require that \(n = i\), as in this case the trajectory keeps its length (also known as marginal stability).
@@ -177,9 +177,9 @@ Simple eigenvalues thus have the property that the size of the largest Jordan bl
 	From A2, one can then obtain an expression for the components $y_i(t)$.
 	If $\lambda_i$ is such that $\Re(\lambda_i)<0$, then from A2, we clearly see that the expression $y_i(t)$ tends to zero, as the exponential decreases more rapidly than the polynomial.
 	If $\lambda_i$ is purely imaginary, i.e. $\Re(\lambda_i) = 0$, then we can assume it is simple and hence by A3 we know the size of the largest Jordan block with that eigenvalue is \(1\).
-	The expression of $y_i(t)$ then simplifies to $y_i(t)=e^{\lambda t} y_j(0)$, which tends to zero as \(t\) goes to infinity.
+	The expression of $y_i(t)$ then simplifies to $y_i(t)=e^{\lambda t} y_i(0)$, which remains bounded as \(t\) goes to infinity. %% si une eigenvalue vaut 0 ca reste bounded mais ca tend pas vers 0 (pas asymptotiquement stable)
 	
-	This shows that if all eigenvalues are either in the open left-hand plane or imaginary and simple, then $y_i(t)$ and hence $\norm{y(t)}=\norm{Tx(t)}$ tends to zero.
+	This shows that if all eigenvalues are either in the open left-hand plane or imaginary and simple, then $y_i(t)$ and hence $\norm{y(t)}=\norm{Tx(t)}$ remains bounded.
 	Finally, by virtue of the inversibility of \(T\), this shows that \(\sup_{t \geqslant 0} \norm{x(t)} < \infty\).\qedhere
 \end{itemize}
 \end{proof}
@@ -248,8 +248,8 @@ We know $A\in\complex^{n\times n}$ is a Jordan block with eigenvalue $\lambda$, 
     \end{pmatrix}.
 \end{align*}
 The matrix \(B\) is lower-triangular and therefore its eigenvalues are the diagonal elements $\lambda+\lambda^*$.
-Moreover, we know that $\Re(\lambda)>0$ and so $\lambda+\lambda^*=2 \Re(\lambda)>0$.
-From this, we deduce that $B$ is positive definite and hence invertible.
+Moreover, we know that $\Re(\lambda)<0$ and so $\lambda+\lambda^*=2 \Re(\lambda)<0$.
+From this, we deduce that $B$ is negative definite and hence invertible.
 It follows that the system $B\vect(P)=-\vect(Q)$ has a unique solution and consequently we conclude that \(P\) exists and is unique.
 \end{proof}
 
