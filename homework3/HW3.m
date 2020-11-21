@@ -9,18 +9,21 @@ eig(A)
 I=eye(size(A));
 
 Q=I;
+% random positive definite matrices
+%Z=rand(4);
+%Q=Z*Z'
  
 [U,S]=schur(A); %-> S upper triangular and A=U*S*U'
 
 % O(n^4) algo
-V=kron(U',U);
+V=kron(conj(U),U);
 C=kron(I,S')+kron(S.',I); %-> C lower triangular
 D=-V'*Q(:);
 
 X=C\D;
 vecP=V*X;
 P=reshape(vecP,size(A))
-A'*P+P*A %supposed to be -I
+A'*P+P*A %supposed to be -Q
 
 % supposed to be equal but isn't :
 C=V*(kron(I,S')+kron(S.',I))*V';
