@@ -157,6 +157,15 @@ Simple eigenvalues thus have the property that the size of the largest Jordan bl
 \begin{proof}\leavevmode
 \begin{itemize}
 	\item \(\textnormal{1} \implies \textnormal{2}\).
+	
+	We start by applying A1, to obtain a trajectory \(y(t)\).
+	If all trajectories are bounded, then that means (from applying A2 on the Jordan transition matrix for \(y(t)\)) that
+	\[
+	y_i(t) = e^{\lambda_t} \sum_{j = i}^n \frac{t^{j - i}}{(j - i)!} y_j(0).
+	\]
+	Clearly, there are two ways to satisfy this condition: either \(\Re(\lambda) < 0\) (in which case the exponential dominates any polynomial to its right), or \(\Re(\lambda) = 0\), and \(n = i\) (otherwise, the sum becomes an unbounded polynomial which is \textit{not} dominated by the exponential as the latter simply performs a rotation in the complex plane).
+	We thus require that \(n = i\), as in this case the trajectory keeps its length (also known as marginal stability).
+	We finally observe that requiring \(n = i\) corresponds to having the Jordan block for \(\lambda\) be of dimension \(1 \times 1\), and thus \(\lambda\) must be simple.
 	\item \(\textnormal{2} \implies \textnormal{1}\).
 
 	From A1, we know there exists a change of coordinates $y=Tx$ such that $y(t)$ can be decomposed as follows
@@ -310,7 +319,12 @@ We thus have that \(V\big(x(t)\big)\) is always positive, and hence \(P\) is pos
 	\end{align*}
 	\item \(\textnormal{3} \implies \textnormal{1}\).
 	
-	\qedhere
+	We again consider \(V\big(x(t)\big)\) from A6.
+	We can write, for any trajectory \(x(t)\),
+	\[
+	V\big(x(t)\big) = V\big(x(0)\big) + \int_0^{t} \dot{V}\big(x(\tau)\big) \dif \tau \leqslant V\big(x(0)\big).
+	\]
+	This means that the whole trajectory lies in \(\Big\{z \mid V(z) \leqslant V\big(x(0)\big)\Big\}\), which is bounded.\qedhere
 \end{itemize}
 \end{proof}
 
