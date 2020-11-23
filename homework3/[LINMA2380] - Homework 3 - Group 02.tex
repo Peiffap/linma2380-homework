@@ -347,18 +347,19 @@ We know the last expression is semipositive definite as the conjugate transpose 
 
 \section*{Exercise B: Implementation}
 \subsection*{B1}
-First, we show that $I \kp A^{*} + A^\top \kp I = V (I \kp S^{*} + S^\top \kp I) V^{*}$, where \(V = U^* \kp U\).
+First, we show that $I \kp A^{*} + A^\top \kp I = V (I \kp S^{*} + S^\top \kp I) V^{*}$, where \(V = \Bar{U} \kp U\).
 
 \begin{proof}
 \begin{align*}
    V (I \kp S^{*} + S^\top \kp I) V^{*}
-   &= (U^{*} \kp U) (I \kp S^{*} + S^\top \kp I) (U^{*} \kp U)^{*} \\
-   &= \Big[(U^{*} \kp U) (I \kp S^{*}) + (U^{*} \kp U) (S^\top \kp I)\Big] (U \kp U^{*}) \\
-   &= \Big[(U^{*} I \kp U S^{*}) + (U^{*}S^\top \kp U I)\Big] (U \kp U^{*}) \\
-   &= (U^{*} I \kp U S^{*}) (U \kp U^{*}) + (U^{*}S^\top \kp U I) (U \kp U^{*}) \\
-   &= (U^{*} I U \kp U S^{*} U^{*}) + (U^{*}S^\top U \kp U I U^{*}) \\
-   &= (I \kp U (U S)^{*} ) + (U^{*} (U^\top S)^\top \kp I) \\
-   &= \Big(I \kp (U S U^{*})^{*}\Big) + \Big((U^\top S U^{*\top})^\top \kp I) \\
+   &= (\Bar{U} \kp U) (I \kp S^{*} + S^\top \kp I) (\Bar{U} \kp U)^{*} \\
+   &= \Big[(\Bar{U} \kp U) (I \kp S^{*}) + (\Bar{U} \kp U) (S^\top \kp I)\Big] (U^\top \kp U^{*}) \\
+   &= \Big[(\Bar{U} I \kp U S^{*}) + (\Bar{U}S^\top \kp U I)\Big] (U^\top \kp U^{*}) \\
+   &= (\Bar{U} I \kp U S^{*}) (U^\top \kp U^{*}) + (\Bar{U}S^\top \kp U I) (U^\top \kp U^{*}) \\
+   &= (\Bar{U} I U^\top \kp U S^{*} U^{*}) + (\Bar{U}S^\top U^\top \kp U I U^{*}) \\
+   &= \Big((U^{*^\top} I U^\top)\kp U (U S)^{*} \Big) + \Big((U^{*^\top} S^\top U^\top) \kp I \Big) \\
+   &= \Big((I^\top U^{*})^\top U^\top) \kp (U S U^{*})^{*} \Big) + \Big((S U^{*})^\top U^\top \kp I \Big) \\
+   &= \Big((U I^\top U^{*})^\top \kp A^{*} \Big) + \Big((U S U^{*})^\top \kp I \Big)\\
    &= (I \kp A^{*} ) + (A^\top \kp I).\qedhere
 \end{align*}
 \end{proof}
@@ -366,9 +367,12 @@ First, we show that $I \kp A^{*} + A^\top \kp I = V (I \kp S^{*} + S^\top \kp I)
 Next, we prove that \(V\) is unitary:
 \begin{proof}[\leavevmode]
 \begin{align*}
-   V V^{*} &= (U^{*} \kp U) (U^{*} \kp U)^{*} \\
-   &= (U^{*} \kp U) (U \kp U^{*}) \\
-   &= U^{*} U \kp U U^{*} \\
+   V V^{*} &= (\Bar{U} \kp U) (\Bar{U} \kp U)^{*} \\
+   &= (\Bar{U} \kp U) (U^\top \kp U^{*}) \\
+   &= \Bar{U} U^\top \kp U U^{*} \\
+   &= (U^{\top^\top}  \Bar{U}^\top)^\top \kp I \\
+   &= (U U^{*})^\top \kp I \\
+   &= I^\top \kp I \\
    &= I \kp I \\
    &= I.\qedhere
 \end{align*}
