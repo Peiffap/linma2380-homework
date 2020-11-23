@@ -70,13 +70,13 @@
 \section*{Exercise A: Boundedness of trajectories and Lyapunov equation}
 \subsection*{A1}
 \begin{proof}
-We use the transformation \(y(t) = T x(t) \iff x(t) = T^{-1} y(t)\), where \(T\) is the transformation matrix used in the Jordan decomposition of \(A\).
+We use the transformation \(y(t) = T x(t) \iff x(t) = T^{-1} y(t)\), where \(T\) is the transformation matrix used in the Jordan decomposition of \(A\) (and thus always exists).
 We then show that it necessarily leads to \(y_i(t)\) having a Jordan block as transition matrix.
 \begin{align*}
     \dot{y}(t) &= T \dot{x}(t) \\
     &= T A x(t) \\
     &= T A T^{-1} y(t) \\
-    &= \diag\left\{J_1(\lambda_1), \dots, J_r(\lambda_r)\right\} y(t).
+    &= \diag\left\{J_(\lambda_1), \dots, J_r(\lambda_r)\right\} y(t).
 \end{align*}
 For the last equality, we used the definition of the Jordan form, applicable because of our particular choice of \(T\).
 This is the equation of a continuous-time linear system, and each \(y_i(t)\) has \(J_i(\lambda_i)\) as transition matrix.
@@ -126,8 +126,11 @@ We then develop the terms in parentheses:
      &\ddots&&0\\
      & & \ddots & \vdots\\
      & & & 0\\
-    \end{pmatrix}\\
-    &=
+    \end{pmatrix},
+\end{align*}
+which can be written concisely as
+\[
+    I+\sum_{k=1}^{n-1}\frac{1}{k!}\big(J_n(0)\big)^k t^k=
     \begin{pmatrix}
     1 & t/1! & \dots & t^k/k! & \dots & t^{n-1}/(n-1)!\\
       & \ddots & \ddots &  & \ddots & \vdots\\
@@ -136,7 +139,7 @@ We then develop the terms in parentheses:
       & & & & 1 & t/1!\\
       & & & & & 1\\
     \end{pmatrix}.
-\end{align*}
+\]
 We deduce from the previous expression that for $i\in [n]$,
 \begin{equation*}
     x_i(t)=e^{\lambda t} \sum^{n}_{j=i} \frac{1}{(j-i)!}t^{j-i}x_j(0).
@@ -149,9 +152,9 @@ m(\lambda) = \prod_i (\lambda - \lambda_i)^{k_i^*},
 \]
 where
 \[
-f(J) = \diag \left\{f\left(J_{k_{i_j}}(\lambda_{i_j})\right)\right\}, \quad k_i^* = \max_{1 \leqslant j \leqslant n_i} k_{i_j},
+k_i^* = \max_{1 \leqslant j \leqslant n_i} k_{i_j}
 \]
-and \(n_i\) is the number of Jordan blocks with eigenvalue \(\lambda_i\).
+is the size of the largest Jordan block with eigenvalue \(\lambda_i\) and \(n_i\) is the number of Jordan blocks with eigenvalue \(\lambda_i\).
 
 Simple eigenvalues thus have the property that the size of the largest Jordan block with that eigenvalue \(\lambda_i\) is \(1\) (i.e. \(k_i^* = 1\)).
 
@@ -160,17 +163,17 @@ Simple eigenvalues thus have the property that the size of the largest Jordan bl
 \begin{itemize}
 	\item \(\textnormal{1} \implies \textnormal{2}\).
 	
-	We start by applying A1, to obtain a trajectory \(y(t)\).
+	We start by applying A1, to obtain a trajectory \(y(t)\) with \(J(\lambda_i)\) as transition matrix.
 	If all trajectories are bounded, then that means (from applying A2 on the Jordan transition matrix for \(y(t)\)) that
 	\[
-	\sup_{t \geqslant 0} \norm{y_i(t)} = \sup_{t \geqslant 0} \norm*{e^{\lambda t} \sum_{j = i}^n \frac{t^{j - i}}{(j - i)!} y_j(0)} < \infty.
+	\sup_{t \geqslant 0} \norm{y_i(t)} = \sup_{t \geqslant 0} \norm*{e^{\lambda_i t} \sum_{j = i}^n \frac{t^{j - i}}{(j - i)!} y_j(0)} < \infty \quad \textnormal{for all } i.
 	\]
-	Clearly, there are two ways to satisfy this condition: either \(\Re(\lambda) < 0\) (in which case the exponential dominates any polynomial to its right), or \(\Re(\lambda) = 0\), and \(n = i\) (otherwise, the sum becomes an unbounded polynomial which is \textit{not} dominated by the exponential as the latter simply performs a rotation in the complex plane).
+	Clearly, there are two ways to satisfy this condition (which must be satisfied for all \(i\)): either \(\Re(\lambda_i) < 0\) (in which case the exponential dominates any polynomial to its right), or \(\Re(\lambda_i) = 0\), and \(n = i\) (otherwise, the sum becomes an unbounded polynomial which is \textit{not} dominated by the exponential as the latter simply performs a rotation in the complex plane).
 	We thus require that \(n = i\), as in this case the trajectory keeps its length (also known as marginal stability).
 	We finally observe that requiring \(n = i\) corresponds to having the Jordan block for \(\lambda\) be of dimension \(1 \times 1\), and thus \(\lambda\) must be simple.
 	\item \(\textnormal{2} \implies \textnormal{1}\).
 
-	From A1, we know there exists a change of coordinates $y=Tx$ such that $y(t)$ can be decomposed as follows
+	From A1, we know there exists a change of coordinates $y(t)=Tx(t)$ such that $y(t)$ can be decomposed as follows
 	\[
 	y(t) = \big[y_1(t)^\top, \dots, y_r(t)^\top\big]^\top,
 	\]
@@ -178,10 +181,10 @@ Simple eigenvalues thus have the property that the size of the largest Jordan bl
 	
 	From A2, one can then obtain an expression for the components $y_i(t)$.
 	If $\lambda_i$ is such that $\Re(\lambda_i)<0$, then from A2, we clearly see that the expression $y_i(t)$ tends to zero, as the exponential decreases more rapidly than the polynomial.
-	If $\lambda_i$ is purely imaginary, i.e. $\Re(\lambda_i) = 0$, then we can assume it is simple and hence by A3 we know the size of the largest Jordan block with that eigenvalue is \(1\).
+	If $\lambda_i$ is purely imaginary, i.e. $\Re(\lambda_i) = 0$, then by statement 2 we can assume it is simple and hence by A3 we know the size of the largest Jordan block with that eigenvalue is \(1\).
 	The expression of $y_i(t)$ then simplifies to $y_i(t)=e^{\lambda t} y_i(0)$, which remains bounded as \(t\) goes to infinity. %% si une eigenvalue vaut 0 ca reste bounded mais ca tend pas vers 0 (pas asymptotiquement stable)
 	
-	This shows that if all eigenvalues are either in the open left-hand plane or imaginary and simple, then $y_i(t)$ and hence $\norm{y(t)}=\norm{Tx(t)}$ remains bounded.
+	This shows that if all eigenvalues are either in the open left-hand plane or imaginary and simple, then $y_i(t)$ and hence $\norm{y(t)}=\norm{Tx(t)}$ remain bounded.
 	Finally, by virtue of the inversibility of \(T\), this shows that \(\sup_{t \geqslant 0} \norm{x(t)} < \infty\).\qedhere
 \end{itemize}
 \end{proof}
@@ -254,21 +257,21 @@ This can then be rewritten as
     \end{pmatrix}.
 \]
 The matrix \(B\) is lower-triangular and therefore its eigenvalues are the diagonal elements $\lambda+\lambda^*$.
-Moreover, we know that $\Re(\lambda)<0$ and so $\lambda+\lambda^*=2 \Re(\lambda)<0$.
+Moreover, we know that $\Re(\lambda) = \Re(\lambda^*) <0$ and so $\lambda+\lambda^*=2 \Re(\lambda)<0$.
 From this, we deduce that $B$ is negative definite and hence invertible.
 It follows that the system $B\vect(P)=-\vect(Q)$ has a unique solution and consequently we conclude that \(P\) exists and is unique.
 \end{proof}
 
-\begin{proof}
 Next we show that if $P\in\complex^{n\times n}$ satisfies $A^*P+PA=-Q$ then $P^*$ also satisfies $A^*P^*+P^*A=-Q$.
-This can simply be proven by taking the transpose conjugate of both sides of the equation $A^*P+PA=-Q$ that \(P\) satisfies taking into account that \(Q\) is Hermitian:
+\begin{proof}
+This can simply be proven by taking the transpose conjugate of both sides of the equation $A^*P+PA=-Q$ that \(P\) satisfies, taking into account that \(Q\) is Hermitian:
 \begin{align*}
     \big(A^*P+PA\big)^*&=(-Q)^*\\
-    \iff P^*A+A^*P^*&=-Q
+    \iff P^*A+A^*P^*&=-Q.
 \end{align*}
-This shows that $P^*$ satisfies $A^*P^*+P^*A=-Q$.
+This shows that $P^*$ also satisfies $A^*P^*+P^*A=-Q$.
 
-Combining the two last results, we deduce that there always exists a unique Hermitian matrix $P$ satisfying $B\vect(P)=-\vect(Q)$.
+Combining the last two results, we deduce that there always exists a unique Hermitian matrix $P$ satisfying $B\vect(P)=-\vect(Q)$.
 \end{proof}
 
 \begin{proof}
@@ -289,14 +292,15 @@ We thus have that \(V\big(x(t)\big)\) is always positive, and hence \(P\) is pos
 \begin{proof}\leavevmode
 \begin{itemize}
 	\item \(\textnormal{2} \implies \textnormal{3}\).
-	Properties of the eigenvalues are conserved when applying similarity transformations, hence without loss of generality, we can consider \(A\) to be in its Jordan normal form, with its simple eigenvalues in block $A_1$ and other eigenvalues in block $A_2$:
+	
+	Properties of the eigenvalues are conserved when applying similarity transformations, hence without loss of generality, we can consider \(A\) to be in its Jordan normal form, with its simple eigenvalues in block $A_1$ (which is thus diagonal) and other eigenvalues in block $A_2$:
 	\begin{align*}
-	A = \begin{pmatrix}
+	A \coloneqq \begin{pmatrix}
 	A_1 & \\
 	& A_2
 	\end{pmatrix}.
 	\end{align*}
-	By A5, we then find a positive definite  Hermitian matrix $P_1$ such that $P_1A_1+A_1^*P_1=-Q_1$ and by A6 we find a positive definite Hermitian $P_2$ such that $P_2A_2+A_2^*P_2=-Q_2$, with \(Q_1, Q_2\) both positive definite matrices.
+	By A5, we then find a positive definite  Hermitian matrix $P_1$ such that $P_1A_1+A_1^*P_1=-Q_1$ and by A6 we find a positive definite Hermitian matrix $P_2$ such that $P_2A_2+A_2^*P_2=-Q_2$, with \(Q_1, Q_2\) both positive definite matrices.
 	\begin{align*}
 	P A + A^* P = 
 	\begin{pmatrix}
@@ -321,7 +325,7 @@ We thus have that \(V\big(x(t)\big)\) is always positive, and hence \(P\) is pos
 	& Q_2
 	\end{pmatrix} = -Q \preceq 0.
 	\end{align*}
-	This is precisely statement 3, as \(P_1, P_2\) being Hermitian guarantees the same property for \(P\).
+	This is precisely statement 3, as \(P_1, P_2\) being Hermitian implies \(P\) shares the same property.
 	\item \(\textnormal{3} \implies \textnormal{1}\).
 	
 	We again consider \(V\big(x(t)\big)\) from A6.
@@ -329,36 +333,42 @@ We thus have that \(V\big(x(t)\big)\) is always positive, and hence \(P\) is pos
 	\[
 	V\big(x(t)\big) = V\big(x(0)\big) + \int_0^{t} \dot{V}\big(x(\tau)\big) \dif \tau \leqslant V\big(x(0)\big).
 	\]
-	This means that the whole trajectory lies in \(\Big\{z \mid V(z) \leqslant V\big(x(0)\big)\Big\}\), which corresponds to a bounded ellipsoid.\qedhere
+	This means that the whole trajectory lies in \(\Big\{z \mid V(z) \leqslant V\big(x(0)\big)\Big\}\), which corresponds to a bounded ellipsoid for positive definite \(P\).\qedhere
 \end{itemize}
 \end{proof}
 
 \subsection*{A8}
 \begin{proof}\leavevmode
-Clearly, if statement 3' is satisfied then so is statement 3 as real positive definite symmetric matrices are positive definite Hermitian matrices.\\
-If statement 3 is satisfied we know we have a positive definite Hermitian matrix $P$ such that $A^*P+PA\succeq 0$. We consider the real matrix $P_r=P+P^*$ and we observe that:
-\begin{align*}
-    A^* P_r+P_r A &= A^*(P+P^*)+(P+P^*)A\\
-    &= A^*P+A^*P^*+PA+P^*A\\
-    &= (A^*P+PA)+(A^*P+PA)^* \succeq 0
-\end{align*}
-We know the last expression is semipositive definite as the conjugate transpose of a positive semidefinite matrix is positive semidefinite and the sum of positive semidefinite matrices is positive semidefinite. Hence, $P_r$ is a real matrix satisfying the Lyapunov equation.
+\begin{itemize}
+	\item 3 \(\implies\) 3'.
+	
+	If statement 3 is satisfied, we know we have a positive definite Hermitian matrix $P$ such that $A^*P+PA \preceq 0$. We consider the real matrix $P_\textnormal{r}=P+P^*$ and we observe that
+	\begin{align*}
+	A^* P_\textnormal{r}+P_\textnormal{r} A &= A^*(P+P^*)+(P+P^*)A\\
+	&= A^*P+A^*P^*+PA+P^*A\\
+	&= (A^*P+PA)+(A^*P+PA)^* \preceq 0.
+	\end{align*}
+	We know the last expression is positive semidefinite as the conjugate transpose of a positive semidefinite matrix is positive semidefinite and the sum of positive semidefinite matrices is still positive semidefinite. Hence, $P_\textnormal{r}$ is a real matrix (by construction) satisfying the Lyapunov equation.
+	\item 3' \(\implies\) 3.
+	
+	Clearly, if statement 3' is satisfied then so is statement 3, as real positive definite symmetric matrices are positive definite Hermitian matrices.
+\end{itemize}
 \end{proof}
 
 \section*{Exercise B: Implementation}
 \subsection*{B1}
-First, we show that $I \kp A^{*} + A^\top \kp I = V (I \kp S^{*} + S^\top \kp I) V^{*}$, where \(V = \Bar{U} \kp U\).
+First, we show that $I \kp A^{*} + A^\top \kp I = V (I \kp S^{*} + S^\top \kp I) V^{*}$, where \(V = \bar{U} \kp U\).
 
 \begin{proof}
 \begin{align*}
    V (I \kp S^{*} + S^\top \kp I) V^{*}
-   &= (\Bar{U} \kp U) (I \kp S^{*} + S^\top \kp I) (\Bar{U} \kp U)^{*} \\
-   &= \Big[(\Bar{U} \kp U) (I \kp S^{*}) + (\Bar{U} \kp U) (S^\top \kp I)\Big] (U^\top \kp U^{*}) \\
-   &= \Big[(\Bar{U} I \kp U S^{*}) + (\Bar{U}S^\top \kp U I)\Big] (U^\top \kp U^{*}) \\
-   &= (\Bar{U} I \kp U S^{*}) (U^\top \kp U^{*}) + (\Bar{U}S^\top \kp U I) (U^\top \kp U^{*}) \\
-   &= (\Bar{U} I U^\top \kp U S^{*} U^{*}) + (\Bar{U}S^\top U^\top \kp U I U^{*}) \\
+   &= (\bar{U} \kp U) (I \kp S^{*} + S^\top \kp I) (\bar{U} \kp U)^{*} \\
+   &= \Big[(\bar{U} \kp U) (I \kp S^{*}) + (\bar{U} \kp U) (S^\top \kp I)\Big] (U^\top \kp U^{*}) \\
+   &= \Big[(\bar{U} I \kp U S^{*}) + (\bar{U}S^\top \kp U I)\Big] (U^\top \kp U^{*}) \\
+   &= (\bar{U} I \kp U S^{*}) (U^\top \kp U^{*}) + (\bar{U}S^\top \kp U I) (U^\top \kp U^{*}) \\
+   &= (\bar{U} I U^\top \kp U S^{*} U^{*}) + (\bar{U}S^\top U^\top \kp U I U^{*}) \\
    &= \Big((U^{*^\top} I U^\top)\kp U (U S)^{*} \Big) + \Big((U^{*^\top} S^\top U^\top) \kp I \Big) \\
-   &= \Big((I^\top U^{*})^\top U^\top) \kp (U S U^{*})^{*} \Big) + \Big((S U^{*})^\top U^\top \kp I \Big) \\
+   &= \Big(\big((I^\top U^{*})^\top U^\top\big) \kp (U S U^{*})^{*} \Big) + \Big((S U^{*})^\top U^\top \kp I \Big) \\
    &= \Big((U I^\top U^{*})^\top \kp A^{*} \Big) + \Big((U S U^{*})^\top \kp I \Big)\\
    &= (I \kp A^{*} ) + (A^\top \kp I).\qedhere
 \end{align*}
@@ -367,10 +377,10 @@ First, we show that $I \kp A^{*} + A^\top \kp I = V (I \kp S^{*} + S^\top \kp I)
 Next, we prove that \(V\) is unitary:
 \begin{proof}[\leavevmode]
 \begin{align*}
-   V V^{*} &= (\Bar{U} \kp U) (\Bar{U} \kp U)^{*} \\
-   &= (\Bar{U} \kp U) (U^\top \kp U^{*}) \\
-   &= \Bar{U} U^\top \kp U U^{*} \\
-   &= (U^{\top^\top}  \Bar{U}^\top)^\top \kp I \\
+   V V^{*} &= (\bar{U} \kp U) (\bar{U} \kp U)^{*} \\
+   &= (\bar{U} \kp U) (U^\top \kp U^{*}) \\
+   &= \bar{U} U^\top \kp U U^{*} \\
+   &= (U \bar{U}^\top)^\top \kp I \\
    &= (U U^{*})^\top \kp I \\
    &= I^\top \kp I \\
    &= I \kp I \\
@@ -388,17 +398,17 @@ This system can then be solved as follows: we want to solve the system
 \[
 (I \kp A^* + A^\top \kp I) \vect(P) = -\vect(Q).
 \]
-By the first proof result of this question, that yields
+By the first result proved in this question, that yields
 \[
-V (I \kp S^* + S^\top \kp I) V^* = -\vect(Q),
+V (I \kp S^* + S^\top \kp I) V^* \vect(P) = -\vect(Q),
 \]
 which, by virtue of the second result, becomes
 \[
-(I \kp S^* + S^\top \kp I) V^* = - V^*\vect(Q).
+(I \kp S^* + S^\top \kp I) V^* \vect(P) = - V^*\vect(Q).
 \]
 
 The third result of this question tells us that the system on the left is lower triangular.
-This means it can be solved efficiently by forward substitution, leaving us with \(V^* \vect(P)\).
+This means it can be solved efficiently by forward substitution, leaving us with the value of \(V^* \vect(P)\).
 Finally, we premultiply this by \(V\), and are left with \(\vect(P)\).
 
 Next, we show that this method has a computational complexity in \(\bo(n^4)\).
@@ -406,7 +416,7 @@ Next, we show that this method has a computational complexity in \(\bo(n^4)\).
 A rudimentary complexity analysis of this method goes as follows (some negligible complexities are not considered as they are dominated by another complexity in the same step):
 \begin{itemize}
 	\item Compute the Schur decomposition of \(A = U S U^*\) in \(\bo(n^3)\).
-	\item Compute \(V = U^* \kp U\) and \(C = I \kp S^* + S^\top \kp I\) (Kronecker product, sum) in \(\bo(n^4)\) each.
+	\item Compute \(V = \bar{U} \kp U\) and \(C = I \kp S^* + S^\top \kp I\) (Kronecker product, sum) in \(\bo(n^4)\) each.
 	\item Compute \(D = -V^* \vect(Q)\) (matrix-vector product between \(n^2 \times n^2\) matrix and \(n^2 \times 1\) vector) in \(\bo(n^4)\).
 	\item Solve \(C X = D\) (forward substitution on \(n^2 \times n^2\) system) in \(\bo(n^4)\).
 	\item Compute \(\vect(P) = VX\) (matrix-vector product between \(n^2 \times n^2\) matrix and \(n^2 \times 1\) vector) in \(\bo(n^4)\).
@@ -491,53 +501,55 @@ end
 
 
 \subsection*{B2}
-We want to test the boundednesss of trajectories defined by systems with three different matrices: $A_1$, $A_2$ and $A_3$ (see the statement). For this purpose, we use statement 2 and 3 of the introduction of exercise A.
+We want to test the boundednesss of the trajectories defined by the systems with the three different matrices: $A_1$, $A_2$ and $A_3$ defined in the homework statement. For this purpose, we use statements 2 and 3 in the introduction of exercise A.
 \subsubsection*{Statement 2}
-To check whether statement 2 is satisfied or not, we looked at the eigenvalues $\Lambda_i$ and Jordan form $J_i$ of the matrices:
+To check whether statement 2 is satisfied or not, we looked at the vectors of eigenvalues $\Lambda_i$ and Jordan forms $J_i$ of the matrices:
 \begin{align*}
-    \Lambda_1=\begin{pmatrix}
+    \Lambda_1 &=\begin{pmatrix}
     -0.5\\
     -0.5\\
     -1\\
     -2
-    \end{pmatrix}
-    &
+    \end{pmatrix}, \quad
     J_1=\begin{pmatrix}
     -2 & 0 & 0 & 0\\
     0 &-1 & 0 & 0\\
     0 & 0 & -0.5 &1\\
     0 & 0 & 0 & -0.5
     \end{pmatrix}\\
-    \Lambda_2=\begin{pmatrix}
+    \Lambda_2 &=\begin{pmatrix}
     0\\
     -0.5\\
     -1\\
     -2
-    \end{pmatrix}
-    &
+    \end{pmatrix}, \quad
     J_2=\begin{pmatrix}
     0 & 0 & 0 & 0\\
     0 &-0.5 & 0 & 0\\
     0 & 0 & -2 & 0\\
     0 & 0 & 0 & -1
     \end{pmatrix}\\
-    \Lambda_3=\begin{pmatrix}
+    \Lambda_3 &=\begin{pmatrix}
     0\\
     0\\
     -1\\
     -2
-    \end{pmatrix}
-    &
+    \end{pmatrix}, \quad
     J_2=\begin{pmatrix}
     0 & 1 & 0 & 0\\
     0 & 0 & 0 & 0\\
     0 & 0 & -2 & 0\\
     0 & 0 & 0 & -1
-    \end{pmatrix}
+    \end{pmatrix}.
 \end{align*}
-We observe that $A_1$ has eigenvalues such that $\Re(\lambda)<0$ and hence satisfies statement 2. The matrix $A_2$ has eigenvalues such $\Re(\lambda)<0$ except for one ($\lambda=0$) which is simple (largest Jordan block associated to $\lambda=0$ has size 1) so the statement is again verified. The matrix $A_3$ has an eigenvalue ($\lambda$=0) such that $\Re(\lambda)=0$ and associated to a Jordan block of size 2, hence not simple, therefore it does not satisfied the statement. We conclude that the trajectory will remain bounded only for the two first systems.\\
+We observe that $A_1$ has eigenvalues such that $\Re(\lambda_{1, i})<0$ for all \(i\) and hence satisfies statement 2.
+The matrix $A_2$ has eigenvalues such $\Re(\lambda_{2, i})<0$ for all \(i\) except for ($\lambda_{21}=0$), which is simple (the largest Jordan block associated to $\lambda_{21}$ has size \(1\)), so the statement is again verified.
+The matrix $A_3$ has an eigenvalue ($\lambda_{3, 1} = \lambda_{3, 2} = 0$) with zero real part and associated to a Jordan block of size 2, which is thus not simple.
+Therefore, it does not satisfy the statement. We conclude that the trajectory will necessarily remain bounded only for the first two systems.
+
 \subsubsection*{Statement 3}
-The use of statement 3 is less straightforward than the previous one. To know whether it exists a positive definite Hermitian matrix $P$ satisfying the Lyapunov equation with $A_i$, we can use the method described in the previous subsection to obtain $P$. To do so, we need to choose a matrix $Q$. We first start by choosing $Q$ as being the identity matrix.\\
+The use of statement 3 is less straightforward than that of the previous one. To know whether a positive definite Hermitian matrix $P$ satisfying the Lyapunov equation with $A_i$ exists, one can use the method described in the previous question to obtain $P$. To do so, we need to choose a positive definite Hermitian matrix $Q$. We first start by choosing $Q$ as being the identity matrix.
+
 For the matrix $A_1$, we obtain:
 \begin{align*}
 P_1=
@@ -546,10 +558,11 @@ P_1=
     -696.2622&  661.8022&  377.2533& -359.0156\\
     -398.0000&  377.2533&  216.1111& -205.1422\\
     377.9289& -359.0156& -205.1422&  195.3400\\
-    \end{pmatrix}
+    \end{pmatrix}.
 \end{align*}
-The eigenvalues of matrix $P_1$ are: $1806.1$, $1.4$, $0.8$ and $0.2$. Hence the matrix $P_1$ is a positive definite Hermitian matrix and the statement 3 is fulfilled.\\
-Doing the exact same thing with the matrices $A_2$ and $A_3$ does not achieve good results due to the zero eigenvalue. For example, the matrix P obtained with $A_2$ is:
+The eigenvalues of $P_1$ are $1806.1$, $1.4$, $0.8$, and $0.2$, hence the $P_1$ is a positive definite Hermitian matrix and statement 3 holds.
+
+Doing the exact same thing with the matrices $A_2$ and $A_3$ does not yield good results due to the zero eigenvalue. This is not surprising for \(A_3\), as due to the equivalence between the two statements, this is to be expected. However, the matrix \(P_2\) obtained with $A_2$ is unexpectedly
 \begin{align*}
 P_2 = 10^{15}
     \begin{pmatrix}
@@ -557,10 +570,10 @@ P_2 = 10^{15}
    -6.3488&    6.3488&    3.1744&   -3.1744\\
    -3.1744&    3.1744&    1.5872&   -1.5872\\
     3.1744&   -3.1744&   -1.5872&    1.5872
-    \end{pmatrix}
+    \end{pmatrix},
 \end{align*}
-with eigenvalues: $0$ and $1.5872\cdot 10^{16}$.\\
-Computing $A_2^*P_2+P_2A_2$ gives:
+with eigenvalues $0$ and $1.5872\cdot 10^{16}$.
+Computing $A_2^*P_2+P_2A_2$ gives
 \begin{align*}
     A_2^*P_2+P_2A_2=
     \begin{pmatrix}
@@ -568,8 +581,9 @@ Computing $A_2^*P_2+P_2A_2$ gives:
    -24&   -28&    -8&    18\\
    -24&    -8&    -8&     6\\
      8&    16&     2&   -16\\
-    \end{pmatrix}\neq -I
+    \end{pmatrix}\neq -Q = -I.
 \end{align*}
-As $P_2$ is not positive definite and the computations are prone to numerical errors, we cannot conclude that statement 3 is satisfied for $A_2$ using the identity matrix as $Q$.\\
-By theorem 5.11 of the course notes, we know that for every positive definite matrix $Q$ we can find a positive definite Hermitian matrix $P$ satisfying the Lyapunov equation if $A$ has its eigenvalues in the open left-hand plane. This was the case for $A_1$. However, both $A_2$ and $A_3$ have a zero eigenvalue which prevents to use the theorem. Hence, it is not guaranteed that for all semidefinite positive $Q$ we can find a positive definite Hermitian matrix $P$ satisfying the Lyapunov equation. Finding a semidefinite positive matrix $Q$ such that there is an appropriate solution $P$ is tedious. On top of that, as we have seen with the computations using $Q=I$, numerical errors make the work even harder. We tried to generate random positive definite matrices by generating a random matrix $Z$ and setting $Q=ZZ^*$ but that did not yield good results. Finally we note that such a matrix $Q$ does not even exists for $A_3$ as it does not fulfill statement 2.
+As $P_2$ is not positive definite (because the computations are prone to numerical errors), we cannot conclude that statement 3 is satisfied for $A_2$ using the identity matrix for $Q$.
+
+It is thus not guaranteed that for all positive semidefinite Hermitian matrices $Q$ we can numerically find a positive definite Hermitian matrix $P$ satisfying the Lyapunov equation. Finding a positive semidefinite matrix $Q$ such that there is an appropriate solution $P$ is tedious. On top of that, as we have seen with the computations using $Q=I$, numerical errors can further complicate this task. We tried to generate random positive definite matrices by generating a random matrix $Z$ and setting $Q=ZZ^*$, but this also did not yield satisfactory results. Finally, we note that such a matrix $Q$ does not even exist for $A_3$, as it does not fulfill statement 2.
 \end{document}
