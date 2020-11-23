@@ -70,20 +70,22 @@
 \section*{Exercise A: Boundedness of trajectories and Lyapunov equation}
 \subsection*{A1}
 \begin{proof}
-From the equality \(y(t) = T x(t) \iff x(t) = T^{-1} y(t)\), we can write
+We use the transformation \(y(t) = T x(t) \iff x(t) = T^{-1} y(t)\), where \(T\) is the transformation matrix used in the Jordan decomposition of \(A\).
+We then show that it necessarily leads to \(y_i(t)\) having a Jordan block as transition matrix.
 \begin{align*}
     \dot{y}(t) &= T \dot{x}(t) \\
     &= T A x(t) \\
     &= T A T^{-1} y(t) \\
     &= \diag\left\{J_1(\lambda_1), \dots, J_r(\lambda_r)\right\} y(t).
 \end{align*}
-This is the equation of a continuous-time linear system, and each \(y_i(t)\) has the Jordan block \(J_i(\lambda_i)\) as transition matrix.
+For the last equality, we used the definition of the Jordan form, applicable because of our particular choice of \(T\).
+This is the equation of a continuous-time linear system, and each \(y_i(t)\) has \(J_i(\lambda_i)\) as transition matrix.
 \end{proof}
 
 \subsection*{A2}
 We assume that $A=J_n(\lambda)$, hence we can write
 \begin{align*}
-    x(t) &= e^{At}x(0)=e^{J_n(\lambda)t}x(0)
+    x(t) &= e^{At}x(0)=e^{J_n(\lambda)t}x(0).
 \intertext{We can use the result of question B4 from Homework 1, which develops $e^{J_n(\lambda)}$, to obtain}
     x(t) &= e^{J_n(\lambda)t}x(0)\\
     &= e^{\lambda t}\Bigg(I+\sum_{k=1}^{n-1}\frac{1}{k!}\big(J_n(0)\big)^k\Bigg)^t x(0)\\
@@ -161,7 +163,7 @@ Simple eigenvalues thus have the property that the size of the largest Jordan bl
 	We start by applying A1, to obtain a trajectory \(y(t)\).
 	If all trajectories are bounded, then that means (from applying A2 on the Jordan transition matrix for \(y(t)\)) that
 	\[
-	y_i(t) = e^{\lambda_t} \sum_{j = i}^n \frac{t^{j - i}}{(j - i)!} y_j(0) < \infty \hspace{1cm} \forall t %%% j'imagine que c'est de cette condition qu'on parle dans la phrase suivante ?
+	\sup_{t \geqslant 0} \norm{y_i(t)} = \sup_{t \geqslant 0} \norm*{e^{\lambda t} \sum_{j = i}^n \frac{t^{j - i}}{(j - i)!} y_j(0)} < \infty.
 	\]
 	Clearly, there are two ways to satisfy this condition: either \(\Re(\lambda) < 0\) (in which case the exponential dominates any polynomial to its right), or \(\Re(\lambda) = 0\), and \(n = i\) (otherwise, the sum becomes an unbounded polynomial which is \textit{not} dominated by the exponential as the latter simply performs a rotation in the complex plane).
 	We thus require that \(n = i\), as in this case the trajectory keeps its length (also known as marginal stability).
@@ -239,14 +241,18 @@ We know $A\in\complex^{n\times n}$ is a Jordan block with eigenvalue $\lambda$, 
     I & \ddots & &\\
     & \ddots & \ddots &\\
     & & I & \big(J_n(\lambda)\big)^*+\lambda I
-    \end{pmatrix}\\
-    &=\begin{pmatrix}
+    \end{pmatrix}.
+\end{align*}
+
+This can then be rewritten as
+\[
+    B =\begin{pmatrix}
     \big(J_n(\lambda+\lambda^*)\big)^* & & & \\
     I & \ddots & &\\
     & \ddots & \ddots &\\
     & & I & \big(J_n(\lambda+\lambda^*)\big)^*
     \end{pmatrix}.
-\end{align*}
+\]
 The matrix \(B\) is lower-triangular and therefore its eigenvalues are the diagonal elements $\lambda+\lambda^*$.
 Moreover, we know that $\Re(\lambda)<0$ and so $\lambda+\lambda^*=2 \Re(\lambda)<0$.
 From this, we deduce that $B$ is negative definite and hence invertible.
@@ -283,18 +289,16 @@ We thus have that \(V\big(x(t)\big)\) is always positive, and hence \(P\) is pos
 \begin{proof}\leavevmode
 \begin{itemize}
 	\item \(\textnormal{2} \implies \textnormal{3}\).
-	
-	%IDEE
-	% prouver pourquoi on peut considerer la jordan form
-	Jordan form of A such that simple eigenvalues in block $A_1$ and other eigenvalues in block $A_2$:
+	Properties of the eigenvalues are conserved when applying similarity transformations, hence without loss of generality, we can consider \(A\) to be in its Jordan normal form, with its simple eigenvalues in block $A_1$ and other eigenvalues in block $A_2$:
 	\begin{align*}
-	\begin{pmatrix}
+	A = \begin{pmatrix}
 	A_1 & \\
 	& A_2
-	\end{pmatrix}
+	\end{pmatrix}.
 	\end{align*}
-	By A3 we find $P_1$ such that $P_1A_1+A_1^*P_1=-Q1$ and by A6 we find $P_2$ such that $P_2A_2+A_2^*P_2=-Q2$
+	By A5, we then find a positive definite  Hermitian matrix $P_1$ such that $P_1A_1+A_1^*P_1=-Q_1$ and by A6 we find a positive definite Hermitian $P_2$ such that $P_2A_2+A_2^*P_2=-Q_2$, with \(Q_1, Q_2\) both positive definite matrices.
 	\begin{align*}
+	P A + A^* P = 
 	\begin{pmatrix}
 	P_1 & \\
 	& P_2
@@ -315,8 +319,9 @@ We thus have that \(V\big(x(t)\big)\) is always positive, and hence \(P\) is pos
 	\begin{pmatrix}
 	Q_1 & \\
 	& Q_2
-	\end{pmatrix}\preceq 0
+	\end{pmatrix} = -Q \preceq 0.
 	\end{align*}
+	This is precisely statement 3, as \(P_1, P_2\) being Hermitian guarantees the same property for \(P\).
 	\item \(\textnormal{3} \implies \textnormal{1}\).
 	
 	We again consider \(V\big(x(t)\big)\) from A6.
@@ -324,7 +329,7 @@ We thus have that \(V\big(x(t)\big)\) is always positive, and hence \(P\) is pos
 	\[
 	V\big(x(t)\big) = V\big(x(0)\big) + \int_0^{t} \dot{V}\big(x(\tau)\big) \dif \tau \leqslant V\big(x(0)\big).
 	\]
-	This means that the whole trajectory lies in \(\Big\{z \mid V(z) \leqslant V\big(x(0)\big)\Big\}\), which is bounded.\qedhere
+	This means that the whole trajectory lies in \(\Big\{z \mid V(z) \leqslant V\big(x(0)\big)\Big\}\), which corresponds to a bounded ellipsoid.\qedhere
 \end{itemize}
 \end{proof}
 
