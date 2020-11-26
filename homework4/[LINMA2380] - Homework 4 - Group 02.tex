@@ -1,0 +1,81 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,left=1.5cm,right=1.5cm,top=1.5cm,bottom=1.5cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{mleftright}
+\usepackage{verbatim}
+\renewcommand{\headrulewidth}{1pt}
+\fancyhead[C]{\textsc{[LINMA2380] --- Homework 4}}
+\fancyhead[L]{14 December 2020}
+\fancyhead[R]{Group 02}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{csquotes}
+\usepackage{mathtools,amssymb,amsthm}
+\usepackage[binary-units=true,separate-uncertainty = true,multi-part-units=single]{siunitx}
+\usepackage{float}
+\usepackage[linktoc=all]{hyperref}
+\hypersetup{breaklinks=true}
+\graphicspath{{img/}}
+\usepackage{caption}
+\usepackage{textcomp}
+\usepackage{array}
+\usepackage{color}
+\usepackage{tabularx,booktabs}
+\usepackage{titlesec}
+\pagestyle{fancy}
+\usepackage{mathrsfs}
+\usepackage{bm}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+
+\DeclarePairedDelimiterX{\norm}[1]{\lVert}{\rVert}{#1}
+
+\newcommand\bovermat[2]{%
+  \makebox[0pt][l]{$\smash{\overbrace{\phantom{%
+    \begin{matrix}#2\end{matrix}}}^{\text{#1}}}$}#2}
+    
+\newcommand{\imag}{\mathrm{i}\mkern1mu} % Imaginary unit
+\newcommand{\abs}[1]{\left\lvert#1\right\lvert}
+\newcommand{\kp}{\otimes}
+\DeclareMathOperator{\vect}{vec}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\newdiff}{d} % use \dif instead
+\newcommand{\dif}{\newdiff\!}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\bo}{\mathcal{O}}
+
+\DeclareMathOperator{\diag}{diag}
+
+\newcommand{\field}{\mathbb{F}} % field
+\newcommand{\real}{\mathbb{R}} % real numbers
+\newcommand{\complex}{\mathbb{C}} % complex numbers
+
+\newcommand{\snorm}[1]{\norm{#1}_2} % spectral norm
+\newcommand{\fnorm}[1]{\norm{#1}_F} % frobenius norm
+
+\setcounter{MaxMatrixCols}{15}
+
+\newcommand\undermat[2]{% http://tex.stackexchange.com/a/102468/5764
+	\makebox[0pt][l]{$\smash{\underbrace{\phantom{%
+					\begin{matrix}#2\end{matrix}}}_{\text{$#1$}}}$}#2}
+
+\begin{document}
+\section*{Exercise A: Minimal polynomial and Smith normal form}
+\subsection*{A1}
+\subsection*{A2}
+\subsection*{A3}
+\subsection*{A4}
+\subsection*{A5}
+
+\section*{Exercise B: Implementation}
+\subsection*{B1}
+\subsection*{B2}
+
+\end{document}
