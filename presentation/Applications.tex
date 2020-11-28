@@ -1,0 +1,54 @@
+\begin{frame}{Applications - Image processing}
+    \textbf{Goal} : Facial Feature Extraction\\
+    \\
+    \begin{figure}
+        \centering
+        \includegraphics[width=2cm]{face_image.png}
+    \end{figure}
+    Data matrix : $X\in\real^{p\times n}_+$\\
+    \begin{itemize}
+        \item $p$ : total number of pixels
+        \item $n$ : number of faces
+        \item $X(i,j)$ : the gray-level of the $i$-th pixel in the $j$-th face
+    \end{itemize}
+\end{frame}
+    
+\begin{frame}{Applications - Image processing}
+    \begin{figure}
+        \centering
+        \includegraphics[width=\linewidth]{NMF_app1.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Applications - Image processing}
+    \begin{figure}[h!]
+        \centering
+        \begin{minipage}{0.45\textwidth}
+            \centering
+            \includegraphics[width=5.3cm]{NMFcomp.png}
+            %\caption{NMF decomposition}
+            NMF decomposition
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.45\textwidth}
+            \centering
+            \includegraphics[width=5.5cm]{PCAcomp.png}
+            %\caption{PCA decomposition}
+            PCA decompostion
+        \end{minipage}
+    \end{figure}
+\end{frame}
+\begin{frame}{Applications - Text mining}
+    \textbf{Goal} : Topic Recovery and Document Classification\\
+    \vspace{0.7cm}
+    Data matrix : $X\in\real^{n\times m}$\\
+    \begin{itemize}
+        \item each column : a document
+        \item each line : a word
+        \item $X(i,j)$ : number of times the $i$-th word appears in the $j$-th document
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.9\linewidth]{NMF_app2.png}
+    \end{figure}
+\end{frame}
