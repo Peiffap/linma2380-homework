@@ -136,8 +136,8 @@
 %	Introduction and Motivation
 %----------------------------------------------------------------------------------------
 
-\begin{exampleblock}{Introduction and Motivation}
-TO DO
+\begin{exampleblock}{In a few words}
+NMF is a powerful tool for the analysis of \textbf{high-dimensional} data as it automatically extracts \textbf{sparse} and \textbf{meaningful} features from a set of \textbf{nonnegative} vectors.
 \end{exampleblock}
 
 %----------------------------------------------------------------------------------------
@@ -145,13 +145,7 @@ TO DO
 %----------------------------------------------------------------------------------------
 
 \begin{exampleblock}{Nonnegative Matrix Factorization : definition and properties}
-\begin{defn}
-TO DO
-Let $H \in (0,1)$. A fractional Brownian motion (fBm) $ (B^H(t))_{t\geq 0}$ of Hurst index $H$ is a continuous and centered Gaussian process with co-variance function
-\begin{equation}
-    \mathbb{E}[B^{(H)}(t)B^{(H)}(s)]=\frac{1}{2}(t^{2H}+s^{2H}-|t-s|^{2H})
-\end{equation}
-\end{defn}
+
 \end{exampleblock}
 
 \end{column} % End of the first column
@@ -165,7 +159,19 @@ Let $H \in (0,1)$. A fractional Brownian motion (fBm) $ (B^H(t))_{t\geq 0}$ of H
 %----------------------------------------------------------------------------------------
 
 \begin{exampleblock}{Applications}
-TO DO
+\textbf{Image processing}\\
+Data matrix:\\
+The data matrix $X\in\real^{p\times n}_+$ carries information about $n$ image faces,
+\begin{itemize}
+    \item Each image has $q$ pixels
+    \item Each column of the data matrix $X$ represents an image of a face
+    \item The $(i,j)$th entry of $X$ represents the gray-level of the $i$th pixel in the $j$th face
+\end{itemize}
+NMF factorization:\\
+\begin{itemize}
+    \item Each column of the matrix $W$ represents a facial feature.
+    \item The $(i,j)$th entry of $H$ represents the importance of the $i$-th feature in the $j$-th face
+\end{itemize}
 \end{exampleblock}
 
 \begin{exampleblock}{Algorithms and difficulties}
