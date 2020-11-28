@@ -1,0 +1,213 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Jacobs Landscape Poster
+% LaTeX Template
+% Version 1.0 (29/03/13)
+%
+% Created by:
+% Computational Physics and Biophysics Group, Jacobs University
+% https://teamwork.jacobs-university.de:8443/confluence/display/CoPandBiG/LaTeX+Poster
+% 
+% Further modified by:
+% Nathaniel Johnston (nathaniel@njohnston.ca)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% 
+% Masaryk University presentation themes were downloaded from:
+% https://www.overleaf.com/gallery/tagged/muni
+%
+% and ported into Jacobs Landscape Poster by:
+% Jumaidil Awal (ideal1st.here@googlemail.com)
+% 
+% Jacobs Landscape Poster License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+% Masaryk University's fibeamer theme license:
+% Copyright 2015  Vít Novotný <witiko@mail.muni.cz>
+% Faculty of Informatics, Masaryk University (Brno, Czech Republic)
+% under Latex Project Public License
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[final]{beamer}
+
+\usepackage[scale=0.849]{beamerposter} % Use the beamerposter package for laying out the poster
+
+%\usetheme{confposter} % Use the confposter theme supplied with this template
+\usetheme[faculty=chemo]{fibeamer} % Uncomment to use Masaryk University's fibeamer theme instead.
+
+%\setbeamercolor{block title}{fg=ngreen,bg=white} % Colors of the block titles
+%\setbeamercolor{block body}{fg=black,bg=white} % Colors of the body of blocks
+%\setbeamercolor{block alerted title}{fg=white,bg=ngreen} % Colors of the highlighted block titles
+%\setbeamercolor{block alerted body}{fg=black,bg=dblue!10} % Colors of the body of highlighted blocks
+% Many more colors are available for use in beamerthemeconfposter.sty
+
+%-----------------------------------------------------------
+% Define the column widths and overall poster size
+% To set effective sepwid, onecolwid and twocolwid values, first choose how many columns you want and how much separation you want between columns
+% In this template, the separation width chosen is 0.024 of the paper width and a 4-column layout
+% onecolwid should therefore be (1-(# of columns+1)*sepwid)/# of columns e.g. (1-(4+1)*0.024)/4 = 0.22
+% Set twocolwid to be (2*onecolwid)+sepwid = 0.464
+% Set threecolwid to be (3*onecolwid)+2*sepwid = 0.708
+
+\newlength{\sepwid}
+\newlength{\onecolwid}
+\newlength{\twocolwid}
+\newlength{\threecolwid}
+\setlength{\paperwidth}{46.8in} % A0 width: 46.8in
+\setlength{\paperheight}{33.1in} % A0 height: 33.1in
+\setlength{\sepwid}{0.007\paperwidth} % Separation width (white space) between columns
+\setlength{\onecolwid}{0.21\paperwidth} % Width of one column
+\setlength{\twocolwid}{0.451\paperwidth} % Width of two columns
+\setlength{\threecolwid}{0.7\paperwidth} % Width of three columns
+%\setlength{\topmargin}{-0.5in} % Reduce the top margin size
+%-----------------------------------------------------------
+
+% Theorems
+\newtheorem{thm}{Theorem}[section]
+%\newtheorem{proof}[thm]{Proof}
+%\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{ex}[thm]{Example}
+\newtheorem{assu}[thm]{Assumption}
+\newtheorem{alg}[thm]{Algorithm}
+\newtheorem{defn}[thm]{Definition}
+
+\usepackage{caption}
+\captionsetup[figure]{labelformat=simple}
+
+
+\usepackage{graphicx}  % Required for including images
+
+\usepackage{booktabs} % Top and bottom rules for tables
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION 
+%----------------------------------------------------------------------------------------
+
+\title{Nonnegative Matrix Factorization} % Poster title
+
+\author{Group 2} % Author(s)
+
+\institute{Ecole Polytechnique de Louvain} % Institution(s)
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+\addtobeamertemplate{block end}{}{\vspace*{2ex}} % White space under blocks
+\addtobeamertemplate{block example end}{}{\vspace*{2ex}} % White space under example blocks
+\addtobeamertemplate{block alerted end}{}{\vspace*{2ex}} % White space under highlighted (alert) blocks
+
+\setlength{\belowcaptionskip}{2ex} % White space under figures
+\setlength\belowdisplayshortskip{2ex} % White space under equations
+%\begin{darkframes} % Uncomment for dark theme, don't forget to \end{darkframes}
+\begin{frame} % The whole poster is enclosed in one beamer frame
+
+%==========================Begin Head===============================
+
+  \begin{columns}
+   \begin{column}{\linewidth}
+    \vskip1cm
+    \centering
+    \usebeamercolor{title in headline}{\color{fg}\Huge{\textbf{\inserttitle}}\\[0.3ex]}
+    \usebeamercolor{author in headline}{\color{fg}\large{\insertauthor}\\[0.3ex]}
+    %\usebeamercolor{institute in headline}{\color{fg}\large{\insertinstitute}\\[1ex]}
+   \end{column}
+   %\vspace{0.5cm}
+  \end{columns}
+ %\vspace{1cm}
+
+%==========================End Head===============================
+
+\begin{columns}[t] % The whole poster consists of three major columns, the second of which is split into two columns twice - the [t] option aligns each column's content to the top
+\begin{column}{\sepwid}\end{column} % Empty spacer column
+\begin{column}{\threecolwid}
+\begin{columns}[t]
+
+\begin{column}{\onecolwid} % The first column
+
+%----------------------------------------------------------------------------------------
+%	Introduction and Motivation
+%----------------------------------------------------------------------------------------
+
+\begin{exampleblock}{Introduction and Motivation}
+TO DO
+\end{exampleblock}
+
+%----------------------------------------------------------------------------------------
+%	Nonnegative Matrix Factorization: definition and properties (sparse, meaningful features)
+%----------------------------------------------------------------------------------------
+
+\begin{exampleblock}{Nonnegative Matrix Factorization : definition and properties}
+\begin{defn}
+TO DO
+Let $H \in (0,1)$. A fractional Brownian motion (fBm) $ (B^H(t))_{t\geq 0}$ of Hurst index $H$ is a continuous and centered Gaussian process with co-variance function
+\begin{equation}
+    \mathbb{E}[B^{(H)}(t)B^{(H)}(s)]=\frac{1}{2}(t^{2H}+s^{2H}-|t-s|^{2H})
+\end{equation}
+\end{defn}
+\end{exampleblock}
+
+\end{column} % End of the first column
+
+\begin{column}{\sepwid}\end{column} % Empty spacer column
+
+\begin{column}{\twocolwid} % Begin a column which is two columns wide (column 2)
+
+%----------------------------------------------------------------------------------------
+%	Applications
+%----------------------------------------------------------------------------------------
+
+\begin{exampleblock}{Applications}
+TO DO
+\end{exampleblock}
+
+\begin{exampleblock}{Algorithms and difficulties}
+TO DO
+\end{exampleblock}
+
+\end{column} % End of the second column
+
+\end{columns}
+
+\begin{alertblock}{Conclusion}
+
+TO DO
+
+\end{alertblock}
+
+
+\end{column}
+\begin{column}{\sepwid}\end{column} % Empty spacer column
+\begin{column}{\onecolwid} % The third column
+
+%----------------------------------------------------------------------------------------
+%	Links to other problems
+%----------------------------------------------------------------------------------------
+
+\begin{exampleblock}{Links to other problems}
+
+TO DO
+\end{exampleblock}
+
+%----------------------------------------------------------------------------------------
+%	References
+%----------------------------------------------------------------------------------------
+\begin{alertblock}{References}
+
+\begin{thebibliography}{99}
+\end{thebibliography}
+
+\end{alertblock}
+\end{column} % End of the third column
+\begin{column}{\sepwid}\end{column} % Empty spacer column
+\end{columns} % End of all the columns in the poster
+\end{frame} % End of the enclosing frame
+%\end{darkframes} % Uncomment for dark theme
+\end{document}
