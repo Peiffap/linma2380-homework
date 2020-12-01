@@ -61,3 +61,27 @@ The communication matrix $X \in \{0,1\}^{2^n\times 2^m}$ is equal to the functio
 \]
 \end{thm}
 \end{frame}
+
+\begin{frame}{Linear Optimization : Extended formulation}
+\begin{align*}
+\text{(LP) } & \max & c^T x\\
+ &s.t. & Ax\leq b\\
+ & & x \in \mathbb{R}^n \geq 0
+\end{align*}
+\begin{defn}[Extended formulation]
+The extended formulation of a polytope P is a higher dimensional polytope Q and a linear projection $\pi$ s.t. $\pi(Q) = P$.
+\end{defn}
+In our LP problem, an extended formulation of the polytope $P \subset \mathbb{R}^n$ defined by the constraints $Ax\leq b$, is a polytope $Q\subset \mathbb{R}^{n+r}$ defined by $Cx+Dy \leq d$ with $y\in \mathbb{R}^r$, s.t. $\pi(Q) = P$.
+
+\end{frame}
+
+\begin{frame}
+The slack matrix $X(i,j) = b_i-A_iv_j$.
+
+With $v_j$, the $j^{th}$ vertex of P and $\{x\in \mathbb{R}^n | b_i-A_ix\geq 0\}$ its $i^{th}$ facet.
+
+The (i,j) entry measures the slack of the $i^{th}$ inequality for the vertex $j$. 
+\begin{thm}[Yannakis]
+The minimum size of an extended formulation Q of P is equal to $\text{rank}_+(X)$.
+\end{thm}
+\end{frame}
