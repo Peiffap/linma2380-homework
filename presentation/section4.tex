@@ -1,5 +1,30 @@
-\begin{frame}{}
-        \begin{itemize}
-            \item<1-> 
-        \end{itemize}
+\begin{frame}{Nonnegative rank}
+\begin{defn}[Nonnegative rank]
+Given $X \in \mathbb{R}_+^{p\times n}$, the nonnegative rank of X, denoted $\text{rank}_+(X)$ is the minimum $r$ s.t. $\exists W \in \mathbb{R}_+^{p\times r}, H \in \mathbb{R}_+^{r\times n} \text{ with } X = WH$.
+\end{defn}
+\centering
+\includegraphics[scale=0.28]{Section4/NMFvect.png}
+\end{frame}
+\begin{frame}{Computational Geometry : Nested polytopes problem}
+\begin{figure}
+\centering
+\includegraphics[scale=0.35]{Section4/polytopeGeo.png}
+\caption{\footnotesize Finding a polytope with minimum nb of vertices nested between 2 polytopes}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Graph Theory : Bipartite dimension}
+Let $G(X) = (V_1 \cup V_2, E)$ be a bipartite graph induced by X (i.e. $(i,j)\in E \Leftrightarrow X_{ij}\neq 0$).
+\begin{defn}[Biclique and bipartite dimension]
+\begin{itemize}
+\item A biclique (or a complete bipartite graph) is a bipartite graph s.t. every vertex in $V_1$ is connected to every vertex in $V_2$. 
+\item The bipartite dimension (or the minimum biclique cover) bc$(G(X))$ is the minimum number of bicliques needed to cover all edges in E.
+\end{itemize} 
+\end{defn}
+\begin{figure}
+\centering
+\includegraphics[scale=0.18]{Section4/biclique.png}
+\caption{Example for biclique edge cover \cite{biclique}}
+\end{figure}
+
 \end{frame}

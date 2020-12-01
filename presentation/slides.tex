@@ -1,5 +1,5 @@
 \documentclass[aspectratio=43]{beamer}
-
+\usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{mathtools}
 \usepackage{csquotes}
@@ -37,6 +37,16 @@
 }
 \makeatother
 
+\newtheorem{thm}{Theorem}[section]
+%\newtheorem{proof}[thm]{Proof}
+%\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{ex}[thm]{Example}
+\newtheorem{assu}[thm]{Assumption}
+\newtheorem{alg}[thm]{Algorithm}
+\newtheorem{defn}[thm]{Definition}
+
 \usecolortheme[named=orange]{structure}
 \usecolortheme{sidebartab}
 \usecolortheme{orchid}
@@ -45,7 +55,7 @@
 \setbeamercolor{block title alerted}{bg=alerted text.fg!90!black}
 \setbeamercolor{block title example}{bg=lightorange!60!black}
 \setbeamercolor{background canvas}{bg=white}
-\setbeamercolor{normal text}{bg=gray,fg=black}
+\setbeamercolor{normal text}{bg=white,fg=black}
 
 \setbeamertemplate{footline}
 {
@@ -105,12 +115,13 @@
 \begin{document}
     
     \frame{\titlepage}
-    
-    \input{Applications}
-    
+        
     \begin{frame}{Summary}
         \tableofcontents
     \end{frame}
+	\section{Applications}
+    \input{Applications}
+	\section{Connections to other problems}
 	\input{section4}
     \section{}
         \begin{frame}{}
@@ -118,4 +129,8 @@
             \item<1-> 
         \end{itemize}
         \end{frame}
+        
+  	\begin{frame}
+  	\printbibliography
+  	\end{frame}
 \end{document}
