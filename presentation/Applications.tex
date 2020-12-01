@@ -1,6 +1,6 @@
 \begin{frame}{Applications - Image processing}
     \textbf{Goal} : Facial Feature Extraction\\
-    ~\\
+    \\
     \begin{figure}
         \centering
         \includegraphics[width=2cm]{face_image.png}
@@ -12,6 +12,7 @@
         \item $X(i,j)$ : the gray-level of the $i$-th pixel in the $j$-th face
     \end{itemize}
 \end{frame}
+    
 \begin{frame}{Applications - Image processing}
     \begin{figure}
         \centering
@@ -37,10 +38,10 @@
         \end{minipage}
     \end{figure}
 \end{frame}
-\begin{frame}{Applications - Text mining}
+\begin{frame}{Applications - Text Mining}
     \textbf{Goal} : Topic Recovery and Document Classification\\
     \vspace{0.7cm}
-    Data matrix : $X\in\real^{n\times m}$\\
+    Data matrix : $X\in\real^{n\times m}_+$\\
     \begin{itemize}
         \item each column : a document
         \item each line : a word
@@ -49,5 +50,25 @@
     \begin{figure}
         \centering
         \includegraphics[width=0.9\linewidth]{NMF_app2.png}
+    \end{figure}
+\end{frame}
+\begin{frame}{Applications - Hyperspectral Unmixing}
+    \textbf{Goal} :
+    \begin{enumerate}
+        \item Identify the constitutive materials present in an image
+        \item Classify the pixels according to their constitutive materials
+    \end{enumerate}
+    \vspace{1cm}
+    Spectral signature of a pixel: fraction of incident light being reflected by that pixel at different wavelengths\\
+\end{frame}
+
+\begin{frame}{Applications - Hyperspectral Unmixing}
+    Data matrix : $X\in\real^{n\times m}$\\
+    \begin{itemize}
+        \item each column : spectral signature of a pixel
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.85\linewidth]{NMF_app3.png}
     \end{figure}
 \end{frame}
