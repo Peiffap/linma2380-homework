@@ -1,0 +1,26 @@
+\begin{frame}{Optimization Problem}
+\begin{itemize}
+\item<1-> \textbf{Mathematical formulation}: \(\displaystyle \min_{W \in \mathbb{R}^{p \times r}, H \in \mathbb{R}^{r \times n}} \norm{X - WH}^2_{\textnormal{F}}\), such that \(W \geqslant 0\), \(H \geqslant 0\).
+\item<2-> Frobenius norm \textbf{assumption}: noise is \emph{Gaussian}.
+\item<3-> Other possibilities:
+\begin{itemize}
+    \item Kullback--Leibler divergence, used in text mining;
+    \item Itakura--Saito distance, used in music analysis;
+    \item \(\ell_1\) norm to improve robustness against outliers;
+    \item etc.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Issues}
+\begin{itemize}
+\item<1-> NMF is \textbf{NP-hard} (but in practice, this is rarely a problem).
+\item<2-> NMF is \textbf{ill-posed}. Several ``solutions'' exist:
+\begin{itemize}
+    \item Using \emph{priors} on the factors \(W\) and \(H\) (e.g. sparsity).
+    \item Appropriate \emph{regularization} in the objective function.
+    \item Finding \emph{application-specific solutions} is a very active area of research!
+\end{itemize}
+\item<3-> Choice of \textbf{factorization rank} \(r\).
+\end{itemize}
+\end{frame}

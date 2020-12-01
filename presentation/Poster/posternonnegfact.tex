@@ -85,6 +85,8 @@
 \usepackage{caption}
 \captionsetup[figure]{labelformat=simple}
 
+\usepackage{mathtools}
+\DeclarePairedDelimiterX{\norm}[1]{\lVert}{\rVert}{#1}
 
 \usepackage{graphicx}  % Required for including images
 
@@ -94,11 +96,11 @@
 %	TITLE SECTION 
 %----------------------------------------------------------------------------------------
 
-\title{Nonnegative Matrix Factorization} % Poster title
+\title{The Why and How of Nonnegative Matrix Factorization} % Poster title
 
 \author{Group 2} % Author(s)
 
-\institute{Ecole Polytechnique de Louvain} % Institution(s)
+\institute{École Polytechnique de Louvain, UCLouvain} % Institution(s)
 
 %----------------------------------------------------------------------------------------
 
@@ -116,7 +118,7 @@
 
   \begin{columns}
    \begin{column}{\linewidth}
-    \vskip1cm
+    \vskip0.5cm
     \centering
     \usebeamercolor{title in headline}{\color{fg}\Huge{\textbf{\inserttitle}}\\[0.3ex]}
     \usebeamercolor{author in headline}{\color{fg}\large{\insertauthor}\\[0.3ex]}
@@ -129,7 +131,8 @@
 %==========================End Head===============================
 
 \begin{columns}[t] % The whole poster consists of three major columns, the second of which is split into two columns twice - the [t] option aligns each column's content to the top
-\begin{column}{\sepwid}\end{column} % Empty spacer column
+\begin{column}{\sepwid}
+\end{column} % Empty spacer column
 \begin{column}{\threecolwid}
 \begin{columns}[t]
 
@@ -165,7 +168,8 @@ LDR is equivalent to low-rank matrix approximation where: $X \approx W H$ where 
 
 \end{column} % End of the first column
 
-\begin{column}{\sepwid}\end{column} % Empty spacer column
+\begin{column}{\sepwid}
+\end{column} % Empty spacer column
 
 \begin{column}{\twocolwid} % Begin a column which is two columns wide (column 2)
 
@@ -205,10 +209,6 @@ The \textbf{nonnegative matrix factorization} can be interpreted as follows:\\
 
 \end{exampleblock}
 
-\begin{exampleblock}{Algorithms and difficulties}
-TO DO
-\end{exampleblock}
-
 \end{column} % End of the second column
 
 \end{columns}
@@ -221,8 +221,37 @@ TO DO
 
 
 \end{column}
-\begin{column}{\sepwid}\end{column} % Empty spacer column
+\begin{column}{\sepwid}
+\end{column} % Empty spacer column
+\begin{column}{\onecolwid}
+\begin{columns}[t]
 \begin{column}{\onecolwid} % The third column
+\begin{exampleblock}{Algorithms and Difficulties}
+\begin{block}{Optimization Problem}
+We want to solve \(\displaystyle \min_{W \in \mathbb{R}^{p \times r}, H \in \mathbb{R}^{r \times n}} \norm{X - WH}^2_{\textnormal{F}}\), such that \(W \geqslant 0\), \(H \geqslant 0\).
+Our use of the Frobenius norm implies the assumption that the noise is Gaussian.
+This is not always the best choice; in practice, depending on the application, other choices are possible too, such as:
+\begin{itemize}
+    \item Kullback--Leibler divergence used in text mining;
+    \item Itakura--Saito distance used in music analysis;
+    \item \(\ell_1\) norm used to improve robustness against outliers;
+    \item etc.
+\end{itemize}
+\end{block}
+\begin{block}{Difficulties}
+NMF is not a trivial task:
+\begin{itemize}
+    \item NMF is \textbf{NP-hard}, but in practice, this is rarely problematic.
+    \item NMF is \textbf{ill-posed}: if \((W, H)\) is an NMF of \(X\), then so is \((W', H') = (WQ, Q^{-1}H)\), where \(WQ \geqslant 0\), \(Q^{-1}H \geqslant 0\).
+    This can be solved by
+    \begin{itemize}
+        \item using \textbf{priors} for \(W\) and \(H\), such as sparsity;
+        \item adding \textbf{regularization} terms.
+    \end{itemize}
+    Finding application-specific solutions is an active area of research.
+\end{itemize}
+\end{block}
+\end{exampleblock}
 
 %----------------------------------------------------------------------------------------
 %	Links to other problems
@@ -243,7 +272,10 @@ TO DO
 
 \end{alertblock}
 \end{column} % End of the third column
-\begin{column}{\sepwid}\end{column} % Empty spacer column
+\end{columns}
+\end{column}
+\begin{column}{\sepwid}
+\end{column} % Empty spacer column
 \end{columns} % End of all the columns in the poster
 \end{frame} % End of the enclosing frame
 %\end{darkframes} % Uncomment for dark theme
