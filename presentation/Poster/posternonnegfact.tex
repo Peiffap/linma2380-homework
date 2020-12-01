@@ -78,6 +78,9 @@
 \newtheorem{assu}[thm]{Assumption}
 \newtheorem{alg}[thm]{Algorithm}
 \newtheorem{defn}[thm]{Definition}
+\newtheorem{app1}[thm]{Image Processing}
+\newtheorem{app2}[thm]{Text Mining}
+
 
 \usepackage{caption}
 \captionsetup[figure]{labelformat=simple}
@@ -159,19 +162,35 @@ NMF is a powerful tool for the analysis of \textbf{high-dimensional} data as it 
 %----------------------------------------------------------------------------------------
 
 \begin{exampleblock}{Applications}
-\textbf{Image processing}\\
-Data matrix:\\
-The data matrix $X\in\real^{p\times n}_+$ carries information about $n$ image faces,
+\begin{block}{Image processing}
+\textbf{Goal}: facial feature extraction\\
+The \textbf{data matrix} $X\in\real^{p\times n}_+$ carries information about $n$ face images. Each image has $q$ pixels and therefore each column of $X$ represents an image of a face.\\
+$\rightarrow$ The $(i,j)$th entry of $X$ represents the gray-level of the $i$th pixel in the $j$th face.\\
+The \textbf{nonnegative matrix factorization} can be interpreted as follows:\\
 \begin{itemize}
-    \item Each image has $q$ pixels
-    \item Each column of the data matrix $X$ represents an image of a face
-    \item The $(i,j)$th entry of $X$ represents the gray-level of the $i$th pixel in the $j$th face
+    \item Each column of the matrix $W$ represents a facial feature
+    \item The $(k,j)$th entry of $H$ represents the importance of the $k$th feature in the $j$th face
 \end{itemize}
-NMF factorization:\\
+\begin{figure}
+    \centering
+    \includegraphics{presentation/NMF_app1.png}
+\end{figure}
+\end{block}
+\begin{block}{Text Mining}\\
+\textbf{Goal}: topic recovery and document classification\\
+The \textbf{data matrix} $X\in\real^{n\times n}_+$ encodes the frequency of some words in a list of documents.\\
+$\rightarrow$ The $(i,j)$th entry of $X$ represents the number of times the $i$th word appears in the $j$th document.\\
+The \textbf{nonnegative matrix factorization} can be interpreted as follows:\\
 \begin{itemize}
-    \item Each column of the matrix $W$ represents a facial feature.
-    \item The $(i,j)$th entry of $H$ represents the importance of the $i$-th feature in the $j$-th face
+    \item Each colum of the matrix $W$ represents a topic
+    \item The $(k,j)$th entry of $H$ represents the importance of the $k$th topic in the $j$th document
 \end{itemize}
+\begin{figure}
+    \centering
+    \includegraphics{presentation/NMF_app2.png}
+\end{figure}
+\end{block}
+
 \end{exampleblock}
 
 \begin{exampleblock}{Algorithms and difficulties}
