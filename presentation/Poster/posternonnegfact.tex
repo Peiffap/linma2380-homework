@@ -206,6 +206,20 @@ The \textbf{nonnegative matrix factorization} can be interpreted as follows:\\
     \includegraphics{presentation/NMF_app2.png}
 \end{figure}
 \end{block}
+\begin{block}{Hyperspectral unmixing}\\
+\textbf{Goal}: identify the constitutive materials present in an image and classify the pixels according to the abundance of each constitutive material\\
+The \textbf{data matrix} $X\in\real^{n\times n}_+$ encodes the spectral signatures of the pixels in a scene being imaged.\\
+The spectral signature of a pixel is the fraction of incident light being reflected by that pixel at different wavelengths.\\
+The \textbf{nonnegative matrix factorization} can be interpreted as follows:\\
+\begin{itemize}
+    \item Each colum of the matrix $W$ represents the spectral signature of a constitutive material (such as road, grass,...)
+    \item The $(k,j)$th entry of $H$ represents the abundance of the $k$th material in the $j$th pixel
+\end{itemize}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.65\linewidth]{presentation/Poster/NMF_app3.png}
+\end{figure}
+\end{block}
 
 \end{exampleblock}
 
