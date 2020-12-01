@@ -26,5 +26,38 @@ Let $G(X) = (V_1 \cup V_2, E)$ be a bipartite graph induced by X (i.e. $(i,j)\in
 \includegraphics[scale=0.18]{Section4/biclique.png}
 \caption{Example for biclique edge cover \cite{biclique}}
 \end{figure}
+\end{frame}
 
+\begin{frame}
+For any $(W,H)\geq 0$ s.t. $X = WH = \sum_{k=1}^r W_{:k}H_{k:}$, we have 
+\[G(X) = \cup_{k=1}^r G(W_{:k}H_{k:})
+\]
+where $G(W_{:k}H_{k:})$ are complete bipartite subgraphs (bc$(G(W_{:k}H_{k:} = 1 \forall k$).
+
+\begin{thm}[Rectangle covering bound]
+\[\text{bc}(G(X))\leq \text{rank}_+(X)
+\]
+\end{thm}
+\end{frame}
+
+\begin{frame}{Communication complexity}
+\begin{center}
+\includegraphics[scale=0.2]{Section4/communication.png}
+\end{center}
+\small
+Alice and Bob want to compute :
+\[f:\{0,1\}^m \times \{0,1\}^n \rightarrow \{0,1\} : (x,y) \rightarrow f(x,y)
+\]
+While minimizing the nb of bits exchanged (i.e. communication complexity (CC)).
+
+
+\textbf{Nondeterministic comm. complex. of $f$ (NCC)}: CC of $f$ with oracle/ message before starting the communication.
+
+
+The communication matrix $X \in \{0,1\}^{2^n\times 2^m}$ is equal to the function $f$ for all possible combinations of inputs.
+
+\begin{thm}[Yannakis]
+\[\text{NCC of } f \leq \log_2(\text{rank}_+(X))
+\]
+\end{thm}
 \end{frame}
