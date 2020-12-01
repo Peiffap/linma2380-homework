@@ -141,6 +141,9 @@
 
 \begin{exampleblock}{In a few words}
 NMF is a powerful tool for the analysis of \textbf{high-dimensional} data as it automatically extracts \textbf{sparse} and \textbf{meaningful} features from a set of \textbf{nonnegative} vectors.
+NMF was introduced by Paatero and Tapper %TODO bibli
+in 1994 and further developped by Lee and Seung %TODO bibli
+in 1999.
 \end{exampleblock}
 
 %----------------------------------------------------------------------------------------
@@ -148,7 +151,16 @@ NMF is a powerful tool for the analysis of \textbf{high-dimensional} data as it 
 %----------------------------------------------------------------------------------------
 
 \begin{exampleblock}{Nonnegative Matrix Factorization : definition and properties}
+Nonnegative matrix factorization (NMF) is a Linear dimensionality reduction (LDR). As a reminder, a LDR computes a set of $r < min(p,n)$ basis elements $w_k \in R^p$ for $1 \leq k \leq r$ to approximate a set of data points $x_j \in R^{p}$ for $1 \leq j \leq n$ such that $\forall j, x_j \approx \sum_{k = 1}^{r} w_{k} h_{j}(k)$, for some weights $h_j\in R^r$. \\
+LDR is equivalent to low-rank matrix approximation where: $X \approx W H$ where \\
+     \begin{itemize}
+     \item $X \in R^{p \times n}$ : $X(:,j) = x_j$ for $1 \leq j \leq n$. Each column of the matrix $X$ is a data point.
+     \item $W \in R^{p \times r}$ : $W(:,k) = w_k$ for $1 \leq k \leq r$. Each column of the matrix $W$ is a basis element.
+     \item $H \in R^{r \times n}$ : $H(:,j) = h_j$ for $1 \leq j \leq n$. Each column of the matrix H gives the coordinates of a data point X(:,j) in the basis W.
+     \end{itemize}
 
+     \textbf{NMF} : decomposing a given nonnegative data matrix $X$ as $X \approx W H$ where $W \geq 0$ and $H \geq 0$. $W$ and $H$ are thus component-wise nonnegative.
+     
 \end{exampleblock}
 
 \end{column} % End of the first column
