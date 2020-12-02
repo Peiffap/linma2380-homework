@@ -1,8 +1,8 @@
 1. 
 
-For this last part of our presentation, we will talk about the connections between the nonnegative matrix factorisation and other mathematical problems.
+For this last part of our presentation, we will talk about the connections between nonnegative matrix factorisation and other mathematical problems.
 
-But before we begin, let's define the nonnegative rank.
+Before we begin however, let's define the nonnegative rank of a matrix.
 Given a nonnegative matrix X of dimension p by n, the nonnegative rank is the minimum r s.t. there exists an exact nonnegative matrix factorisation with W having r columns and H having r rows.
 
 Intuitively, the matrix X in blue, corresponds to n vectors of dimension p. What we want is to be able to generate all of these vectors from as few basis vectors as possible. The basis vectors form the columns of the matrix W in green.
@@ -10,10 +10,10 @@ Intuitively, the matrix X in blue, corresponds to n vectors of dimension p. What
 ---------------
 2.
 
-With this notion, we can now make a connection with the bipartite dimension in graph theory.
+With this notion in mind, we can now make a connection with the bipartite dimension in graph theory.
 Let's consider a bipartite graph induced by X with V1 and V2 as its first and second sets of vertices and E, the set of edges.
 
-Then, let us remind the definitions of a biclique and a bipartite dimension.
+Then, let us recall the definitions of a biclique and a bipartite dimension.
 
 A biclique is a bipartite graph s.t. every vertex in V1 is connected to every vertex in V2.
 
@@ -37,14 +37,14 @@ In our case, if P is defined with Ax \leq b, then Q can be defined as Cx +Dy \le
 5.
 Then we can also define the matrix X as the slack of each inequality for each vertex.
 
-With that, it can be proved that the minimum size of an extended formulation Q of P is equal to the nonnegative rank of X.
+With that in mind, it can be proved that the minimum size of an extended formulation Q of P is equal to the nonnegative rank of X.
 
-The reason why it can be interesting to find extended formulations, is that, when P has exponentially many facets, this allows to solve the linear optimization problem in polynomial time.
+The reason why it can be interesting to find extended formulations is that, when P has exponentially many faces, this allows to solve the linear optimization problem in polynomial time.
 
 
 ---------------
 6. 
 
-To sum up, we have seen that not only does the NMF generate meaningful features, it has also many applications in several domains. Indeed, we can use nonnegative matrices to describe very different things, from pixel values, to word counts, graphs, linear optimization problems, but we can also find them in probability, communication complexity and many more. And although there can be some difficulties in this linear dimensionality reduction, that it is NP-hard and ill-posed, there still exists different ways to deal with them.
+To sum up, we have seen that the NMF does not only generate meaningful features, but also has many applications in various domains. Indeed, we can use nonnegative matrices to describe very different things, from pixel values, to word counts, graphs, linear optimization problems, but we can also find them in probability theory, communication complexity and many more. Although there are theoretical difficulties we have to deal with in this linear dimensionality reduction technique, such as its NP-hardness and ill-posedness, there still exist different ways to deal with them.
 
-Thank you for your attention, if you have any questions, we would be happy to discuss about it.
+Thank you for your attention, and if you happen to have any questions, we'd happily discuss them with you.
