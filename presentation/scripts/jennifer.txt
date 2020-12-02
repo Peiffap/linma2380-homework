@@ -1,20 +1,20 @@
 Good afternoon everyone,
-We will now present you Nonnegative Matrix Factorization.
+We will now present you the topic of Nonnegative Matrix Factorization.
 During this presentation we will often use "NMF" to refer to Nonnegative Matrix Factorization.
 
 NMF is a useful tool to analyse high-dimensional data because it automatically extracts sparse and meaningful features from a set of nonnegative data vectors.
 
-I will start this presentation explaining you what is NMF with some definitions.
-Then, Aurélie will demonstrate you why NMF are useful by showing you 3 applications of NMF.
-After that, Gilles will give you a more formal and mathematical view on how to do a NMF. He will aslo present you some issues with this factorization.
-Finally, Minh will suggest what can come next by illustrating some connections between NMF and problems in Mathematics and Computer Science to end with the conclusion.
+I will start this presentation by explaining to you what NMF  is, as well as some definitions.
+Then, Aurélie will show you 3 real-world applications of NMF, showing its usefulness.
+After that, Gilles will give you a more formal and mathematical view on NMF, as well as some issues that need to be dealt with when performing this factorization.
+Finally, Minh will draw some parallels with other domains, illustrating some connections between NMF and problems in Mathematics and Computer Science, and end with a short conclusion.
 
-Let's start with what is Nonnegative Matrix Factorization.
-NMF is in fact a Linear dimensionality reduction also called LDR.
+Let's start with what Nonnegative Matrix Factorization is.
+NMF is in fact a Linear dimensionality reduction, also called LDR.
 
-As a reminder, LDR allows to represent p-dimensional data points in a r-dimensional linear subspace spanned by the basis elements w_k and the whose coordinates are given by the vectors h_j.
-So we have a set of data points x_j which are reduced to the coordinate h_j in the basis elements w_j.
-The notion of approximation and how close the new coordinates are to the initial set of data points will be explain more deeply by Gilles later in this presentation.
+As a reminder, LDR allows to represent p-dimensional data points in an r-dimensional linear subspace spanned by the basis elements w_k and whose coordinates are given by the vectors h_j.
+So, basically, we have a set of data points x_j which are reduced to the coordinates h_j in the basis defined by the various w_j's.
+The notion of approximation, and how close the new coordinates are to the initial set of data points will be explained more in-depth by Gilles later in this presentation.
 
 The particularity of NMF is that both the basis elements w_k and the weights h_j are component-wise nonnegative.
-This will give sparse and meaningful components useful for many applications as Aurélie will demonstrate it now.
+This will yield sparse and meaningful components, which are useful for many applications, as Aurélie will now explain to you.
