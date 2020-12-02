@@ -1,0 +1,20 @@
+Good afternoon everyone,
+We will now present you the topic of Nonnegative Matrix Factorization.
+During this presentation we will often use "NMF" to refer to Nonnegative Matrix Factorization.
+
+NMF is a useful tool to analyse high-dimensional data because it automatically extracts sparse and meaningful features from a set of nonnegative data vectors.
+
+I will start this presentation by explaining to you what NMF  is, as well as some definitions.
+Then, Aurélie will show you 3 real-world applications of NMF, showing its usefulness.
+After that, Gilles will give you a more formal and mathematical view on NMF, as well as some issues that need to be dealt with when performing this factorization.
+Finally, Minh will draw some parallels with other domains, illustrating some connections between NMF and problems in Mathematics and Computer Science, and end with a short conclusion.
+
+Let's start with what Nonnegative Matrix Factorization is.
+NMF is in fact a Linear dimensionality reduction, also called LDR.
+
+As a reminder, LDR allows to represent p-dimensional data points in an r-dimensional linear subspace spanned by the basis elements w_k and whose coordinates are given by the vectors h_j.
+So, basically, we have a set of data points x_j which are reduced to the coordinates h_j in the basis defined by the various w_j's.
+The notion of approximation, and how close the new coordinates are to the initial set of data points will be explained more in-depth by Gilles later in this presentation.
+
+The particularity of NMF is that both the basis elements w_k and the weights h_j are component-wise nonnegative.
+This will yield sparse and meaningful components, which are useful for many applications, as Aurélie will now explain to you.
