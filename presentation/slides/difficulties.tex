@@ -14,7 +14,12 @@
 
 \begin{frame}{Issues}
 \begin{itemize}
-\item<1-> NMF is \textbf{NP-hard} (but in practice, this is rarely a problem).
+\item<1-> NMF is \textbf{NP-hard}.
+\begin{itemize}
+    \item Because of nonnegativity \emph{constraints}.
+    \item Unconstrained case can be solved efficiently using SVD.
+    \item Usually, NMF algorithms make certain \emph{assumptions} and use \emph{heuristics} to be faster.
+\end{itemize}
 \item<2-> NMF is \textbf{ill-posed}. Several ``solutions'' exist:
 \begin{itemize}
     \item Using \emph{priors} on the factors \(W\) and \(H\) (e.g. sparsity).

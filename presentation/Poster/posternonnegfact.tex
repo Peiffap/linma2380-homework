@@ -124,9 +124,8 @@
     \usebeamercolor{author in headline}{\color{fg}\large{\insertauthor}\\[0.3ex]}
     %\usebeamercolor{institute in headline}{\color{fg}\large{\insertinstitute}\\[1ex]}
    \end{column}
-   %\vspace{0.5cm}
   \end{columns}
- %\vspace{1cm}
+ \vspace{2cm}
 
 %==========================End Head===============================
 
@@ -225,7 +224,9 @@ This is not always the best choice; in practice, depending on the application, o
 \begin{block}{Difficulties}
 NMF is not a trivial task:
 \begin{itemize}
-    \item NMF is \textbf{NP-hard}, but in practice, this is rarely problematic.
+    \item NMF is \textbf{NP-hard} because of the nonnegativity constraints.
+    In the unconstrained case, SVD can be used.
+    In practice, assumptions and heuristics allow us to solve the problem fairly efficiently.
     \item NMF is \textbf{ill-posed}: if \((W, H)\) is an NMF of \(X\), then so is \((W', H') = (WQ, Q^{-1}H)\), where \(WQ \geqslant 0\), \(Q^{-1}H \geqslant 0\).
     This can be solved by
     \begin{itemize}
@@ -242,8 +243,6 @@ NMF is not a trivial task:
 \end{column}
 \begin{column}{\sepwid}
 \end{column} % Empty spacer column
-\begin{column}{\onecolwid}
-\begin{columns}[t]
 \begin{column}{\onecolwid} % The third column
 
 
@@ -321,8 +320,6 @@ TO DO
 \end{thebibliography}
 
 \end{alertblock}
-\end{column} % End of the third column
-\end{columns}
 \end{column}
 \begin{column}{\sepwid}
 \end{column} % Empty spacer column
