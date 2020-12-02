@@ -62,9 +62,9 @@
 \setlength{\paperwidth}{46.8in} % A0 width: 46.8in
 \setlength{\paperheight}{33.1in} % A0 height: 33.1in
 \setlength{\sepwid}{0.007\paperwidth} % Separation width (white space) between columns
-\setlength{\onecolwid}{0.21\paperwidth} % Width of one column
+\setlength{\onecolwid}{0.31\paperwidth} % Width of one column
 \setlength{\twocolwid}{0.451\paperwidth} % Width of two columns
-\setlength{\threecolwid}{0.7\paperwidth} % Width of three columns
+\setlength{\threecolwid}{0.64\paperwidth} % Width of three columns
 %\setlength{\topmargin}{-0.5in} % Reduce the top margin size
 %-----------------------------------------------------------
 
@@ -116,7 +116,7 @@
 
 %==========================Begin Head===============================
 
-  \begin{columns}
+  \begin{columns}[t]
    \begin{column}{\linewidth}
     \vskip0.5cm
     \centering
@@ -134,9 +134,6 @@
 \begin{column}{\sepwid}
 \end{column} % Empty spacer column
 \begin{column}{\threecolwid}
-\begin{columns}[t]
-
-\begin{column}{\onecolwid} % The first column
 
 %----------------------------------------------------------------------------------------
 %	Introduction and Motivation
@@ -166,18 +163,15 @@ LDR is equivalent to low-rank matrix approximation where: $X \approx W H$ where 
      
 \end{exampleblock}
 
-\end{column} % End of the first column
 
-\begin{column}{\sepwid}
-\end{column} % Empty spacer column
-
-\begin{column}{\twocolwid} % Begin a column which is two columns wide (column 2)
 
 %----------------------------------------------------------------------------------------
 %	Applications
 %----------------------------------------------------------------------------------------
 
 \begin{exampleblock}{Applications}
+\begin{columns}[t]
+\begin{column}{\onecolwid}
 \begin{block}{Image processing}
 \textbf{Goal}: facial feature extraction\\
 The \textbf{data matrix} $X\in\real^{p\times n}_+$ carries information about $n$ face images. Each image has $q$ pixels and therefore each column of $X$ represents an image of a face.\\
@@ -192,6 +186,8 @@ The \textbf{nonnegative matrix factorization} can be interpreted as follows:\\
     \includegraphics{../images/NMF_app1.png}
 \end{figure}
 \end{block}
+\end{column}
+\begin{column}{\onecolwid}
 \begin{block}{Text Mining}
 \textbf{Goal}: topic recovery and document classification\\
 The \textbf{data matrix} $X\in\real^{n\times n}_+$ encodes the frequency of some words in a list of documents.\\
@@ -206,27 +202,13 @@ The \textbf{nonnegative matrix factorization} can be interpreted as follows:\\
     \includegraphics{../images/NMF_app2.png}
 \end{figure}
 \end{block}
-
+\end{column}
+\end{columns}
 \end{exampleblock}
 
-\end{column} % End of the second column
-
-\end{columns}
-
-\begin{alertblock}{Conclusion}
-
-TO DO
-
-\end{alertblock}
-
-
-\end{column}
-\begin{column}{\sepwid}
-\end{column} % Empty spacer column
-\begin{column}{\onecolwid}
-\begin{columns}[t]
-\begin{column}{\onecolwid} % The third column
 \begin{exampleblock}{Algorithms and Difficulties}
+\begin{columns}[t]
+\begin{column}{\onecolwid}
 \begin{block}{Optimization Problem}
 We want to solve \(\displaystyle \min_{W \in \mathbb{R}^{p \times r}, H \in \mathbb{R}^{r \times n}} \norm{X - WH}^2_{\textnormal{F}}\), such that \(W \geqslant 0\), \(H \geqslant 0\).
 Our use of the Frobenius norm implies the assumption that the noise is Gaussian.
@@ -238,6 +220,8 @@ This is not always the best choice; in practice, depending on the application, o
     \item etc.
 \end{itemize}
 \end{block}
+\end{column}
+\begin{column}{\onecolwid}
 \begin{block}{Difficulties}
 NMF is not a trivial task:
 \begin{itemize}
@@ -251,16 +235,82 @@ NMF is not a trivial task:
     Finding application-specific solutions is an active area of research.
 \end{itemize}
 \end{block}
+\end{column}
+\end{columns}
 \end{exampleblock}
+
+\end{column}
+\begin{column}{\sepwid}
+\end{column} % Empty spacer column
+\begin{column}{\onecolwid}
+\begin{columns}[t]
+\begin{column}{\onecolwid} % The third column
+
 
 %----------------------------------------------------------------------------------------
 %	Links to other problems
 %----------------------------------------------------------------------------------------
 
-\begin{exampleblock}{Links to other problems}
+\begin{exampleblock}{Connections to other problems}
+\footnotesize
+In this section, we will present several connections between the NMF and other mathematical problems. But first, let us introduce the nonnegative rank.
+\begin{defn}[Nonnegative rank]
+Given $X \in \mathbb{R}_+^{p\times n}$, the nonnegative rank of X, denoted $\text{rank}_+(X)$ is the minimum $r$ s.t. $\exists W \in \mathbb{R}_+^{p\times r}, H \in \mathbb{R}_+^{r\times n} \text{ with } X = WH$.
+\end{defn}
+
+Intuitively, the columns of X can be seen as vectors that we want to generate from a basis formed by the columns of W. We want our basis to have as few vectors as possible.
+~\\
+~\\
+\begin{block}{Graph theory : Bipartite dimension}
+finding the bipartite dimension of a graph gives a lower bound for the nonnegative rank. Indeed, let $G(X) = (V_1 \cup V_2, E)$ be a bipartite graph induced by X (i.e. $(i,j)\in E \Leftrightarrow X_{ij}\neq 0$). 
+    
+    The \textbf{bipartite dimension} (or the minimum biclique cover) bc$(G(X))$ is the minimum number of bicliques needed to cover all edges in E.
+    
+    The rectangle covering bound : 
+    \[\text{bc}(G(X))\leq \text{rank}_+(X)
+\]
+\end{block}
+\begin{block}{Communication complexity}
+We talk about communication complexity when Alice knows only $x \in \{0,1\}^m$, Bob knows only $y \in \{0,1\}^n$ and both want to compute a common function
+    \[f:\{0,1\}^m \times \{0,1\}^n \rightarrow \{0,1\} : (x,y) \rightarrow f(x,y)
+    \]
+    While minimizing their number of bits exchanged (i.e. communication complexity).
+
+    For the nondeterministic communication complexity of $f$ (NCC), it is also the minimum number of communications required but Alice and Bob receive a message (oracle) before they start communicating.
+
+    We define the communication matrix $X \in \{0,1\}^{2^n\times 2^m}$ as a matrix containing the values of the function $f$ for all possible combinations of inputs.
+    
+    We, then, obtain a higher bound on the NCC of $f$
+    \[\text{NCC of } f \leq \log_2(\text{rank}_+(X))
+    \]
+\end{block}
+
+\begin{block}{Linear Optimization : Extended Formulation}
+The extended formulation of a polytope P is a higher dimensional polytope Q and a linear projection $\pi$ s.t. $\pi(Q) = P$.
+    \begin{align*}
+    \text{(LP) } & \max & c^T x\\
+     &s.t. & Ax\leq b\\
+     & & x \in \mathbb{R}^n \geq 0
+    \end{align*}
+    Finding the minimum size of an extended formulation of the polytope defined by the constrains amounts to calculating the nonnegative rank of the slack matrix $X(i,j) = b_i-A_iv_j$. With $v_j$, the $j^{th}$ vertex of P and $\{x\in \mathbb{R}^n | b_i-A_ix\geq 0\}$ its $i^{th}$ facet.
+    The reason why it is interesting to find an extended formulation is that it allows to solve the (LP) in polynomial time.
+\end{block}
+\begin{block}{Computational Geometry : Nested polytopes}
+ In computational geometry, the nested polytopes problem is closely linked to the nonnegative rank.
+\end{block}
+
+\end{exampleblock}
+
+%-------------------------------------------------
+% CONCLUSION
+%-------------------------------------------------
+
+\begin{alertblock}{Conclusion}
 
 TO DO
-\end{exampleblock}
+
+\end{alertblock}
+
 
 %----------------------------------------------------------------------------------------
 %	References
