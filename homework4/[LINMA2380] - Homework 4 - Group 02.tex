@@ -41,6 +41,7 @@
 \newcommand{\abs}[1]{\left\lvert#1\right\lvert}
 \newcommand{\kp}{\otimes}
 \DeclareMathOperator{\vect}{vec}
+\DeclareMathOperator{\det}{det}
 
 \DeclareMathOperator*{\argmin}{arg\,min}
 
@@ -69,9 +70,61 @@
 \begin{document}
 \section*{Exercise A: Minimal polynomial and Smith normal form}
 \subsection*{A1}
+
 \subsection*{A2}
+We now prove that for all $k\in\{1,...,n\}$, $\delta_k(P(\lambda))=\Pi^k_{i=1}d_i(\lambda)$ where $d_i(\lambda)$ are the diagonal entries of $D(\lambda)$ and $M(\lambda)D(\lambda)N(\lambda)$ is a Smith decomposition of $P(\lambda)$.
+\begin{proof}
+From A1, we know that $\delta_k(P(\lambda))=\delta_k(D(\lambda))$ and therefore we will consider $\delta_k(D(\lambda))$.\\
+We first note that all sub-matrices of $D(\lambda)$ are either triangular inferior, triangular superior or null. The determinants of these sub-matrices are hence given by the product of the diagonal elements. The only sub-matrices for which the determinant is non-zero are these where the indices of the removed rows are identical to the indices of the removed columns. Because 0 has infinitely many divisors, we should therefore only consider the case where this specific case.\\
+We denote by $\textbf{j}=(j_1,...,j_k)$, where $j_1<...<j_k$, the indices of the rows and columns that are kept. The determinant associated to $\textbf{j}$ can be written as:
+\begin{equation*}
+    \det D_{\textbf{j}}(\lambda)=d_{j_1}(\lambda)...d_{j_k}(\lambda)
+\end{equation*}
+We now use the property that $d_i(\lambda)$ divides $d_{i+1}(\lambda)$ for all $i\in\{1,...,n-1\}$.\\
+If we consider the $i$th factor $d_{j_i}(\lambda)$, we observe that $d_i(\lambda)$ divides $d_{j_i}(\lambda)$ as $j_i$ is either equal to $i$ or larger than $i$ (due to the strict inequality $j_1<...<j_k$). Hence $d_{j_i}(\lambda)$ can be rewritten as $a_{j_i}(\lambda)d_i(\lambda)$ for a certain $a_{j_i}(\lambda)\in\complex[\lambda]$. The determinant can thus be developed as:
+\begin{equation}\label{detDj}
+    \det D_{\textbf{j}}(\lambda)=a_{j_1}(\lambda) d_1(\lambda)...a_{j_k}(\lambda)d_{k}(\lambda)
+\end{equation}
+We also observe that when $\textbf{j}=(1,...,k)$, we have:
+\begin{equation}\label{123}
+    \det D_{\textbf{j}}(\lambda)=\Pi_{i=1}^k d_i(\lambda)
+\end{equation}
+which is a monic polynomial as it is the product of monic polynomials.\\
+Because $\Pi_{i=1}^k d_i(\lambda)$ is a divisor of \eqref{detDj} for any $\textbf{j}$ and that $\delta_k(D(\lambda))$ cannot contain any additional factor due to \eqref{123}, we conclude that the monic greatest common divisor of all k-minors of $D(\lambda)$ is $\Pi_{i=1}^k d_i(\lambda)$. Therefore, we have:
+\begin{equation}\label{A21}
+    \delta_k(P(\lambda))=\delta_k(D(\lambda))=\Pi_{i=1}^k d_i(\lambda)
+\end{equation}
+\end{proof}
+The diagonal entries $d_1(\lambda),...,d_n(\lambda)$ of $D(\lambda)$ are unique and depend only on the sequence $\delta_1(P(\lambda))$,...,$\delta_n(P(\lambda))$.
+\begin{proof}
+We first consider the first entry $d_1(\lambda)$. From \eqref{A21}, we know that $d_1(\lambda)=\delta_1(\lambda)$. The notion of monic greatest common divisor leads to the unicity of $\delta_1(\lambda)$ and hence we deduce $d_1(\lambda)$ is unique as well. This constitutes the base case of the induction proof.\\
+%Next, we show that if $d_1(\lambda)$ is unique then $d_2(\lambda)$ is unique as well. From \eqref{A21}, we have $d_2(\lambda)=\delta_2(\lambda)/d_1(\lambda)$. This implies $d_2(\lambda)$ is unique as the notion of monic greatest common divisor implies the unicity of $\delta_2(\lambda)$ and $d_1(\lambda)$ is unique.
+Next, we prove that if $d_k(\lambda)$ is unique then $d_{k+1}(\lambda)$ is also unique. Again from \eqref{A21}, we have that $d_{k+1}(\lambda)=\delta_{k+1}(P(\lambda))/d_k(\lambda)$. By the unicity of the notion of monic greatest common divisor and the unicity $d_k(\lambda)$, we conclude that $d_{k+1}(P(\lambda))$ is unique.\\
+Clearly the diagonal entries $d_1(\lambda),...,d_n(\lambda)$ can be computed using the sequence $\delta_1(P(\lambda)),...,\delta_n(P(\lambda))$. First, we have $d_1(\lambda)=\delta_1(P(\lambda))$ and then we use $d_{k+1}(\lambda)=\delta_{k+1}(P(\lambda))/ d_k(\lambda)$ for the next entries.
+\end{proof}
+There are unimodular matrices $M(\lambda),N(\lambda)\in\complex^{n\times n}[\lambda]$ such that $Q(\lambda)=M(\lambda)P(\lambda)N(\lambda)$ if and only if $\delta_k(P(\lambda))=\delta_k(Q(\lambda))$ for all $k\in\{1,...,n\}$.
+\begin{proof}
+$\Rightarrow$ This was shown in A1.\\
+$\Leftarrow$
+From the previous proved statement we know that the diagonal entries of $D(\lambda)$ of the Smith decomposition of $P(\lambda)$ are unique and depend only on the sequence $\delta_1(P(\lambda)),...,\delta_n(P(\lambda))$. As this sequence is the same for $P(\lambda)$ and $Q(\lambda)$, we deduce $D(\lambda)$ is the same for their Smith decompositions:
+% does the smith decomposition exist for every matrix ?
+\begin{align*}
+    P(\lambda)&=M_1(\lambda) D(\lambda) N_1(\lambda)\\
+    Q(\lambda)&=M_2(\lambda) D(\lambda) N_2(\lambda)
+\end{align*}
+where $M_1(\lambda),M_1(\lambda),M_1(\lambda),M_1(\lambda)\in\complex^{n\times n}[\lambda]$ are unimodular and $D(\lambda)\in\complex^{n\times n}[\lambda]$ diagonal.\\
+From the first equation, we can write $D(\lambda)=M_1(\lambda)^{-1} P(\lambda) N_1(\lambda)^{-1}$ as $M_1(\lambda)$ and $N_1(\lambda)$ are unimodular and hence invertible. Next, we inject this expression of $D(\lambda)$ in the second equation and we obtain:
+\begin{equation*}
+    Q(\lambda)=M_2(\lambda) M_1(\lambda)^{-1} P(\lambda) N_1(\lambda)^{-1} N_2(\lambda)
+\end{equation*}
+Finally, as the inverse of a unimodular matrix is unimodular and the product of unimodular matrices is unimodular, we have $M(\lambda)=M_2(\lambda) M_1(\lambda)^{-1}$ and $N(\lambda)=N_1(\lambda)^{-1} N_2(\lambda)$ which are unimodular matrices such that $Q(\lambda)=M(\lambda)P(\lambda)N(\lambda)$.
+
+\end{proof}
+
 \subsection*{A3}
+
 \subsection*{A4}
+
 \subsection*{A5}
 
 \section*{Exercise B: Implementation}
