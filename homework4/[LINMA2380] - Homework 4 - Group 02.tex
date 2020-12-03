@@ -30,6 +30,10 @@
 \usepackage{mathrsfs}
 \usepackage{bm}
 \usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{tikz}
+\usetikzlibrary{matrix}
+\usetikzlibrary{calc}
+\usetikzlibrary{fit}
 
 \DeclarePairedDelimiterX{\norm}[1]{\lVert}{\rVert}{#1}
 
@@ -122,6 +126,33 @@ Finally, as the inverse of a unimodular matrix is unimodular and the product of 
 \end{proof}
 
 \subsection*{A3}
+Let $A\in \complex^{n\times n}$ be a Jordan block with eigenvalue $\lambda_1$. The elementary polynomials of $\lambda I-A$ are equal to: $d_i(\lambda)=1$ for $i=1,...,n-1$ and $d_n(\lambda)=(\lambda-\lambda_1)^n$.
+\begin{proof}
+We first write the matrix $\lambda I-A$ that we call $P(\lambda)$:
+\begin{equation*}
+    P(\lambda)=\lambda I-A=
+    \begin{pmatrix}
+    \lambda-\lambda_1 & -1 & & \\
+    & \ddots & \ddots & \\
+    & & \ddots & -1\\
+    & & & \lambda-\lambda_1 \\
+    \end{pmatrix}
+\end{equation*}
+As we have seen the sequence $d_1(\lambda),...,d_n(\lambda)$ can be derived by the sequence $\delta_1(P(\lambda)),...,\delta_n(P(\lambda))$, we first derive the latter sequence. When computing each $\delta_k(P(\lambda))$, we observe that for $k<n$, a valid sub-matrix to take into account is the one which has all the $-1$ entries on its diagonal. We illustrate here the case where $k=n-1$:
+\[P(\lambda) = \begin{tikzpicture}[baseline=(math-axis),every right delimiter/.style={xshift=-3pt},every left delimiter/.style={xshift=3pt}]%
+\matrix [matrix of math nodes,left delimiter=(,right delimiter=)] (matrix)
+{
+|(m11)| \lambda-\lambda_1 & |(m12)| -1 & |(m13)| & |(m14)|\\
+|(m21)| & |(m22)| \ddots & |(m23)| \ddots & |(m24)| \\
+|(m31)| & |(m32)| & |(m33)| \ddots & |(m34)| -1\\
+|(m41)| & |(m42)| & |(m43)| & |(m44)| \lambda-\lambda_1\\
+};
+\node[draw,dashed,inner sep=0pt,fit=(m12) (m14) (m32) (m34)] {};
+\coordinate (math-axis) at ($(matrix.center)+(0em,-0.25em)$);
+\end{tikzpicture}\]
+As this sub-matrix is triangular inferior, its determinant is equal to the product of its diagonal entries. The determinant of such matrices is therefore 1 or -1. As 1 and -1 have only one monic divisor which is 1, we conclude that $\delta_k(P(\lambda))=1$ for $k\in\{1,...,n-1\}$. From the recursive formula proposed in A2, we deduce that $d_k(\lambda)=1$ for $k\in\{1,...,n-1\}$.\\
+When $k=n$, the only possible sub-matrix to consider is the whole matrix which determinant is equal to the product of the diagonal entries, hence $(\lambda-\lambda_1)^n$. We deduce that $\delta_n(P(\lambda))=(\lambda-\lambda_1)^n$ and therefore using the recursive formula proposed in A2 we obtain $d_n(\lambda)=(\lambda-\lambda_1)^n$.
+\end{proof}
 
 \subsection*{A4}
 
