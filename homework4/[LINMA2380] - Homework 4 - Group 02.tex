@@ -45,7 +45,6 @@
 \newcommand{\abs}[1]{\left\lvert#1\right\lvert}
 \newcommand{\kp}{\otimes}
 \DeclareMathOperator{\vect}{vec}
-\DeclareMathOperator{\det}{det}
 
 \DeclareMathOperator*{\argmin}{arg\,min}
 
@@ -160,6 +159,15 @@ When $k=n$, the only possible sub-matrix to consider is the whole matrix which d
 
 \section*{Exercise B: Implementation}
 \subsection*{B1}
+Using the Jordan normal form is not numerically stable because taking limits does not commute with forming the Jordan canonical form.
+A simple example is the matrix \(A = I_2\), approximated by \(A_\varepsilon = \left[\begin{smallmatrix} 1 & \varepsilon \\ 0 & 1\end{smallmatrix}\right]\), the latter having Jordan canonical form \(J_\varepsilon = \left[\begin{smallmatrix} 1 & 1 \\ 0 & 1\end{smallmatrix}\right]\).
+However, the Jordan form of \(A\) is simply \(J = I_2\).
+We thus have
+\[
+\lim_{\varepsilon \to 0} A_\varepsilon = A, \quad \textnormal{but} \quad \lim_{\varepsilon \to 0} J_\varepsilon \neq J.
+\]
+Similarly, computing the minimal polynomials yields \(p_{A_\varepsilon}(\lambda) = (\lambda - 1)^2 \ne \lambda - 1 = p_A(\lambda)\).
+
 \subsection*{B2}
 
 \end{document}
