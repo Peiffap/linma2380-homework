@@ -36,6 +36,10 @@
 
 \documentclass[final]{beamer}
 
+\usepackage[maxbibnames=10]{biblatex}
+\renewbibmacro{in:}{}
+\addbibresource{refposter.bib}
+
 \usepackage[scale=0.849]{beamerposter} % Use the beamerposter package for laying out the poster
 
 %\usetheme{confposter} % Use the confposter theme supplied with this template
@@ -82,6 +86,7 @@
 \newtheorem{defn}[thm]{Definition}
 \newtheorem{app1}[thm]{Image Processing}
 \newtheorem{app2}[thm]{Text Mining}
+\newcommand{\real}{\mathbb{R}}
 
 
 \usepackage{caption}
@@ -108,9 +113,10 @@
 %----------------------------------------------------------------------------------------
 
 \begin{document}
-\addtobeamertemplate{block end}{}{\vspace*{2ex}} % White space under blocks
-\addtobeamertemplate{block example end}{}{\vspace*{2ex}} % White space under example blocks
-\addtobeamertemplate{block alerted end}{}{\vspace*{2ex}} % White space under highlighted (alert) blocks
+\addtobeamertemplate{block end}{}{\vspace*{1ex}} % White space under blocks
+%\addtobeamertemplate{block example end}{}{\vspace*{2ex}} % White space under example blocks
+\addtobeamertemplate{block example end}{}{\vspace*{1ex}}
+\addtobeamertemplate{block alerted end}{}{\vspace*{1ex}} % White space under highlighted (alert) blocks
 
 \setlength{\belowcaptionskip}{2ex} % White space under figures
 \setlength\belowdisplayshortskip{2ex} % White space under equations
@@ -136,33 +142,29 @@
 \begin{column}{\sepwid}
 \end{column} % Empty spacer column
 \begin{column}{\threecolwid}
-
 %----------------------------------------------------------------------------------------
 %	Introduction and Motivation
 %----------------------------------------------------------------------------------------
 
-\begin{exampleblock}{In a few words}
-NMF is a powerful tool for the analysis of \textbf{high-dimensional} data as it automatically extracts \textbf{sparse} and \textbf{meaningful} features from a set of \textbf{nonnegative} vectors.
-NMF was introduced by Paatero and Tapper %TODO bibli
-in 1994 and further developped by Lee and Seung %TODO bibli
-in 1999.
-\end{exampleblock}
+\begin{alertblock}{In a few words}
+\normalsize
+The nonnegative matrix factorization (NMF) is a powerful tool for the analysis of \textbf{high-dimensional} data as it automatically extracts \textbf{sparse} and \textbf{meaningful} features from a set of \textbf{nonnegative} vectors.
+\end{alertblock}
 
 %----------------------------------------------------------------------------------------
 %	Nonnegative Matrix Factorization: definition and properties (sparse, meaningful features)
 %----------------------------------------------------------------------------------------
 
 \begin{exampleblock}{Nonnegative Matrix Factorization : definition and properties}
-Nonnegative matrix factorization (NMF) is a Linear dimensionality reduction (LDR). As a reminder, a LDR computes a set of $r < min(p,n)$ basis elements $w_k \in R^p$ for $1 \leq k \leq r$ to approximate a set of data points $x_j \in R^{p}$ for $1 \leq j \leq n$ such that $\forall j, x_j \approx \sum_{k = 1}^{r} w_{k} h_{j}(k)$, for some weights $h_j\in R^r$. \\
-LDR is equivalent to low-rank matrix approximation where: $X \approx W H$ where \\
+The goal of \textbf{NMF} is to decompose a given nonnegative data matrix $X$ as $X \approx W H$ where $W$ and $H$ are also nonnegative matrices.\\
+NMF is a linear dimensionality reduction (LDR) tool. As a reminder, a LDR method computes a set of $r < min(p,n)$ basis elements $w_k \in \real^p$ for $1 \leq k \leq r$ to approximate a set of data points $x_j \in \real^{p}$ for $1 \leq j \leq n$ such that for all $j$ we have $x_j \approx \sum_{k = 1}^{r} w_{k} h_{j}(k)$, for some weights $h_j\in \real^r$. \\
+%LDR is equivalent to low-rank matrix approximation where: $X \approx W H$ where \\
+The data matrix $X$ is approximated by a low-rank matrix $WH$, with:
      \begin{itemize}
      \item $X \in R^{p \times n}$ : $X(:,j) = x_j$ for $1 \leq j \leq n$. Each column of the matrix $X$ is a data point.
      \item $W \in R^{p \times r}$ : $W(:,k) = w_k$ for $1 \leq k \leq r$. Each column of the matrix $W$ is a basis element.
      \item $H \in R^{r \times n}$ : $H(:,j) = h_j$ for $1 \leq j \leq n$. Each column of the matrix H gives the coordinates of a data point X(:,j) in the basis W.
      \end{itemize}
-
-     \textbf{NMF} : decomposing a given nonnegative data matrix $X$ as $X \approx W H$ where $W \geq 0$ and $H \geq 0$. $W$ and $H$ are thus component-wise nonnegative.
-     
 \end{exampleblock}
 
 
@@ -172,11 +174,12 @@ LDR is equivalent to low-rank matrix approximation where: $X \approx W H$ where 
 %----------------------------------------------------------------------------------------
 
 \begin{exampleblock}{Applications}
+\vspace{-0.8cm}
 \begin{columns}[t]
 \begin{column}{\onecolwid}
 \begin{block}{Image processing}
 \textbf{Goal}: facial feature extraction\\
-The \textbf{data matrix} $X\in\real^{p\times n}_+$ carries information about $n$ face images. Each image has $q$ pixels and therefore each column of $X$ represents an image of a face.\\
+The \textbf{data matrix} $X\in\real^{p\times n}_+$ carries information about $n$ face images. Each image has $p$ pixels and therefore each column of $X$ represents an image of a face.\\
 $\rightarrow$ The $(i,j)$th entry of $X$ represents the gray-level of the $i$th pixel in the $j$th face.\\
 The \textbf{nonnegative matrix factorization} can be interpreted as follows:\\
 \begin{itemize}
@@ -192,18 +195,18 @@ The \textbf{nonnegative matrix factorization} can be interpreted as follows:\\
 \begin{column}{\onecolwid}
 
 \begin{block}{Hyperspectral unmixing}
-
 \textbf{Goal}: identify the constitutive materials present in an image and classify the pixels according to the abundance of each constitutive material\\
-The \textbf{data matrix} $X\in\real^{n\times n}_+$ encodes the spectral signatures of the pixels in a scene being imaged.\\
-The spectral signature of a pixel is the fraction of incident light being reflected by that pixel at different wavelengths.\\
+The \textbf{data matrix} $X\in\real^{n\times p}_+$ encodes the spectral signatures of the pixels in a scene being imaged.\\
+The \textit{spectral signature} of a pixel is the fraction of incident light being reflected by that pixel at different wavelengths.\\
+$\rightarrow$ The (i,j)th entry of X represents the spectral signature of the $j$th pixel at the $i$th considered wavelength.\\
 The \textbf{nonnegative matrix factorization} can be interpreted as follows:\\
 \begin{itemize}
-    \item Each colum of the matrix $W$ represents the spectral signature of a constitutive material (such as road, grass,...)
+    \item Each colum of the matrix $W$ represents the spectral signature of a material (such as road, grass,...)
     \item The $(k,j)$th entry of $H$ represents the abundance of the $k$th material in the $j$th pixel
 \end{itemize}
 \begin{figure}
     \centering
-    \includegraphics[width=0.65\linewidth]{../images/NMF_app3.png}
+    \includegraphics[width=0.8\linewidth]{../images/NMF_app3.png}
 \end{figure}
 \end{block}
 \end{column}
@@ -223,9 +226,12 @@ The \textbf{nonnegative matrix factorization} can be interpreted as follows:\\
 \end{figure}
 \end{block}
 \end{exampleblock}
-
+\begin{exampleblock}{References}
+\nocite{biclique}
+\nocite{NMF}
+\printbibliography
+\end{exampleblock}
 \end{column}
-
 \begin{column}{\sepwid}
 \end{column} % Empty spacer column
 \begin{column}{\onecolwid} % The third column
@@ -235,6 +241,7 @@ The \textbf{nonnegative matrix factorization} can be interpreted as follows:\\
 %	Links to other problems
 %----------------------------------------------------------------------------------------
 \begin{exampleblock}{Algorithms and Difficulties}
+\vspace{0.4cm}
 \begin{block}{Optimization Problem}
 We want to solve \(\displaystyle \min_{W \in \mathbb{R}^{p \times r}, H \in \mathbb{R}^{r \times n}} \norm{X - WH}^2_{\textnormal{F}}\), such that \(W \geqslant 0\), \(H \geqslant 0\).
 Our use of the Frobenius norm implies the assumption that the noise is Gaussian.
@@ -264,21 +271,20 @@ NMF is not a trivial task:
 \end{exampleblock}
 
 \begin{exampleblock}{Connections to other problems}
-\footnotesize
 In this section, we will present several connections between the NMF and other mathematical problems. But first, let us introduce the nonnegative rank.
 \begin{defn}[Nonnegative rank]
 Given $X \in \mathbb{R}_+^{p\times n}$, the nonnegative rank of X, denoted $\text{rank}_+(X)$ is the minimum $r$ s.t. $\exists W \in \mathbb{R}_+^{p\times r}, H \in \mathbb{R}_+^{r\times n} \text{ with } X = WH$.
 \end{defn}
 
-Intuitively, the columns of X can be seen as vectors that we want to generate from a basis formed by the columns of W. We want our basis to have as few vectors as possible.
-~\\
-~\\
+%Intuitively, the columns of X can be seen as vectors that we want to generate from a basis formed by the columns of W. We want our basis to have as few vectors as possible.
+%~\\
+%~\\
 \begin{block}{Graph theory : Bipartite dimension}
-finding the bipartite dimension of a graph gives a lower bound for the nonnegative rank. Indeed, let $G(X) = (V_1 \cup V_2, E)$ be a bipartite graph induced by X (i.e. $(i,j)\in E \Leftrightarrow X_{ij}\neq 0$). 
+Finding the bipartite dimension of a graph gives a lower bound for the nonnegative rank. Indeed, let $G(X) = (V_1 \cup V_2, E)$ be a bipartite graph induced by X (i.e. $(i,j)\in E \Leftrightarrow X_{ij}\neq 0$). 
     
-    The \textbf{bipartite dimension} (or the minimum biclique cover) bc$(G(X))$ is the minimum number of bicliques needed to cover all edges in E.
+    The \textit{bipartite dimension} (or the minimum biclique cover) bc$(G(X))$ is the minimum number of bicliques needed to cover all edges in E.
     
-    The rectangle covering bound : 
+    The rectangle covering bound : %?
     \[\text{bc}(G(X))\leq \text{rank}_+(X)
 \]
 \end{block}
@@ -296,17 +302,9 @@ The extended formulation of a polytope P is a higher dimensional polytope Q and 
 
 \end{exampleblock}
 
-%-------------------------------------------------
-% CONCLUSION
-%-------------------------------------------------
-
 \begin{alertblock}{Conclusion}
-
-To sum up, we have seen that the NMF does not only generate meaningful features, but also has many applications in various domains. Indeed, we can use nonnegative matrices to describe very different things, from pixel values, to word counts, graphs, linear optimization problems, but we can also find them in probability theory, communication complexity and many more. Although there are theoretical difficulties we have to deal with in this linear dimensionality reduction technique, such as its NP-hardness and ill-posedness, there still exist different ways to deal with them.
-
+To sum up, we have seen that the NMF does not only generate meaningful features, but also has many applications in various domains. Although there are theoretical difficulties we have to deal with in this linear dimensionality reduction technique, such as its NP-hardness and ill-posedness, there still exist different ways to deal with them.
 \end{alertblock}
-
-
 
 \end{column}
 \begin{column}{\sepwid}
@@ -319,10 +317,11 @@ To sum up, we have seen that the NMF does not only generate meaningful features,
 %----------------------------------------------------------------------------------------
 %	References
 %----------------------------------------------------------------------------------------
-\begin{alertblock}{References}
-\begin{thebibliography}{99}
-\end{thebibliography}
-\end{alertblock}
+%\begin{alertblock}{References}
+%\nocite{biclique}
+%\nocite{NMF}
+%\printbibliography
+%\end{alertblock}
 \end{column}
 \end{columns}
 \end{frame} % End of the enclosing frame
