@@ -1,0 +1,15 @@
+Now, we will present a few applications where NMF is useful. The first application comes from the field of image processing. More precisely, the goal is to extract facial features from images. The data matrix X in this case carries information about several face images such as the one shown on the slide. The matrix has a size of p times x. p is the number of pixel in each image. For example, if the images are of size 4 by 3 p would be equal to 12. n is the number of faces we consider. The (i,j)th entry represents the gray-level of the i-th pixel in the j-th face.
+
+Now let’s have a look at the NMF. Each column of W represents a facial feature. As we can see on the slides, some components are more related to the nose, some others to the eyes. The matrix H represents the importance of each feature in each image.
+
+Let’s compare the NMF decomposition with the PCA decomposition that we’ve seen last week. On one side, we observe that NMF gives us sparse and meaningful features. On the other side, the PCA decomposition gives a less sparse decomposition. Clearly, the first component explains most of the variance of the image. The other components are harder to interpret as they contain negative values and are not sparse. This example highlights the usefulness of NMF.
+
+The next application we will consider comes from the Text mining field. The goal is to recover some topics and classify documents. In this case each column of the data matrix represents a document and each line a word. The (i,j)th entry represents the number of times the ith word appears in the jth document. The NMF gives, one more time, sparse and meaningful features. Each column of the matrix W represents a topic and the matrix H gives the importance of each topic for each document.
+
+The last application we will show you is called Hyperspectral Unmixing. Now, the goal is to identify the constitutive materials present in an image and to classify the pixels according to the abundance of each material present in it. Hyperspectral unmixing is for instance used to extract information from satellite images.
+
+The concept of spectral signature must be defined in order to understand the utility of NMF in this application. The spectral signature of a pixel is the fraction of incident light being reflected by that pixel at different wavelengths. In the graph, the x axis represents the different wavelenghts and the y axis the fraction of light being reflect. We can distinguish the spectrum of different materials such as water or dry vegetation. If a pixel contains only one component, say water, the spectrum looks like the blue line.
+
+Each column of the data matrix X contains the spectral signature of a pixel. These spectral signatures are mixtures of several constitutive materials signatures and the goal is to unmix these.
+
+The matrix W of the NMF represents spectral signatures of different endmember (ie constitutive materials). The matrix H represent the abundance of each endmember in each pixel.
