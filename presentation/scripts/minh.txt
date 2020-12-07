@@ -39,7 +39,7 @@ Then we can also define the matrix X as the slack of each inequality for each ve
 
 With that in mind, it can be proved that the minimum size of an extended formulation Q of P is equal to the nonnegative rank of X.
 
-The reason why it can be interesting to find extended formulations is that, when P has exponentially many faces, this allows to solve the linear optimization problem in polynomial time.
+The reason why it can be interesting to find extended formulations is that, when P has exponentially many facets, this allows to solve the linear optimization problem in polynomial time.
 
 
 ---------------
