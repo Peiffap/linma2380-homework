@@ -36,6 +36,8 @@
 
 \documentclass[final]{beamer}
 
+\usepackage{url}
+
 \usepackage[maxbibnames=10]{biblatex}
 \renewbibmacro{in:}{}
 \addbibresource{refposter.bib}
@@ -65,7 +67,7 @@
 \newlength{\threecolwid}
 \newlength{\fourcolwid}
 \setlength{\paperwidth}{49.35in} % A0 width: 46.8in
-\setlength{\paperheight}{34.65in} % A0 height: 33.1in
+\setlength{\paperheight}{33.1in} % A0 height: 33.1in
 \setlength{\sepwid}{0.018\paperwidth} % Separation width (white space) between columns
 \setlength{\onecolwid}{0.31\paperwidth} % Width of one column
 \setlength{\twocolwid}{0.451\paperwidth} % Width of two columns
@@ -89,6 +91,7 @@
 \newcommand{\real}{\mathbb{R}}
 
 \DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\bc}{bc}
 
 
 \usepackage{caption}
@@ -148,7 +151,7 @@
 %	Introduction and Motivation
 %----------------------------------------------------------------------------------------
 
-\begin{alertblock}{In a few words}
+\begin{alertblock}{In a Few Words}
 \normalsize
 \textbf{Nonnegative matrix factorization} (NMF) is a powerful tool for the analysis of \textbf{high-dimensional} data as it automatically extracts \textbf{sparse} and \textbf{meaningful} features from a set of \textbf{nonnegative} vectors.
 \end{alertblock}
@@ -183,6 +186,9 @@ The data matrix $X$ is approximated by a low-rank product of matrices $WH$, with
 \begin{column}{\onecolwid}
 
 The following applications rely heavily on the use of nonnegative matrix factorization.
+Note that this list is not exhaustive by any means.
+
+\vspace{0.3cm}
 
 \begin{block}{Image Processing}
 \textbf{Goal}: facial feature extraction.
@@ -243,8 +249,8 @@ The \textbf{nonnegative matrix factorization} for this problem can be interprete
 \end{block}
 \end{exampleblock}
 \begin{exampleblock}{References}
-\nocite{biclique}
 \nocite{NMF}
+\nocite{biclique}
 \printbibliography
 \end{exampleblock}
 \end{column}
@@ -286,28 +292,25 @@ NMF is not a trivial task:
 \end{exampleblock}
 
 \begin{exampleblock}{Connections to Other Problems}
-In this section, we will present several \textbf{connections} between NMF and other mathematical problems.
-We start by introducing the concept of \textbf{nonnegative rank}.
-\begin{defn}[Nonnegative rank]
-Given $X \in \mathbb{R}_+^{p\times n}$, the nonnegative rank of \(X\), denoted $\rank_+(X)$ is the minimum $r$ s.t. there exists $W \in \mathbb{R}_+^{p\times r}, H \in \mathbb{R}_+^{r\times n}$ with $X = WH$.
+Nonnegative matrix factorization is closely related to many other problems; the following (non-exhaustive) list of \textbf{connections} between NMF and other mathematical problems is interesting to consider.
+
+\begin{defn}[Nonnegative Rank]
+Given $X \in \real_+^{p\times n}$, the nonnegative rank of \(X\), denoted $\rank_+(X)$, is the minimum $r$ such that there exists $W \in \real_+^{p\times r}, H \in \real_+^{r\times n}$ with $X = WH$.
 \end{defn}
 
 %Intuitively, the columns of X can be seen as vectors that we want to generate from a basis formed by the columns of W. We want our basis to have as few vectors as possible.
 %~\\
 %~\\
 \begin{block}{Graph Theory: Bipartite Dimension}
-Finding the bipartite dimension of a graph gives a lower bound for the nonnegative rank. Indeed, let $G(X) = (V_1 \cup V_2, E)$ be a bipartite graph induced by \(X\) (i.e. $(i,j)\in E \implies X_{ij}\neq 0$). 
+Finding the \textbf{bipartite dimension} of a graph gives a lower bound for the nonnegative rank of the matrix inducing that graph. Indeed, let $G(X) = (V_1 \cup V_2, E)$ be the bipartite graph induced by \(X\) (i.e. $(i,j)\in E \iff X_{ij}\neq 0$). 
     
-The \textbf{bipartite dimension} (also called minimum biclique cover) $\mathop{\mathrm{bc}}(G(X))$ is the minimum number of bicliques needed to cover all edges in \(E\).
+The bipartite dimension (also called ``minimum biclique cover'') $\bc(G(X))$ is the minimum number of bicliques needed to cover all edges in \(E\).
 
-The formula for the rectangle covering bound is then given by
-\[
-\mathop{\mathrm{bc}}(G(X)) \leqslant \rank_+(X).
-\]
+The formula for the rectangle covering bound is then given by \(\bc(G(X)) \leqslant \rank_+(X)\).
 \end{block}
 
 \begin{block}{Linear Optimization: Extended Formulation}
-The \textbf{extended formulation} of a polytope \(P\) is composed of a higher dimensional polytope \(Q\) and a linear projection $\pi$ s.t. $\pi(Q) = P$.
+The \textbf{extended formulation} of a polytope \(P\) is composed of a higher dimensional polytope \(Q\) and a linear projection $\pi$ such that $\pi(Q) = P$.
 \[
 \begin{array}{l@{\quad}rcl}
 \max \quad c^\top x&&& \\
@@ -316,7 +319,7 @@ The \textbf{extended formulation} of a polytope \(P\) is composed of a higher di
 \end{array}
 \tag{\textnormal{LP}}
 \]
-Finding the minimum size of an extended formulation of the polytope defined by the constraints amounts to computing the nonnegative rank of the slack matrix $X(i,j) = b_i-A_iv_j$ with $v_j$ the $j$-th vertex of \(P\) and $\{x\in \real^n \mid b_i-A_ix\geqslant 0\}$ its $i$-th face.
+Finding the minimum size of an extended formulation of the polytope defined by the constraints amounts to computing the nonnegative rank of the slack matrix with elements $X(i,j) = b_i-A_iv_j$ with $v_j$ the $j$-th vertex of \(P\) and $\{x\in \real^n \mid b_i-A_ix\geqslant 0\}$ its $i$-th facet.
 Finding an extended formulation is interesting in that it allows to solve problem~(LP) in polynomial time.
 \end{block}
 
