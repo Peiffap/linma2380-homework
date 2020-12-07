@@ -88,6 +88,8 @@
 \newtheorem{app2}[thm]{Text Mining}
 \newcommand{\real}{\mathbb{R}}
 
+\DeclareMathOperator{\rank}{rank}
+
 
 \usepackage{caption}
 \captionsetup[figure]{labelformat=simple}
@@ -106,7 +108,7 @@
 
 \title{The Why and How of Nonnegative Matrix Factorization} % Poster title
 
-\author{Group 2} % Author(s)
+\author{LINMA2380 --- Group 2 --- Aurélie de Borman, Jennifer Leclipteur, Gilles Peiffer, and Minh-Phuong Tran} % Author(s)
 
 \institute{École Polytechnique de Louvain, UCLouvain} % Institution(s)
 
@@ -148,22 +150,24 @@
 
 \begin{alertblock}{In a few words}
 \normalsize
-The nonnegative matrix factorization (NMF) is a powerful tool for the analysis of \textbf{high-dimensional} data as it automatically extracts \textbf{sparse} and \textbf{meaningful} features from a set of \textbf{nonnegative} vectors.
+\textbf{Nonnegative matrix factorization} (NMF) is a powerful tool for the analysis of \textbf{high-dimensional} data as it automatically extracts \textbf{sparse} and \textbf{meaningful} features from a set of \textbf{nonnegative} vectors.
 \end{alertblock}
 
 %----------------------------------------------------------------------------------------
 %	Nonnegative Matrix Factorization: definition and properties (sparse, meaningful features)
 %----------------------------------------------------------------------------------------
 
-\begin{exampleblock}{Nonnegative Matrix Factorization : definition and properties}
-The goal of \textbf{NMF} is to decompose a given nonnegative data matrix $X$ as $X \approx W H$ where $W$ and $H$ are also nonnegative matrices.\\
-NMF is a linear dimensionality reduction (LDR) tool. As a reminder, a LDR method computes a set of $r < min(p,n)$ basis elements $w_k \in \real^p$ for $1 \leq k \leq r$ to approximate a set of data points $x_j \in \real^{p}$ for $1 \leq j \leq n$ such that for all $j$ we have $x_j \approx \sum_{k = 1}^{r} w_{k} h_{j}(k)$, for some weights $h_j\in \real^r$. \\
+\begin{exampleblock}{Nonnegative Matrix Factorization: Definition and Properties}
+The goal of \textbf{NMF} is to decompose a given nonnegative data matrix $X$ as $X \approx W H$ where $W$ and $H$ are also nonnegative matrices.
+
+NMF is a linear dimensionality reduction (LDR) tool. As a reminder, a LDR method computes a set of $r < \min(p,n)$ basis elements $w_k \in \real^p$ for $1 \leqslant k \leqslant r$ to approximate a set of data points $x_j \in \real^{p}$ for $1 \leqslant j \leqslant n$ such that for all $j$ we have $x_j \approx \sum_{k = 1}^{r} w_{k} h_{j}(k)$, for some weights $h_j\in \real^r$.
+
 %LDR is equivalent to low-rank matrix approximation where: $X \approx W H$ where \\
-The data matrix $X$ is approximated by a low-rank matrix $WH$, with:
+The data matrix $X$ is approximated by a low-rank product of matrices $WH$, with:
      \begin{itemize}
-     \item $X \in R^{p \times n}$ : $X(:,j) = x_j$ for $1 \leq j \leq n$. Each column of the matrix $X$ is a data point.
-     \item $W \in R^{p \times r}$ : $W(:,k) = w_k$ for $1 \leq k \leq r$. Each column of the matrix $W$ is a basis element.
-     \item $H \in R^{r \times n}$ : $H(:,j) = h_j$ for $1 \leq j \leq n$. Each column of the matrix H gives the coordinates of a data point X(:,j) in the basis W.
+     \item $X \in \real^{p \times n}$: $X(:,j) = x_j$ for $1 \leqslant j \leqslant n$. Each column of the matrix $X$ is a data point.
+     \item $W \in \real^{p \times r}$: $W(:,k) = w_k$ for $1 \leqslant k \leqslant r$. Each column of the matrix $W$ is a basis element.
+     \item $H \in \real^{r \times n}$: $H(:,j) = h_j$ for $1 \leqslant j \leqslant n$. Each column of the matrix \(H\) gives the coordinates of a data point \(X(:,j)\) in the basis associated to \(W\).
      \end{itemize}
 \end{exampleblock}
 
@@ -177,14 +181,19 @@ The data matrix $X$ is approximated by a low-rank matrix $WH$, with:
 \vspace{-0.8cm}
 \begin{columns}[t]
 \begin{column}{\onecolwid}
-\begin{block}{Image processing}
-\textbf{Goal}: facial feature extraction\\
-The \textbf{data matrix} $X\in\real^{p\times n}_+$ carries information about $n$ face images. Each image has $p$ pixels and therefore each column of $X$ represents an image of a face.\\
-$\rightarrow$ The $(i,j)$th entry of $X$ represents the gray-level of the $i$th pixel in the $j$th face.\\
-The \textbf{nonnegative matrix factorization} can be interpreted as follows:\\
+
+The following applications rely heavily on the use of nonnegative matrix factorization.
+
+\begin{block}{Image Processing}
+\textbf{Goal}: facial feature extraction.
+
+The \textbf{data matrix} $X\in\real^{p\times n}_+$ carries information about $n$ face images. Each image has $p$ pixels and therefore each column of $X$ represents an image of a face.
+This means $X(i, j)$ represents the gray level of the $i$-th pixel in the $j$-th face.
+
+The \textbf{nonnegative matrix factorization} for this problem can be interpreted as follows:
 \begin{itemize}
-    \item Each column of the matrix $W$ represents a facial feature
-    \item The $(k,j)$th entry of $H$ represents the importance of the $k$th feature in the $j$th face
+    \item Each column of the matrix $W$ represents a facial feature.
+    \item $H(k, j)$ represents the importance of the $k$-th feature in the $j$-th face.
 \end{itemize}
 \begin{figure}
     \centering
@@ -194,15 +203,19 @@ The \textbf{nonnegative matrix factorization} can be interpreted as follows:\\
 \end{column}
 \begin{column}{\onecolwid}
 
-\begin{block}{Hyperspectral unmixing}
-\textbf{Goal}: identify the constitutive materials present in an image and classify the pixels according to the abundance of each constitutive material\\
-The \textbf{data matrix} $X\in\real^{n\times p}_+$ encodes the spectral signatures of the pixels in a scene being imaged.\\
-The \textit{spectral signature} of a pixel is the fraction of incident light being reflected by that pixel at different wavelengths.\\
-$\rightarrow$ The (i,j)th entry of X represents the spectral signature of the $j$th pixel at the $i$th considered wavelength.\\
-The \textbf{nonnegative matrix factorization} can be interpreted as follows:\\
+\begin{block}{Hyperspectral Unmixing}
+\textbf{Goal}: identify the constitutive materials present in an image and classify the pixels according to the abundance of each constitutive material.
+
+The \textbf{data matrix} $X\in\real^{n\times p}_+$ encodes the spectral signatures of the pixels in a scene being imaged.
+
+The \textit{spectral signature} of a pixel is the fraction of incident light being reflected by that pixel at different wavelengths.
+This means \(X(i, j)\) represents the spectral signature of the $j$-th pixel at the $i$-th considered wavelength.
+
+The \textbf{nonnegative matrix factorization} for this problem can be interpreted as follows:
+
 \begin{itemize}
-    \item Each colum of the matrix $W$ represents the spectral signature of a material (such as road, grass,...)
-    \item The $(k,j)$th entry of $H$ represents the abundance of the $k$th material in the $j$th pixel
+    \item Each column of the matrix $W$ represents the spectral signature of a material (such as road, grass,\dots).
+    \item $H(k, j)$ represents the abundance of the $k$-th material in the $j$-th pixel.
 \end{itemize}
 \begin{figure}
     \centering
@@ -212,13 +225,16 @@ The \textbf{nonnegative matrix factorization} can be interpreted as follows:\\
 \end{column}
 \end{columns}
 \begin{block}{Text Mining}
-\textbf{Goal}: topic recovery and document classification\\
-The \textbf{data matrix} $X\in\real^{n\times n}_+$ encodes the frequency of some words in a list of documents.\\
-$\rightarrow$ The $(i,j)$th entry of $X$ represents the number of times the $i$th word appears in the $j$th document.\\
-The \textbf{nonnegative matrix factorization} can be interpreted as follows:\\
+\textbf{Goal}: topic recovery and document classification.
+
+The \textbf{data matrix} $X\in\real^{n\times n}_+$ encodes the frequency of some words in a list of documents.
+This means $X(i, j)$ represents the number of times the $i$-th word appears in the $j$-th document.
+
+The \textbf{nonnegative matrix factorization} for this problem can be interpreted as follows:
+
 \begin{itemize}
-    \item Each colum of the matrix $W$ represents a topic
-    \item The $(k,j)$th entry of $H$ represents the importance of the $k$th topic in the $j$th document
+    \item Each column of the matrix $W$ represents a topic.
+    \item $H(k, j)$ represents the importance of the $k$-th topic in the $j$-th document.
 \end{itemize}
 \begin{figure}
     \centering
@@ -240,24 +256,23 @@ The \textbf{nonnegative matrix factorization} can be interpreted as follows:\\
 %----------------------------------------------------------------------------------------
 %	Links to other problems
 %----------------------------------------------------------------------------------------
-\begin{exampleblock}{Algorithms and Difficulties}
+\begin{exampleblock}{Problem Formalization and Algorithmic Difficulties}
 \vspace{0.4cm}
 \begin{block}{Optimization Problem}
-We want to solve \(\displaystyle \min_{W \in \mathbb{R}^{p \times r}, H \in \mathbb{R}^{r \times n}} \norm{X - WH}^2_{\textnormal{F}}\), such that \(W \geqslant 0\), \(H \geqslant 0\).
+We want to solve \(\displaystyle \min_{W \in \real^{p \times r}, H \in \real^{r \times n}} \norm{X - WH}^2_{\textnormal{F}}\), such that \(W \geqslant 0\), \(H \geqslant 0\).
 Our use of the Frobenius norm implies the assumption that the noise is Gaussian.
 This is not always the best choice; in practice, depending on the application, other choices are possible too, such as:
 \begin{itemize}
-    \item Kullback--Leibler divergence used in text mining;
-    \item Itakura--Saito distance used in music analysis;
-    \item \(\ell_1\) norm used to improve robustness against outliers;
-    \item etc.
+    \item the Kullback--Leibler divergence, used in text mining;
+    \item the Itakura--Saito distance, used in music analysis;
+    \item the \(\ell_1\) norm used to improve robustness against outliers; etc.
 \end{itemize}
 \end{block}
-\begin{block}{Difficulties}
+\begin{block}{Algorithmic Difficulties}
 NMF is not a trivial task:
 \begin{itemize}
     \item NMF is \textbf{NP-hard} because of the nonnegativity constraints.
-    In the unconstrained case, SVD can be used.
+    In the unconstrained case, the SVD can be used.
     In practice, assumptions and heuristics allow us to solve the problem fairly efficiently.
     \item NMF is \textbf{ill-posed}: if \((W, H)\) is an NMF of \(X\), then so is \((W', H') = (WQ, Q^{-1}H)\), where \(WQ \geqslant 0\), \(Q^{-1}H \geqslant 0\).
     This can be solved by
@@ -270,40 +285,46 @@ NMF is not a trivial task:
 \end{block}
 \end{exampleblock}
 
-\begin{exampleblock}{Connections to other problems}
-In this section, we will present several connections between the NMF and other mathematical problems. But first, let us introduce the nonnegative rank.
+\begin{exampleblock}{Connections to Other Problems}
+In this section, we will present several \textbf{connections} between NMF and other mathematical problems.
+We start by introducing the concept of \textbf{nonnegative rank}.
 \begin{defn}[Nonnegative rank]
-Given $X \in \mathbb{R}_+^{p\times n}$, the nonnegative rank of X, denoted $\text{rank}_+(X)$ is the minimum $r$ s.t. $\exists W \in \mathbb{R}_+^{p\times r}, H \in \mathbb{R}_+^{r\times n} \text{ with } X = WH$.
+Given $X \in \mathbb{R}_+^{p\times n}$, the nonnegative rank of \(X\), denoted $\rank_+(X)$ is the minimum $r$ s.t. there exists $W \in \mathbb{R}_+^{p\times r}, H \in \mathbb{R}_+^{r\times n}$ with $X = WH$.
 \end{defn}
 
 %Intuitively, the columns of X can be seen as vectors that we want to generate from a basis formed by the columns of W. We want our basis to have as few vectors as possible.
 %~\\
 %~\\
-\begin{block}{Graph theory : Bipartite dimension}
-Finding the bipartite dimension of a graph gives a lower bound for the nonnegative rank. Indeed, let $G(X) = (V_1 \cup V_2, E)$ be a bipartite graph induced by X (i.e. $(i,j)\in E \Leftrightarrow X_{ij}\neq 0$). 
+\begin{block}{Graph Theory: Bipartite Dimension}
+Finding the bipartite dimension of a graph gives a lower bound for the nonnegative rank. Indeed, let $G(X) = (V_1 \cup V_2, E)$ be a bipartite graph induced by \(X\) (i.e. $(i,j)\in E \implies X_{ij}\neq 0$). 
     
-    The \textit{bipartite dimension} (or the minimum biclique cover) bc$(G(X))$ is the minimum number of bicliques needed to cover all edges in E.
-    
-    The rectangle covering bound : %?
-    \[\text{bc}(G(X))\leq \text{rank}_+(X)
+The \textbf{bipartite dimension} (also called minimum biclique cover) $\mathop{\mathrm{bc}}(G(X))$ is the minimum number of bicliques needed to cover all edges in \(E\).
+
+The formula for the rectangle covering bound is then given by
+\[
+\mathop{\mathrm{bc}}(G(X)) \leqslant \rank_+(X).
 \]
 \end{block}
 
-\begin{block}{Linear Optimization : Extended Formulation}
-The extended formulation of a polytope P is a higher dimensional polytope Q and a linear projection $\pi$ s.t. $\pi(Q) = P$.
-    \begin{align*}
-    \text{(LP) } & \max & c^T x\\
-     &s.t. & Ax\leq b\\
-     & & x \in \mathbb{R}^n \geq 0
-    \end{align*}
-    Finding the minimum size of an extended formulation of the polytope defined by the constrains amounts to calculating the nonnegative rank of the slack matrix $X(i,j) = b_i-A_iv_j$. With $v_j$, the $j^{th}$ vertex of P and $\{x\in \mathbb{R}^n | b_i-A_ix\geq 0\}$ its $i^{th}$ facet.
-    The reason why it is interesting to find an extended formulation is that it allows to solve the (LP) in polynomial time.
+\begin{block}{Linear Optimization: Extended Formulation}
+The \textbf{extended formulation} of a polytope \(P\) is composed of a higher dimensional polytope \(Q\) and a linear projection $\pi$ s.t. $\pi(Q) = P$.
+\[
+\begin{array}{l@{\quad}rcl}
+\max \quad c^\top x&&& \\
+\textnormal{s.t.} & Ax & \leqslant & b\\
+& x \in \real^n & \geqslant & 0
+\end{array}
+\tag{\textnormal{LP}}
+\]
+Finding the minimum size of an extended formulation of the polytope defined by the constraints amounts to computing the nonnegative rank of the slack matrix $X(i,j) = b_i-A_iv_j$ with $v_j$ the $j$-th vertex of \(P\) and $\{x\in \real^n \mid b_i-A_ix\geqslant 0\}$ its $i$-th face.
+Finding an extended formulation is interesting in that it allows to solve problem~(LP) in polynomial time.
 \end{block}
 
 \end{exampleblock}
 
 \begin{alertblock}{Conclusion}
-To sum up, we have seen that the NMF does not only generate meaningful features, but also has many applications in various domains. Although there are theoretical difficulties we have to deal with in this linear dimensionality reduction technique, such as its NP-hardness and ill-posedness, there still exist different ways to deal with them.
+Nonnegative matrix factorization not only generates meaningful features, but also has many applications in various domains. Although there are theoretical difficulties one has to deal with when using this linear dimensionality reduction technique, such as its NP-hardness and ill-posedness, mathematical research has come a long way in finding creative solutions to many of these issues.
+Additionally, it is intimately related to many other domains of mathematics.
 \end{alertblock}
 
 \end{column}
