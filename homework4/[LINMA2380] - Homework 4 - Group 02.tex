@@ -73,8 +73,40 @@
 \begin{document}
 \section*{Exercise A: Minimal polynomial and Smith normal form}
 \subsection*{A1}
+We wish to prove that \(\delta_k\big(P(\lambda)\big) = \delta_k\big(Q(\lambda)\big)\), where \(Q(\lambda) = M(\lambda) P(\lambda) N(\lambda)\).
+\begin{proof}
+We start by observing that \(P(\lambda)\) can be decomposed into its Smith normal form \(R(\lambda) D(\lambda) S(\lambda)\), where \(R(\lambda), S(\lambda)\) are unimodular matrices, and \(D(\lambda)\) is a diagonal matrix with monic diagonal elements such that \(d_i(\lambda) \mid d_{i+1}(\lambda)\) for all \(i\).
 
-\subsection*{A2}
+By Cauchy--Binet, we then observe that \(\det P(\lambda) = \det R(\lambda) \det D(\lambda) \det S(\lambda)\), where the unimodular matrices have a nonzero constant determinant, by definition.
+We choose to denote the product of their determinants by \(\alpha\).
+We then know that
+\[
+\det P(\lambda) = \alpha \prod_{i = 1}^n d_i(\lambda).
+\]
+Considering we are ultimately interested in the monic greatest common divisor of minors, we do not have to take the constant factor \(\alpha\) into account.
+We then observe that each monic \(k\)-minor is simply a product of \(k\) terms chosen from \(d_1, \dots, d_n\).
+Bearing in mind that \(d_i(\lambda) \mid d_{i+1}(\lambda)\) for all \(i\), it is trivial to find that the greatest common divisor of all \(k\)-minors is \(\prod_{i = 1}^k d_i(\lambda)\).
+We can then write
+\[
+\delta_k\big(P(\lambda)\big) = \prod_{i=1}^k d_i(\lambda).
+\]
+
+Applying a similar reasoning to \(Q(\lambda)\), we find that
+\[
+\det Q(\lambda) = \det M(\lambda) \det P(\lambda) \det N(\lambda) = \det M(\lambda) \det R(\lambda) \det D(\lambda) \det S(\lambda) \det N(\lambda).
+\]
+As, in this last expression, \(M(\lambda), R(\lambda), S(\lambda), N(\lambda)\) are all unimodular, the product of their determinants is simply a nonzero constant \(\beta\):
+\[
+\det Q(\lambda) = \beta \prod_{i = 1}^n d_i(\lambda).
+\]
+The same observations that were made for \(P(\lambda)\) concerning monicity and divisibility still hold in this case, yielding
+\[
+\delta_k\big(Q(\lambda)\big) = \prod_{i=1}^k d_i(\lambda).
+\]
+This concludes our proof that \(\delta_k(P(\lambda)) = \delta_k(Q(\lambda))\).
+\end{proof}
+
+\subsection*{A2}.
 We now prove that for all $k\in\{1,...,n\}$, $\delta_k(P(\lambda))=\Pi^k_{i=1}d_i(\lambda)$ where $d_i(\lambda)$ are the diagonal entries of $D(\lambda)$ and $M(\lambda)D(\lambda)N(\lambda)$ is a Smith decomposition of $P(\lambda)$.
 \begin{proof}
 From A1, we know that $\delta_k(P(\lambda))=\delta_k(D(\lambda))$ and therefore we will consider $\delta_k(D(\lambda))$.\\
