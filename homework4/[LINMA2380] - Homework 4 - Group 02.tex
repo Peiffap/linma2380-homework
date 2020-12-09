@@ -35,6 +35,10 @@
 \usetikzlibrary{calc}
 \usetikzlibrary{fit}
 
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem*{lemma}{Lemma}
+
 \DeclarePairedDelimiterX{\norm}[1]{\lVert}{\rVert}{#1}
 
 \newcommand\bovermat[2]{%
@@ -73,37 +77,29 @@
 \begin{document}
 \section*{Exercise A: Minimal polynomial and Smith normal form}
 \subsection*{A1}
-We wish to prove that \(\delta_k\big(P(\lambda)\big) = \delta_k\big(Q(\lambda)\big)\), where \(Q(\lambda) = M(\lambda) P(\lambda) N(\lambda)\).
+First we prove a lemma.
+\begin{lemma}
+ If $A\in\real^{n\times n}$ and $B\in\real^{n\times n}$ then for $k=1,...,n$:
+ \begin{itemize}
+     \item $\delta_k(A)$ divides $\delta_k(AB)$
+     \item $\delta_k(B)$ divides $\delta_k(AB)$
+ \end{itemize}
+\end{lemma}
 \begin{proof}
-We start by observing that \(P(\lambda)\) can be decomposed into its Smith normal form \(R(\lambda) D(\lambda) S(\lambda)\), where \(R(\lambda), S(\lambda)\) are unimodular matrices, and \(D(\lambda)\) is a diagonal matrix with monic diagonal elements such that \(d_i(\lambda) \mid d_{i+1}(\lambda)\) for all \(i\).
+If we denote by $(AB)_{\textbf{I}\textbf{J}}$ the k-by-k sub-matrix of $AB$ taking the rows $\textbf{I}$ and the columns $\textbf{J}$ (hence $|\textbf{I}|=|\textbf{J}|=k$). We can write and develop the associated k-minor:
+\begin{align*}
+    \det (AB)_{\textbf{I}\textbf{J}}&=\det(A_{\textbf{I}*}B_{*\textbf{J}})\\
+    &=\sum_{\textbf{j}_k} A_{\textbf{I}*}\binom{k}{\textbf{j}_k}B_{*\textbf{J}}\binom{\textbf{j}_k}{k}\\
+    &=\sum_{\textbf{j}_k} \det A_{\textbf{I} \textbf{j}_k} \det B_{\textbf{j}_k \textbf{J}}\ \
+\end{align*}
+The second equality is derived from the Binet-Cauchy theorem. We observe that the k-minors of $AB$ can be written as linear combinations of the k-minors of $A$. Thus, every common divisor of the k-minors of $A$ must also be a common divisor of the k-minors of $AB$. As it is true for the greatest common divisor, we have that $\delta_k(A)$ divides $\delta_k(AB)$. The same reasoning is valid taking $B$ instead of $A$ and therefore we prove that $\delta_k(B)$ divides $\delta_k(AB)$.\\
+\end{proof}
+We now prove that \(\delta_k\big(P(\lambda)\big) = \delta_k\big(Q(\lambda)\big)\), where \(Q(\lambda) = M(\lambda) P(\lambda) N(\lambda)\).
 
-By Cauchy--Binet, we then observe that \(\det P(\lambda) = \det R(\lambda) \det D(\lambda) \det S(\lambda)\), where the unimodular matrices have a nonzero constant determinant, by definition.
-We choose to denote the product of their determinants by \(\alpha\).
-We then know that
-\[
-\det P(\lambda) = \alpha \prod_{i = 1}^n d_i(\lambda).
-\]
-Considering we are ultimately interested in the monic greatest common divisor of minors, we do not have to take the constant factor \(\alpha\) into account.
-We then observe that each monic \(k\)-minor is simply a product of \(k\) terms chosen from \(d_1, \dots, d_n\).
-Bearing in mind that \(d_i(\lambda) \mid d_{i+1}(\lambda)\) for all \(i\), it is trivial to find that the greatest common divisor of all \(k\)-minors is \(\prod_{i = 1}^k d_i(\lambda)\).
-We can then write
-\[
-\delta_k\big(P(\lambda)\big) = \prod_{i=1}^k d_i(\lambda).
-\]
+\begin{proof}
+Using the lemma with $A=M(\lambda)P(\lambda)$ and $B=N(\lambda)$, we have that $\delta_k(M(\lambda)P(\lambda))$ divides $\delta_k(Q(\lambda))$. Then applying once more the lemma with $A=\delta_k(M(\lambda))$ and $B=\delta_k(P(\lambda))$, we obtain that $\delta_k(P(\lambda))$ divides $\delta_k(M(\lambda)P(\lambda))$. We deduce that $\delta_k(P(\lambda))$ divides $\delta_k(Q(\lambda))$.\\
 
-Applying a similar reasoning to \(Q(\lambda)\), we find that
-\[
-\det Q(\lambda) = \det M(\lambda) \det P(\lambda) \det N(\lambda) = \det M(\lambda) \det R(\lambda) \det D(\lambda) \det S(\lambda) \det N(\lambda).
-\]
-As, in this last expression, \(M(\lambda), R(\lambda), S(\lambda), N(\lambda)\) are all unimodular, the product of their determinants is simply a nonzero constant \(\beta\):
-\[
-\det Q(\lambda) = \beta \prod_{i = 1}^n d_i(\lambda).
-\]
-The same observations that were made for \(P(\lambda)\) concerning monicity and divisibility still hold in this case, yielding
-\[
-\delta_k\big(Q(\lambda)\big) = \prod_{i=1}^k d_i(\lambda).
-\]
-This concludes our proof that \(\delta_k(P(\lambda)) = \delta_k(Q(\lambda))\).
+We can apply the exact same reasoning to $P(\lambda)=N^{-1}(\lambda)Q(\lambda)M^{-1}(\lambda)$. Doing so, we have that $\delta_k(Q(\lambda))$ divides $\delta_k(P(\lambda))$. Consequently, we conclude that $\delta_k(Q(\lambda))$ is equal to $\delta_k(P(\lambda))$.
 \end{proof}
 
 \subsection*{A2}.
