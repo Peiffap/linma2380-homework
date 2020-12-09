@@ -1,26 +1,26 @@
-\begin{frame}{Applications - Image processing}
-    \textbf{Goal} : Facial Feature Extraction\\
+\begin{frame}{Applications --- Image Processing}
+    \textbf{Goal}: Facial Feature Extraction.\\
     ~\\
     \begin{figure}
         \centering
         \includegraphics[width=2cm]{../images/face_image.png}
     \end{figure}
-    Data matrix : $X\in\real^{p\times n}_+$\\
+    Data matrix: $X\in\real^{p\times n}_+$.\\
     \begin{itemize}
-        \item $p$ : total number of pixels
-        \item $n$ : number of faces
-        \item $X(i,j)$ : the gray-level of the $i$-th pixel in the $j$-th face
+        \item $p$: total number of pixels.
+        \item $n$: number of faces.
+        \item $X(i,j)$: gray level of the $i$-th pixel in the $j$-th face.
     \end{itemize}
 \end{frame}
     
-\begin{frame}{Applications - Image processing}
+\begin{frame}{Applications --- Image Processing}
     \begin{figure}
         \centering
         \includegraphics[width=\linewidth]{../images/NMF_app1.png}
     \end{figure}
 \end{frame}
 
-\begin{frame}{Applications - Image processing}
+\begin{frame}{Applications --- Image Processing}
     \begin{figure}[h!]
         \centering
         \begin{minipage}{0.45\textwidth}
@@ -38,38 +38,38 @@
         \end{minipage}
     \end{figure}
 \end{frame}
-\begin{frame}{Applications - Text Mining}
-    \textbf{Goal} : Topic Recovery and Document Classification\\
+\begin{frame}{Applications --- Text Mining}
+    \textbf{Goal}: Topic Recovery and Document Classification.\\
     \vspace{0.7cm}
-    Data matrix : $X\in\real^{n\times m}_+$\\
+    Data matrix: $X\in\real^{n\times m}_+$.\\
     \begin{itemize}
-        \item each column : a document
-        \item each line : a word
-        \item $X(i,j)$ : number of times the $i$-th word appears in the $j$-th document
+        \item Each column: a document.
+        \item Each line: a word.
+        \item $X(i,j)$: number of times the $i$-th word appears in the $j$-th document.
     \end{itemize}
     \begin{figure}
         \centering
         \includegraphics[width=0.9\linewidth]{../images/NMF_app2.png}
     \end{figure}
 \end{frame}
-\begin{frame}{Applications - Hyperspectral Unmixing}
-    \textbf{Goal} :
+\begin{frame}{Applications --- Hyperspectral Unmixing}
+    \textbf{Goals}:
     \begin{enumerate}
-        \item Identify the constitutive materials present in an image
-        \item Classify the pixels according to their constitutive materials
+        \item Identify constitutive materials present in an image.
+        \item Classify pixels according to their constitutive materials.
     \end{enumerate}
     \vspace{1cm}
-    \textbf{Spectral signature} of a pixel: fraction of incident light being reflected by that pixel at different wavelengths\\
+    \textbf{Spectral signature} of a pixel: fraction of incident light being reflected by that pixel at different wavelengths.\\
     \begin{figure}
         \centering
         \includegraphics[width=0.55\linewidth]{../images/Spectral-signatures.png}
     \end{figure}
 \end{frame}
 
-\begin{frame}{Applications - Hyperspectral Unmixing}
-    Data matrix : $X\in\real^{n\times p}$\\
+\begin{frame}{Applications --- Hyperspectral Unmixing}
+    Data matrix: $X\in\real^{n\times p}$.\\
     \begin{itemize}
-        \item each column : spectral signature of a pixel
+        \item Each column: spectral signature of a pixel.
     \end{itemize}
     \begin{figure}
         \centering
