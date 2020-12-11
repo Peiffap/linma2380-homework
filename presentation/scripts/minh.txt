@@ -5,7 +5,7 @@ For this last part of our presentation, we will talk about the connections betwe
 Before we begin however, let's define the nonnegative rank of a matrix.
 Given a nonnegative matrix X of dimension p by n, the nonnegative rank is the minimum r s.t. there exists an exact nonnegative matrix factorisation with W having r columns and H having r rows.
 
-Intuitively, the matrix X in blue, corresponds to n vectors of dimension p. What we want is to be able to generate all of these vectors from as few basis vectors as possible. The basis vectors form the columns of the matrix W in green.
+Intuitively, the matrix X in blue, corresponds to n column vectors of dimension p. What we want is to be able to generate all of these vectors from as few basis vectors as possible. The basis vectors form the columns of the matrix W in green.
 
 ---------------
 2.

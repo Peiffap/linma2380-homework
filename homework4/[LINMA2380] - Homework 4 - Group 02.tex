@@ -182,9 +182,155 @@ When $k=n$, the only possible sub-matrix to consider is the whole matrix which d
 \end{proof}
 
 \subsection*{A4}
+Let $J_1 \in \mathbb{C}^{n_1 \times n_1}$ and $J_2 \in \mathbb{C}^{n_2 \times n_2}$ be two Jordan blocks with respective eigenvalues $\lambda_i$ and size $n_i$, $i = 1,2$. Let $A\in \mathbb{C}^{n\times n}$ with $n = n_1+n_2$ be the Jordan matrix consisting of the two Jordan blocks $J_1$ and $J_2$. Then $\lambda I - A$ can be reduced to the form
+\[
+M(\lambda) (\lambda I-A)N(\lambda) = diag\{\underbrace{1, \dots , 1}_{n_1 - 1}, (\lambda - \lambda_1)^{n_1}, \underbrace{1, \dots, 1}_{n_2 - 1}, (\lambda - \lambda_2)^{n_2}\}
+\]
+With unimodular matrices  $M(\lambda)$, $N(\lambda) \in \mathbb{C}^{n\times n}[\lambda]$.
+
+\begin{proof}
+From A3, we have already proved that $\lambda I - J_1$ can be written as
+\begin{align*}
+P_1(\lambda) &:= \lambda I_{n_1} - J_1 = M_1(\lambda) D_1(\lambda) N_1(\lambda)\\
+\Leftrightarrow D_1 &= M_1^{-1}(\lambda)P_1(\lambda) N_1^{-1}(\lambda)\\
+&= \begin{bmatrix}
+1 & & & &\\
+  &1& & &\\
+  & &\ddots& &\\
+  & & & 1& \\
+  & & &  &(\lambda - \lambda_1)^{n_1}\\
+\end{bmatrix}
+\end{align*} 
+
+Similarly, 
+\begin{align*}
+P_2(\lambda) &:= \lambda I_{n_2} - J_2 = M_2(\lambda) D_2(\lambda) N_2(\lambda)\\
+\Leftrightarrow D_2 &= M_2^{-1}(\lambda)P_2(\lambda) N_2^{-1}(\lambda)\\
+&= \begin{bmatrix}
+1 & & & &\\
+  &1& & &\\
+  & &\ddots& &\\
+  & & & 1& \\
+  & & &  &(\lambda - \lambda_2)^{n_2}\\
+\end{bmatrix}
+\end{align*}
+
+Note that $M_1^{-1}(\lambda)$, $N_1^{-1}(\lambda)$, $M_2^{-1}(\lambda)$ and $N_2^{-1}(\lambda)$ are unimodular as their inverse are unimodular.
+
+Now, if we consider the diagonal matrix formed by $D_1$ and $D_2$, we have :
+\begin{align*}D(\lambda):=
+\begin{bmatrix}
+D_1 &\\
+& D_2
+\end{bmatrix} &= \begin{bmatrix}
+1 & & & &&&&&\\
+  &1& & &&&&&\\
+  & &\ddots& &&&&&\\
+  & & & 1& &&&&\\
+  & & &  &(\lambda - \lambda_1)^{n_1}&&&&\\
+  &&&&&1 & & & &\\
+  &&&&&&1& & &\\
+  &&&&&& &\ddots& &\\
+  &&&&&& & & 1& \\
+  &&&&&&& &  &(\lambda - \lambda_2)^{n_2}\\
+\end{bmatrix}\\
+&=\begin{bmatrix}
+M_1^{-1}(\lambda)P_1(\lambda) N_1^{-1}(\lambda) &\\
+& M_2^{-1}(\lambda)P_2(\lambda) N_2^{-1}(\lambda)
+\end{bmatrix}\\
+&=
+\underbrace{\begin{bmatrix}
+M_1^{-1}(\lambda) &\\
+& M_2^{-1}(\lambda)
+\end{bmatrix}}_{:=M(\lambda)}
+\underbrace{\begin{bmatrix}
+P_1\lambda) &\\
+& P_2(\lambda)
+\end{bmatrix}}_{:= P(\lambda) = (\lambda I - A)}
+\underbrace{\begin{bmatrix}
+N_1^{-1}(\lambda) &\\
+& N_2^{-1}(\lambda)
+\end{bmatrix}}_{:=N(\lambda)}
+\end{align*}
+
+$M(\lambda)$ is indeed unimodular as its determinant is the product of the determinants of $M_1^{-1}(\lambda)$ and $M_2^{-1}(\lambda)$ (both unimodular). Thus, the determinant of $M_1(\lambda)$ is equal to the product of 2 nonzero constants, which is a nonzero constant.
+
+Similarly, $N(\lambda)$ is also unimodular.
+
+~\\
+Remark : this result can be easily extended to the case of A being composed by more than 2 Jordan blocks with the same reasoning. 
+\footnotesize{
+\begin{align}
+\underbrace{\begin{bmatrix}
+D_1 & & & \\
+& D_2 & & \\
+& & D_3 & \\
+& & & & \ddots
+\end{bmatrix} }_{:= D(\lambda)}
+&=
+\underbrace{\begin{bmatrix}
+M_1^{-1}(\lambda) & & &\\
+& M_2^{-1}(\lambda) & &\\
+& & M_3^{-1}(\lambda) & \\
+& & & \ddots
+\end{bmatrix}}_{:=B^{-1}(\lambda)}
+\underbrace{\begin{bmatrix}
+P_1\lambda) & & &\\
+& P_2(\lambda) & &\\
+& & P_3(\lambda) &\\
+& & & \ddots
+\end{bmatrix}}_{:= P(\lambda) = (\lambda I - A)}
+\underbrace{\begin{bmatrix}
+N_1^{-1}(\lambda) & & &\\
+& N_2^{-1}(\lambda) & &\\
+& & N_3^{-1}(\lambda) & \\
+& & & \ddots
+\end{bmatrix}}_{:=C^{-1}(\lambda)}
+\end{align}\label{a4}}
+
+\end{proof}
+
+Now, we want to find the elementary polynomials of $P(\lambda) = (\lambda I - A)$. For that, we will use the property proved in A1 s.t. $\delta_k(P(\lambda)) = \delta_k(D(\lambda))$.
+
+Indeed, it is clear that for $k =1, 2, \dots,(n_1 + n_2 - 2)$, we can always choose a submatrix containing only ones on the diagonal, which means that $\delta_k(P(\lambda)) = 1$ . And by A2, we have that the monic $d_k(\lambda)$ are all equal to 1 for $k =1, 2, \dots, (n_1 + n_2 - 2)$. 
+
+Then, we need to distinguish 2 cases : 
+\begin{itemize}
+\item When $\lambda_1 \neq \lambda_2$, \begin{align*}
+&\delta_{n_1+n_2 - 1}(P(\lambda)) = 1  &\Leftrightarrow& d_{n_1+n_2-1}(\lambda) = 1\\
+&\delta_{n_1+n_2}(P(\lambda)) = (\lambda -\lambda_{1})^{n_1}(\lambda -\lambda_{2})^{n_2} &\Leftrightarrow& d_{n_1+n_2}(\lambda) = (\lambda -\lambda_{1})^{n_1}(\lambda -\lambda_{2})^{n_2}
+\end{align*}
+\item When $\lambda_1 = \lambda_2$, \begin{align*}
+&\delta_{n_1+n_2 - 1}(P(\lambda)) = (\lambda -\lambda_{1})^{\min(n_1,n_2)} &\Leftrightarrow& d_{n_1+n_2-1}(\lambda) = (\lambda -\lambda_{1})^{\min(n_1,n_2)}\\
+&\delta_{n_1+n_2}(P(\lambda)) = (\lambda -\lambda_{1})^{n_1+n_2} &\Leftrightarrow& d_{n_1+n_2}(\lambda) = \frac{(\lambda -\lambda_{1})^{n_1+n_2}}{(\lambda -\lambda_{1})^{\min(n_1,n_2)}}=(\lambda -\lambda_{1})^{\max(n_1,n_2)}
+\end{align*}
+\end{itemize}
+
+We can observe that the minimal polynomial of $A$ is equal to $d_{n_1+n_2}(\lambda)$.
 
 \subsection*{A5}
+Let $A\in \mathbb{C}^{n\times n}$. There are unimodular matrices $M(\lambda), N(\lambda) \in \mathbb{C}^{n\times n}[\lambda]$ s.t. 
+\[\lambda I - A = M(\lambda)E(\lambda)N(\lambda)
+\] where $E(\lambda)$ is diagonal with elements being either 1's or polynomials of the form $(\lambda - \lambda_i)^{n_i}$ where $ \lambda_i$ are the eigenvalues of A and $n_i$ the size of the corresponding Jordan block in the Jordan decomposition of A.
 
+\begin{proof}
+First, let us write the Jordan decomposition of A.
+\[T^{-1} A T =J \qquad \Leftrightarrow \qquad A= T J T^{-1}
+\]
+
+With $J$, the Jordan matrix and $T$ being a similarity transformation (this implies that $T$ is invertible, its determinant is nonzero, which means that it is a unimodular matrix).
+
+We can now derive :
+\begin{align*}
+\lambda I - A &= \lambda I - T J T^{-1}\\
+&= T(\lambda I - J) T^{-1}\\
+&= \underbrace{TB(\lambda)}_{:=M(\lambda)}\underbrace{D(\lambda)}_{:= E(\lambda)}\underbrace{C(\lambda)T^{-1}}_{:= N(\lambda)}
+\end{align*}
+The last equality is obtained with the results in A4 (cfr Equation \ref{a4}). 
+$M(\lambda)$ and $N(\lambda)$ are indeed unimodular as they are products of 2 unimodular matrices.
+\end{proof}
+
+The matrices $A$ and $J$ have the same eigenvalues which means that they have the same minimal polynomial as well. In A4, we have already observed that a Jordan matrix with 2 Jordan blocks has a minimal polynomial equal to its last elementary polynomial. It is trivial to see that this result can be extended to a Jordan matrix with more Jordan blocks. Hence the minimal polynomial of $A$ is equal to the last elementary polynomial of $J$ (obtained with $D(\lambda)$) which is also the last elementary polynomial of $A$ (obtained with $E(\lambda) = D(\lambda)$). 
 \section*{Exercise B: Implementation}
 \subsection*{B1}
 Using the Jordan normal form is not numerically stable because taking limits does not commute with forming the Jordan canonical form.
