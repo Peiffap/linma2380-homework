@@ -257,8 +257,6 @@ $M(\lambda)$ is indeed unimodular as its determinant is the product of the deter
 
 Similarly, $N(\lambda)$ is also unimodular.
 
-\end{proof}
-
 ~\\
 Remark : this result can be easily extended to the case of A being composed by more than 2 Jordan blocks with the same reasoning. 
 \footnotesize{
@@ -289,71 +287,9 @@ N_1^{-1}(\lambda) & & &\\
 & & & \ddots
 \end{bmatrix}}_{:=C^{-1}(\lambda)}
 \end{align}\label{a4}}
-\normalsize
-\begin{proof}
-By induction, let's consider $A=\begin{bmatrix}
-A_1 & \\
- & J_p
-\end{bmatrix}$. With $A_1 \in \mathbb{C}^{n\times n}$ a block diagonal matrix with $(p-1)$ Jordan blocks and $J_p\in \mathbb{C}^{m\times m}$ the pth Jordan block. 
-Let's assume that :
-\footnotesize{
-\begin{align*}
-\underbrace{\begin{bmatrix}
-D_1 & & & \\
-& D_2 & & \\
-& & \ddots & \\
-& & & & D_{p-1}
-\end{bmatrix} }_{:= D_{A_1}(\lambda)}
-&=
-\underbrace{\begin{bmatrix}
-M_1^{-1}(\lambda) & & &\\
-& M_2^{-1}(\lambda) & &\\
-& & \ddots & \\
-& & & M_{p-1}^{-1}(\lambda)
-\end{bmatrix}}_{:=M_{A_1}^{-1}(\lambda)}
-\underbrace{\begin{bmatrix}
-P_1\lambda) & & &\\
-& P_2(\lambda) & &\\
-& &\ddots &\\
-& & &  P_{p-1}(\lambda)
-\end{bmatrix}}_{:= P_{A_1}(\lambda) = (\lambda I - A_1)}
-\underbrace{\begin{bmatrix}
-N_1^{-1}(\lambda) & & &\\
-& N_2^{-1}(\lambda) & &\\
-& & N_3^{-1}(\lambda) & \\
-& & & \ddots
-\end{bmatrix}}_{:=N_{A_1}^{-1}(\lambda)}
-\end{align*}}
- \normalsize
- 
- Then, 
- \begin{align*}
- \lambda I_{m+n} - A &= \begin{bmatrix}
- \lambda I_{n} - A_1 & \\
-  & \lambda I_{m} - J_p 
- \end{bmatrix}\\
- &= \begin{bmatrix}
- M_{A_1}(\lambda) D_{A_1}(\lambda) N_{A_1}(\lambda) & \\
- & \lambda I_{m} - J_p 
- \end{bmatrix}\\
-  &= \begin{bmatrix}
- M_{A_1}(\lambda) D_{A_1}(\lambda) N_{A_1}(\lambda) & \\
- & M_{J_p}(\lambda) D_{J_p}(\lambda) N_{J_p}(\lambda)
- \end{bmatrix}\\
- &= \underbrace{\begin{bmatrix}
- M_{A_1}(\lambda) & \\
-  & M_{J_p}(\lambda)
- \end{bmatrix}}_{B(\lambda)}\underbrace{\begin{bmatrix}
- D_{A_1}(\lambda) & \\
-  & D_{J_p}(\lambda)
- \end{bmatrix}}_{D(\lambda)}\underbrace{\begin{bmatrix}
- N_{A_1}(\lambda) & \\
-  & N_{J_p}(\lambda)
- \end{bmatrix}}_{C(\lambda)}
- \end{align*}
- From the first equation to the second, we used our assumption and from the second to the third, we used A3.
+
 \end{proof}
-~\\
+
 Now, we want to find the elementary polynomials of $P(\lambda) = (\lambda I - A)$. For that, we will use the property proved in A1 s.t. $\delta_k(P(\lambda)) = \delta_k(D(\lambda))$.
 
 Indeed, it is clear that for $k =1, 2, \dots,(n_1 + n_2 - 2)$, we can always choose a submatrix containing only ones on the diagonal, which means that $\delta_k(P(\lambda)) = 1$ . And by A2, we have that the monic $d_k(\lambda)$ are all equal to 1 for $k =1, 2, \dots, (n_1 + n_2 - 2)$. 
@@ -407,5 +343,69 @@ We thus have
 Similarly, computing the minimal polynomials yields \(p_{A_\varepsilon}(\lambda) = (\lambda - 1)^2 \ne \lambda - 1 = p_A(\lambda)\).
 
 \subsection*{B2}
+We want to compute the Smith normal form of $\lambda I - A_{i}$ where $A_{i}$ is one of the three matrices: $A_1$, $A_2$ and $A_3$ defined in the homework statement. The Smith normal forms are the following:
+
+\begin{align*} P(\lambda I - A_{1}) &=
+    \begin{pmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    0 & 0 & 0 & \lambda^{4} + 4 \lambda^{3} + \frac{21 \lambda^{2}}{4} + \frac{11 \lambda}{4} + \frac{1}{2}
+    \end{pmatrix} \\
+    P(\lambda I - A_{2}) &=
+    \begin{pmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    0 & 0 & 0 & \lambda^{4} + \frac{7 \lambda^{3}}{2} + \frac{7 \lambda^{2}}{2} + \lambda
+    \end{pmatrix} \\
+    P(\lambda I - A_{3}) &=
+    \begin{pmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    0 & 0 & 0 & \lambda^{4} + 3 \lambda^{3} + 2 \lambda^{2}
+    \end{pmatrix}
+\end{align*}
+
+The minimal polynomial of $A_{i}$ can be deduced from the last elementary polynomial of those Smith normal forms.
+
+\begin{align*}
+    m_{1}(\lambda) &= \lambda^{4} + 4 \lambda^{3} + \frac{21 \lambda^{2}}{4} + \frac{11 \lambda}{4} + \frac{1}{2} \\
+    &= \frac{1}{4} (\lambda + 2) (\lambda + 1) (2 \lambda + 1)^{2} \\
+    m_{2}(\lambda) &= \lambda^{4} + \frac{7 \lambda^{3}}{2} + \frac{7 \lambda^{2}}{2} + \lambda \\
+    &= \frac{1}{2} \lambda (2 \lambda + 1) (\lambda + 2) (\lambda + 1) \\
+    m_{3}(\lambda) &= \lambda^{4} + 3 \lambda^{3} + 2 \lambda^{2} \\
+    &= \lambda^{2} (\lambda + 2) (\lambda + 1)
+\end{align*}
+
+We want to test the boundednesss of the trajectories defined by the systems with the three different matrices: $A_1$, $A_2$ and $A_3$ defined in the homework statement. For this purpose, we use statement 2 in the introduction of exercise A of the homework 3: " All the eigenvalues of $A_{i}$ are in the open left-hand plane, or are on the imaginary axis and are simple." because it has been shown as equivalent to statement 1 ("Every trajectory of $\dot{x}(t) = A x(t), x(t) \in \complex^{n}, t\geq 0$ is bounded: $\forall x(0) \in \complex^{n}, sup_{t\geq0} \norm{x(t)} < \infty$") in the homework 3 .
+
+To check whether statement 2 is satisfied or not, we looked at the vectors of eigenvalues $\Lambda_i$ of the matrices which are computed from the factorization of the minimal polynomial.
+\begin{align*}
+    \Lambda_1 =\begin{pmatrix}
+    -0.5\\
+    -0.5\\
+    -1\\
+    -2
+    \end{pmatrix},
+    \Lambda_2 =\begin{pmatrix}
+    0\\
+    -0.5\\
+    -1\\
+    -2
+    \end{pmatrix},
+    \Lambda_3 =\begin{pmatrix}
+    0\\
+    0\\
+    -1\\
+    -2
+    \end{pmatrix}.
+\end{align*}
+We observe that the eigenvalues are identical to the eigenvalues found in the homework 3. The conclusion is thus similar: all eigenvalues of $A_1$ (for all \(i\)) are such that $\Re(\lambda_{1, i})<0$.$A_1$ hence satisfies statement 2.
+The matrix $A_2$ has eigenvalues such $\Re(\lambda_{2, i})<0$ for all \(i\) except for ($\lambda_{21}=0$), which is simple (the multiplicity of this eigenvalue in the factorization of the minimal polynomial is one), so the statement is again verified.
+The matrix $A_3$ has an eigenvalue ($\lambda_{3, 1} = \lambda_{3, 2} = 0$) with zero real part and associated to a multiplicity in the factorization of the minimal polynomial of 2, which is thus not simple.
+Therefore, it does not satisfy the statement. We conclude that the trajectory will necessarily remain bounded only for the first two systems.
+
 
 \end{document}
