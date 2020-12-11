@@ -257,6 +257,8 @@ $M(\lambda)$ is indeed unimodular as its determinant is the product of the deter
 
 Similarly, $N(\lambda)$ is also unimodular.
 
+\end{proof}
+
 ~\\
 Remark : this result can be easily extended to the case of A being composed by more than 2 Jordan blocks with the same reasoning. 
 \footnotesize{
@@ -287,9 +289,71 @@ N_1^{-1}(\lambda) & & &\\
 & & & \ddots
 \end{bmatrix}}_{:=C^{-1}(\lambda)}
 \end{align}\label{a4}}
-
+\normalsize
+\begin{proof}
+By induction, let's consider $A=\begin{bmatrix}
+A_1 & \\
+ & J_p
+\end{bmatrix}$. With $A_1 \in \mathbb{C}^{n\times n}$ a block diagonal matrix with $(p-1)$ Jordan blocks and $J_p\in \mathbb{C}^{m\times m}$ the pth Jordan block. 
+Let's assume that :
+\footnotesize{
+\begin{align*}
+\underbrace{\begin{bmatrix}
+D_1 & & & \\
+& D_2 & & \\
+& & \ddots & \\
+& & & & D_{p-1}
+\end{bmatrix} }_{:= D_{A_1}(\lambda)}
+&=
+\underbrace{\begin{bmatrix}
+M_1^{-1}(\lambda) & & &\\
+& M_2^{-1}(\lambda) & &\\
+& & \ddots & \\
+& & & M_{p-1}^{-1}(\lambda)
+\end{bmatrix}}_{:=M_{A_1}^{-1}(\lambda)}
+\underbrace{\begin{bmatrix}
+P_1\lambda) & & &\\
+& P_2(\lambda) & &\\
+& &\ddots &\\
+& & &  P_{p-1}(\lambda)
+\end{bmatrix}}_{:= P_{A_1}(\lambda) = (\lambda I - J_1)}
+\underbrace{\begin{bmatrix}
+N_1^{-1}(\lambda) & & &\\
+& N_2^{-1}(\lambda) & &\\
+& & N_3^{-1}(\lambda) & \\
+& & & \ddots
+\end{bmatrix}}_{:=N_{A_1}^{-1}(\lambda)}
+\end{align*}}
+ \normalsize
+ 
+ Then, 
+ \begin{align*}
+ \lambda I_{m+n} - A &= \begin{bmatrix}
+ \lambda I_{n} - A_1 & \\
+  & \lambda I_{m} - J_p 
+ \end{bmatrix}\\
+ &= \begin{bmatrix}
+ M_{A_1}(\lambda) D_{A_1}(\lambda) N_{A_1}(\lambda) & \\
+ & \lambda I_{m} - J_p 
+ \end{bmatrix}\\
+  &= \begin{bmatrix}
+ M_{A_1}(\lambda) D_{A_1}(\lambda) N_{A_1}(\lambda) & \\
+ & M_{J_p}(\lambda) D_{J_p}(\lambda) N_{J_p}(\lambda)
+ \end{bmatrix}\\
+ &= \underbrace{\begin{bmatrix}
+ M_{A_1}(\lambda) & \\
+  & M_{J_p}(\lambda)
+ \end{bmatrix}}_{B(\lambda)}\underbrace{\begin{bmatrix}
+ D_{A_1}(\lambda) & \\
+  & D_{J_p}(\lambda)
+ \end{bmatrix}}_{D(\lambda)}\underbrace{\begin{bmatrix}
+ N_{A_1}(\lambda) & \\
+  & N_{J_p}(\lambda)
+ \end{bmatrix}}_{C(\lambda)}
+ \end{align*}
+ From the first equation to the second, we used our assumption and from the second to the third, we used A3.
 \end{proof}
-
+~\\
 Now, we want to find the elementary polynomials of $P(\lambda) = (\lambda I - A)$. For that, we will use the property proved in A1 s.t. $\delta_k(P(\lambda)) = \delta_k(D(\lambda))$.
 
 Indeed, it is clear that for $k =1, 2, \dots,(n_1 + n_2 - 2)$, we can always choose a submatrix containing only ones on the diagonal, which means that $\delta_k(P(\lambda)) = 1$ . And by A2, we have that the monic $d_k(\lambda)$ are all equal to 1 for $k =1, 2, \dots, (n_1 + n_2 - 2)$. 
