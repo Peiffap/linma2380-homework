@@ -81,14 +81,15 @@ Throughout this homework, the notation ``\(x \mid y\)'' will be used to mean ``\
 \subsection*{A1}
 Let us first prove the following lemma.
 \begin{lemma}
- Let $A, B \in\complex^{n\times n}[\lambda]$.
+ Let $A(\lambda), B(\lambda) \in\complex^{n\times n}[\lambda]$.
  For $k=1, \dots, n$,
  \begin{itemize}
-     \item $\delta_k(A) \mid \delta_k(AB)$;
-     \item $\delta_k(B) \mid \delta_k(AB)$.
+     \item $\delta_k\big(A(\lambda)\big) \mid \delta_k\big(A(\lambda)B(\lambda)\big)$;
+     \item $\delta_k\big(B(\lambda)\big) \mid \delta_k\big(A(\lambda)B(\lambda)\big)$.
  \end{itemize}
 \end{lemma}
 \begin{proof}
+For clarity, we write \(A, B\) instead of \(A(\lambda), B(\lambda)\).
 Let \(\bm{i}, \bm{j}\) be index \(k\)-tuples.
 If one denotes by $X_{\bm{ij}}$ the \(k \times k\) submatrix of a matrix $X$ taking the rows whose indices are in $\bm{i}$ and the columns whose indices are in $\bm{j}$, one can write and develop the associated \(k\)-minor, which is its determinant (using bold notation for tuples):
 \begin{align*}
