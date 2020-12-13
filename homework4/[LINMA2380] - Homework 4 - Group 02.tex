@@ -368,11 +368,11 @@ From the first equation to the second, the inductive hypothesis was used, and fr
 
 Now, one can find the elementary polynomials of $P(\lambda) \triangleq (\lambda I - A)$. For that, the property proved in A1 applied to the Smith decomposition, that is, $\delta_k\big(P(\lambda)\big) = \delta_k\big(D(\lambda)\big)$, will be used.
 
-Note that the diagonal matrix $D(\lambda)$ that we obtained here is not the same matrix as the diagonal matrix in the Smith normal form containing the elementary polynomials $d_i(\lambda)$ even if the notations can be misleading.
+We wish to bring the reader's attention to the fact that the diagonal matrix $D(\lambda)$ that one obtains here is not the same matrix as the diagonal matrix in the Smith normal form, containing the elementary polynomials $d_i(\lambda)$, despite potentially confusing notations.
 
 Using A1, it is clear that for $k = 1, 2, \dots, (n_1 + n_2 - 2)$, one can always choose a submatrix having only ones on its diagonal, which means that $\delta_k\big(P(\lambda)\big) = 1$. 
 
-Note that for this proof, we don't consider submatrices with a determinant equal to zero as it is irrelevant in our search for the greatest common divisor.
+Note that for this proof, one need not consider zero minors as they are irrelevant in the search for the (monic) greatest common divisor.
 
 By A2, one has that the monic $d_i(\lambda)$ are all equal to \(1\) for $i = 1, 2, \dots, (n_1 + n_2 - 2)$.
 
@@ -422,7 +422,7 @@ N_{B}(\lambda) & \\
 
 This means that $\delta_{n+n_p}\big(P(\lambda)\big) = \delta_{n+n_p}\big(D(\lambda)\big) = \prod_{i = 1}^p (\lambda - \lambda_i)^{n'_i}$ with $p$ the total number of Jordan blocks and $n'_i$ the size of each Jordan block.
 
-As previously, we don't consider submatrices with a determinant equal to zero as it is irrelevant in our search for the greatest common divisor.
+As before, one need not consider zero minors, as they are irrelevant in the search for the (monic) greatest common divisor.
 
 We must then consider two cases:
 \begin{itemize}
@@ -471,14 +471,11 @@ The minimal polynomial of $A$ is thus equal to the last elementary polynomial of
 
 \section*{Exercise B: Implementation}
 \subsection*{B1}
-Using the Jordan normal form is not numerically stable because taking limits does not commute with forming the Jordan canonical form.
-A simple example is the matrix \(A = I_2\), approximated by \(A_\varepsilon = \left[\begin{smallmatrix} 1 & \varepsilon \\ 0 & 1\end{smallmatrix}\right]\), the latter having Jordan canonical form \(J_\varepsilon = \left[\begin{smallmatrix} 1 & 1 \\ 0 & 1\end{smallmatrix}\right]\).
-However, the Jordan form of \(A\) is simply \(J = I_2\).
-We thus have
-\[
-\lim_{\varepsilon \to 0} A_\varepsilon = A, \quad \textnormal{but} \quad \lim_{\varepsilon \to 0} J_\varepsilon \neq J.
-\]
-Similarly, computing the minimal polynomials yields \(p_{A_\varepsilon}(\lambda) = (\lambda - 1)^2 \ne \lambda - 1 = p_A(\lambda)\).
+The Jordan normal form relies on an eigenvalue computation, which is not numerically stable.
+This instability also means that any technique for studying the boundedness of trajectories of a linear dynamical system based on explicit computation of the eigenvalues of the transition matrix is necessarily numerically unstable.
+
+Where this differs from techniques based on the Smith normal form is then that the Smith normal form can be computed exactly in a numerically stable way, and that the minimal polynomial can be deduced from the Smith normal form without introducing instabilities.
+Finally, as mentioned in the exercise statement, one then need not explicitly compute the eigenvalues (i.e., the roots of the minimal polynomial), as the Routh--Hurwitz criterion provides an exact way to determine boundedness of trajectories.
 
 \subsection*{B2}
 We want to compute the Smith normal form of $P_i(\lambda) \triangleq \lambda I - A_{i}$ where $A_{i}$ is one of the three matrices $A_1$, $A_2$, and $A_3$ defined in the homework statement. The Smith normal forms are the following:
